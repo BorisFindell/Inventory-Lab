@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container-gral">
         <Nav></Nav>
     </div>
 </template>
@@ -17,7 +17,8 @@ import Nav from './Nav.vue'
 <style scoped>
 
 
-body {
+.container-gral {
+    height: 100vh;
     background-image: url('../assets/pexels-quang-nguyen-vinh-2166456.jpeg');
     background-position: center;
     background-repeat: no-repeat;

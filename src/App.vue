@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-      <div class="login-wrapp">
-        <LogInPage>
-        </LogInPage>
-       
-      </div>
+      <router-view/>
        <!-- <HomeV></HomeV> -->
   </div>
 
@@ -13,19 +9,10 @@
 
 <script>
 
-import LogInPage from './components/LogInPage.vue'
 
 
 export default {
   name: 'App',
-  components: {
-    LogInPage
-  },
-  data() {
-    return {
-      show: false
-    }
-  }
 }
 </script>
 

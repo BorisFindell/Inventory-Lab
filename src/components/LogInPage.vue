@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-gral">
         
       <div class="row justify-content-center" >
           <div class="contLG border rounded justify-content-center shadow rounded">
@@ -49,9 +49,9 @@
     }
 </script>
 
-<style>
+<style scoped>
 
-body {
+.container-gral {
   height: 100vh;
   background-image: url("../assets/pexels-antoni-shkraba-7166998.jpeg");
 
