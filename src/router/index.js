@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import LogInPage from '../components/LogInPage.vue'
 import HomeV from '../views/HomeV.vue'
 import InventarioV from '../views/InventarioV.vue'
+import VentasV from '../views/VentasV.vue'
+import NavV from '../views/NavV.vue'
+
 
 
 
@@ -25,6 +28,16 @@ const routes = [
     path: '/InventarioV',
     name: 'InventarioV',
     component: InventarioV
+  },
+  {
+    path: '/VentasV',
+    name: 'VentasV',
+    component: VentasV
+  },
+  {
+    path: '/NavV',
+    name: 'NavV',
+    component: NavV
   },
 ]
 

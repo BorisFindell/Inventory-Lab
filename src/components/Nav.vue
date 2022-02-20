@@ -2,9 +2,9 @@
     <div class="container-general">
         <div class="nav-wrapper">
             <div class="nav-bar">
-                <div class="title-wrapper" >
+                <!-- <div class="title-wrapper" >
                     <div class="title">Inventory Lab</div>
-                </div>
+                </div> -->
                 <!-- <div class="logo-cont">
                     <img class="logo" src="../assets/books-stack-of-three.png" alt="logo">
                 </div> -->
@@ -20,6 +20,8 @@
                 ACÁ VAN LOS COMPONENTES ESTÁTICOS
                 </p>
                 <button type="button" @click="redirectToINV()"></button>
+                <button type="button" @click="redirectToVEN()"></button>
+
                 <!-- <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img> -->
             </div>
         </b-sidebar>
@@ -32,7 +34,14 @@
         methods: {
             redirectToINV() {
             this.$router.push({ path: '/InventarioV' });
+            },
+
+            redirectToVEN() {
+            this.$router.push({ path: '/VentasV' });
+
             }
+
+
         
         }
     }
@@ -50,7 +59,8 @@
 .nav-bar {
     width: 60%;
     height: 120px;
-    background-color: rgb(250, 252, 180,.3);
+    background-color: rgba(0, 0, 0, 0.336);
+
     margin: auto;
     padding: 10px;
     display: grid;
