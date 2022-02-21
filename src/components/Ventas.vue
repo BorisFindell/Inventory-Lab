@@ -1,12 +1,14 @@
 <template>
   <div  class="container-gral">
-    <div class="params m-auto border border-success rounded shadow-lg p-3 mb-5 bg-white rounded">
+    <Nav></Nav>
+
+    <div class="params mx-auto mt-5 border border-success rounded shadow-lg p-3 mb-5 bg-white rounded">
 
       <!-- Fecha -->
 
     <div class="d-flex justify-content-center align-items-center">
         <div class="mx-2">Fecha: </div>
-        <b-form-input v-model="text" placeholder="Ingresa la fecha"></b-form-input>
+        <b-form-input v-model="fecha" placeholder="Ingresa la fecha"></b-form-input>
     </div>
 
         <!-- Modelo -->
@@ -30,7 +32,7 @@
 
     <div class="d-flex justify-content-center align-items-center">
         <div class="mx-2">Preu: </div>
-        <b-form-input v-model="text" placeholder="Ingresa el monto"></b-form-input>
+        <b-form-input v-model="preu" type="number" placeholder="Ingresa el monto"></b-form-input>
     </div>
 
       <button type="button" class="btn btn-success">Enviar</button>
@@ -41,9 +43,15 @@
   </div>
 </template>
 
+
+
 <script>
+
+import Nav from '../components/Nav'
+
     export default {
         name: 'Ventas',
+        components: {Nav},
         data () {
           return {
             modelo: null,
@@ -58,6 +66,8 @@
               { value: 'a', text: 'Chico' },
               { value: 'b', text: 'Mediano' },
             ],
+            fecha: '',
+            preu: null
           }
         }
     }
@@ -67,6 +77,10 @@
 
 .container-gral {
     height: 100vh;
+    background-image: url('../assets/vendes-comp-bg.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
 }
 .params {
@@ -76,5 +90,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+
 
 </style>

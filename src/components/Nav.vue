@@ -1,14 +1,16 @@
 <template>
     <div class="container-general">
         <div class="nav-wrapper">
-            <div class="nav-bar">
+            <div class="navbar">
                 <!-- <div class="title-wrapper" >
                     <div class="title">Inventory Lab</div>
                 </div> -->
-                <!-- <div class="logo-cont">
-                    <img class="logo" src="../assets/books-stack-of-three.png" alt="logo">
-                </div> -->
-                <b-button class="btn-login" v-b-toggle.sidebar-variant>Información</b-button>
+                <div class="logo-cont">
+                    <img class="logo" src="../assets/inventory lab-logos_transparent.png" alt="logo">
+                </div>
+                <b-button class="btn-login" v-b-toggle.sidebar-variant>Informació</b-button>
+                <b-button class="logout btn btn-danger">Logout</b-button>
+
             </div>
             
 
@@ -49,22 +51,13 @@
 
 <style scoped>
 
-/* .container-general {
-
-}
-
-.nav-wrapper {
-} */
-
-.nav-bar {
+.navbar {
     width: 60%;
-    height: 120px;
     background-color: rgba(0, 0, 0, 0.336);
-
     margin: auto;
     padding: 10px;
     display: grid;
-    grid-template-columns: 5fr 2fr 5fr;
+    grid-template-columns: 2fr 3fr 2fr 3fr 2fr;
     align-items: center;
     justify-items: center;
 }
@@ -81,21 +74,32 @@
 }
 
 .logo-cont {
-    grid-column: 2;
+    height: min-content;
+    grid-column: 1;
 }
 
 .logo {
-    width: 80px;
-    margin-bottom: 10px;
+    width: 150px;
 }
 
 .btn-login {
     width: max-content;
-    height: 50px;
+    height: max-content;
     background-color: rgb(231, 201, 64);
     color: black;
-    grid-column: 3;
+    grid-column: 4;
     justify-self: end;
+    font-size: 1.3vw;
+}
+
+.logout {
+    width: max-content;
+    height: max-content;
+    margin-right: 10px;
+    color: white;
+    grid-column: 5;
+    justify-self: end;
+    font-size: 1.3vw;
 }
 
 </style>

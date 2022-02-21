@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="prueba">
     <Home></Home>
   </div>
 </template>
@@ -15,3 +15,7 @@ export default {
   components: { Home }
 }
 </script>
+
+<style scoped>
+  
+</style>
