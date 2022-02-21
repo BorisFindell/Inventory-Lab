@@ -2,29 +2,32 @@
     <div class="container-general">
         <div class="nav-wrapper">
             <div class="navbar">
-                <!-- <div class="title-wrapper" >
-                    <div class="title">Inventory Lab</div>
-                </div> -->
-                <div class="logo-cont">
+                <!-- LOGO -->
+                <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
                     <img class="logo" src="../assets/inventory lab-logos_transparent.png" alt="logo">
                 </div>
-                <b-button class="btn-login" v-b-toggle.sidebar-variant>Informació</b-button>
+                <!-- BOTONS NAV -->
+                <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
                 <b-button class="logout btn btn-danger">Logout</b-button>
 
             </div>
             
 
         </div>
-
-        <b-sidebar id="sidebar-variant" title="INFORMACIÓN" bg-variant="dark" text-variant="light" shadow>
+            <!-- SIDEBAR -->
+        <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
             <div class="px-3 py-2">
                 <p>
-                ACÁ VAN LOS COMPONENTES ESTÁTICOS
+                    PÀGINES
                 </p>
-                <button type="button" @click="redirectToINV()"></button>
-                <button type="button" @click="redirectToVEN()"></button>
-
-                <!-- <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img> -->
+                <hr>
+                <div class="links-navbar-cont">
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventari</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Vendes</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToREG()">Registre de vendes</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToMES()">Mesures</b-button>
+                </div>
             </div>
         </b-sidebar>
     </div>
@@ -40,7 +43,18 @@
 
             redirectToVEN() {
             this.$router.push({ path: '/VentasV' });
+            },
 
+            redirectToHOME() {
+            this.$router.push({ path: '/HomeV' });
+            },
+
+            redirectToREG() {
+            this.$router.push({ path: '/RegistreV' });
+            },
+
+            redirectToMES() {
+            this.$router.push({ path: '/Mesures' });
             }
 
 
@@ -100,6 +114,23 @@
     grid-column: 5;
     justify-self: end;
     font-size: 1.3vw;
+}
+
+.links-navbar-cont {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    
+}
+
+.links-navbar-btn {
+    margin-top: 15px;
+    margin-right: 10px;
+    width: 100%;
+}
+
+hr {
+    background-color: white;
 }
 
 </style>

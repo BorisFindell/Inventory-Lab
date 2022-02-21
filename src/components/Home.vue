@@ -2,7 +2,7 @@
     <div class="container-gral">
         <Nav></Nav>
         <div class="container-display">
-            <div class="inventari-cont">
+            <div class="inventari-cont" style="cursor: pointer;" @click="redirectToINV()">
                 <div class="inventari-titol-cont">
                     <h2 class="inventari-titol">
                         Inventari
@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="vendes-cont">
+            <div class="vendes-cont" style="cursor: pointer;" @click="redirectToVEN()">
                 <div class="vendes-titol-cont">
                     <h2 class="vendes-titol">
                         Vendes
@@ -28,6 +28,15 @@ import Nav from './Nav.vue'
     export default {
         name: 'Home',
         components: { Nav },
+        methods :{
+            redirectToINV() {
+            this.$router.push({ path: '/InventarioV' });
+            },
+             redirectToVEN() {
+            this.$router.push({ path: '/VentasV' });
+
+            }
+        }
     }
 </script>
 
@@ -96,10 +105,6 @@ import Nav from './Nav.vue'
     width: 100%;
     padding: 10px 10px;
     background-color: rgb(142, 146, 146, .4);
-}
-
-.vendes-titol-cont {
-    
 }
 
 .inventari-titol,
