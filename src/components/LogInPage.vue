@@ -16,8 +16,14 @@
                   <b-form-input class="mb-3" id="input-1" type="text" v-model="name" :state="state" trim></b-form-input>
                   <b-form-input id="input-2" type="password" v-model="password" :state="state" trim></b-form-input>
               </b-form-group>
-                  <button type="button" class="btn btn-success btn-sm shadow rounded">Aceptar</button>
-                  <router-link to="/HomeV" tag="button" ></router-link>
+                  
+              <button type="button" class="btn btn-success btn-sm shadow rounded mb-3">Aceptar</button>
+              <hr>
+              <div class="registro-cont">
+                <h6 class="reg-text" >¿No tens un compte?</h6>
+              <router-link to="/UsuariNouV" class="btn btn-outline-danger btn-sm mb-3" tag="button" >¡Registra't!</router-link>
+              </div>
+              <router-link to="/HomeV" class="btn btn-sm btn-danger" tag="button" ></router-link>
           </div>
       </div>
     </div>
@@ -53,7 +59,7 @@
 
 .container-gral {
   height: 100vh;
-  background-image: url("../assets/pexels-antoni-shkraba-7166998.jpeg");
+  background-image: url("../assets/login-bg.jpeg");
 
   /* Add the blur effect */
   /* filter: blur(8px);

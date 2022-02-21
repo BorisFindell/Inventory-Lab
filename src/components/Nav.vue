@@ -4,7 +4,7 @@
             <div class="navbar">
                 <!-- LOGO -->
                 <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
-                    <img class="logo" src="../assets/inventory lab-logos_transparent.png" alt="logo">
+                    <img class="logo" src="../assets/logo.png" alt="logo">
                 </div>
                 <!-- BOTONS NAV -->
                 <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>

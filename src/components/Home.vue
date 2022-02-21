@@ -46,7 +46,7 @@ import Nav from './Nav.vue'
 .container-gral {
     max-width: 100%;
     height: 100vh;
-    background-image: url('../assets/pexels-quang-nguyen-vinh-2166456.jpeg');
+    background-image: url('../assets/home-bg.jpeg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
