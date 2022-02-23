@@ -23,7 +23,7 @@
             placeholder="Enter name"
             class="py-4"
           ></b-form-input>
-          <b-form-invalid-feedback class="text-warning font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback>
+          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback>
         </b-form-group>
 
         <!-- COGNOM -->
@@ -41,7 +41,7 @@
             placeholder="Enter last name"
             class="py-4"
           ></b-form-input>
-          <b-form-invalid-feedback class="text-warning font-weight-bold h5" id="input-2-live-feedback">This is a required field.</b-form-invalid-feedback>
+          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-2-live-feedback">This is a required field.</b-form-invalid-feedback>
         </b-form-group>
         
         <!-- EMAIL -->
@@ -60,7 +60,7 @@
             placeholder="Enter email"
             class="py-4"
           ></b-form-input>
-          <b-form-invalid-feedback class="text-warning font-weight-bold h5" id="input-3-live-feedback">This is a required field.</b-form-invalid-feedback>
+          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-3-live-feedback">This is a required field.</b-form-invalid-feedback>
         </b-form-group>
 
         <!-- USERNAME -->
@@ -77,7 +77,7 @@
             placeholder="Enter username"
             class="py-4"
           ></b-form-input>
-          <b-form-invalid-feedback class="text-warning font-weight-bold h5" id="input-5-live-feedback"
+          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-5-live-feedback"
           >This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
         </b-form-group>
 
@@ -97,7 +97,7 @@
             class="py-4"
             
           ></b-form-input>
-          <b-form-invalid-feedback class="text-warning h5" id="input-4-live-feedback">This is a required field.</b-form-invalid-feedback>
+          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-4-live-feedback">This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
         </b-form-group>
 
         <!-- TERMS AND COND -->
@@ -149,7 +149,8 @@ import { required, minLength, } from "vuelidate/lib/validators";
         required,
       },
       password: {
-        required
+        required,
+        minLength: minLength(8)
       },
       username: {
         required,
@@ -217,17 +218,15 @@ import { required, minLength, } from "vuelidate/lib/validators";
 <style scoped>
 
 .container-gral {
-    height: 100vh;
-    background-image: url('../assets/usuari-nou-bg.jpeg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  margin-top: 2%;
 }
 
 .form-cont {
     width: 60%;
+    height: 100vh;
     padding-top: 50px;
     background-color: rgb(185, 211, 211, .5);
+    margin-top: 2%;
 
 }
 .form-group {

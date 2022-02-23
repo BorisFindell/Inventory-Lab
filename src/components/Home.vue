@@ -1,7 +1,7 @@
 <template>
     <div class="container-gral">
-        <Nav></Nav>
         <div class="container-display">
+
             <div class="inventari-cont" style="cursor: pointer;" @click="redirectToINV()">
                 <div class="inventari-titol-cont">
                     <h2 class="inventari-titol">
@@ -23,11 +23,11 @@
 
 <script>
 
-import Nav from './Nav.vue'
+
+
 
     export default {
         name: 'Home',
-        components: { Nav },
         methods :{
             redirectToINV() {
             this.$router.push({ path: '/InventarioV' });
@@ -46,10 +46,10 @@ import Nav from './Nav.vue'
 .container-gral {
     max-width: 100%;
     height: 100vh;
-    background-image: url('../assets/home-bg.jpeg');
+    /* background-image: url('../assets/home-bg.jpeg');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
     display: block;
 }
 

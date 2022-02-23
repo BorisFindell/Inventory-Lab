@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="inventari-cont">
     <Inventario></Inventario>
   </div>
 </template>
@@ -15,3 +15,11 @@ export default {
   components: { Inventario }
 }
 </script>
+
+
+<style scoped>
+  .inventari-cont {
+    height: 100vh;
+    margin-top: 3%;
+  }
+</style>

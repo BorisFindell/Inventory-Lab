@@ -1,0 +1,126 @@
+<template>
+    <div class="registre-cont">
+        <div class="vendes-cont mt-3">
+            <b-form action="/search">
+            <b-input-group>
+                <b-form-input size="sm" v-model="searchTxt" placeholder="Search"/>
+                <b-input-group-append>
+                <b-button size="sm" @click="search">Search <b-icon-search /></b-button>
+                </b-input-group-append>
+            </b-input-group>
+            </b-form>
+            <table class="table text-light" >
+                <thead>
+                <th> Data </th>
+                <th> Model </th>
+                <th> Mida </th>
+                <th> Preu </th>
+
+                </thead>
+                <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
+                <td class="w-25">{{arrVendes[index].fecha}}</td>
+                <td class="w-25">{{arrVendes[index].modelo}}</td>
+                <td class="w-25">{{arrVendes[index].tamaño}}</td>
+                <td class="w-25">{{arrVendes[index].preu}}</td>          
+
+                </tr>
+            </table>
+
+            <!-- <div>
+                <button class="btn btn-primary" @click="reset" ></button>
+            </div> -->
+        </div>
+
+         <div class="total-cont mt-3">
+            <table class="table text-light" >
+                <thead>
+                <th> Data </th>
+                <th> Model </th>
+                <th> Mida </th>
+                <th> Preu </th>
+
+                </thead>
+                <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
+                <td class="w-25">{{arrVendes[index].fecha}}</td>
+                <td class="w-25">{{arrVendes[index].modelo}}</td>
+                <td class="w-25">{{arrVendes[index].tamaño}}</td>
+                <td class="w-25">{{arrVendes[index].preu}}</td>          
+
+                </tr>
+            </table>
+
+            <!-- <div>
+                <button class="btn btn-primary" @click="reset" ></button>
+            </div> -->
+        </div>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'Registre',
+        data () {
+          return {
+              searchTxt:'',
+            // modelo: null,
+            // tamaño: null,
+            // fecha: '',
+            // preu: null,
+            // modelos: [
+            //   { value: null, text: 'Escoge un modelo' },
+            //   { value: 'a', text: 'Mundito azul' },
+            //   { value: 'b', text: 'Cáctus' },
+            // ],
+            // tamaños: [
+            //   { value: null, text: 'Escoge un tamaño' },
+            //   { value: 'a', text: 'Chico' },
+            //   { value: 'b', text: 'Mediano' },
+            // ],
+            arrVendes: [
+                {fecha: '02/06/1986', modelo: 'Cáctus', tamaño: 'chico', preu: 10},
+                {fecha: '22/09/1990', modelo: 'Bici', tamaño: 'mediano', preu: 20}
+            ]
+          }
+        },
+        methods:{
+            search() {
+                const newArray = this.arrVendes.filter(el => el.modelo.toLowerCase().includes(this.searchTxt.toLowerCase()))
+                return this.arrVendes = newArray
+            },
+            reset() {
+                
+            }
+        }
+        
+    }
+</script>
+
+<style scoped>
+
+.registre-cont {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vendes-cont {
+    height: max-content;
+    border: 1px solid black;
+    margin: auto;
+    width: 47%;
+}
+.total-cont {
+    height: max-content;
+    border: 1px solid black;
+    width: 47%;
+    margin: auto;
+
+}
+
+.table {
+  background-color: rgba(50, 99, 46, 0.7);
+}
+
+</style>

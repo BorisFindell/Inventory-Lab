@@ -6,6 +6,9 @@
                 <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
                     <img class="logo" src="../assets/logo.png" alt="logo">
                 </div>
+                <div>
+                    
+                </div>
                 <!-- BOTONS NAV -->
                 <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
                 <b-button class="logout btn btn-danger">Logout</b-button>
@@ -93,7 +96,7 @@
 }
 
 .logo {
-    width: 150px;
+    width: 100px;
 }
 
 .btn-login {
