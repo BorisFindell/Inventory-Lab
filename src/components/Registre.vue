@@ -1,6 +1,7 @@
 <template>
     <div class="registre-cont">
-        <div class="vendes-cont mt-3">
+        <div class="vendes-cont mt-5">
+            <h3> Vendes </h3>
             <b-form action="/search">
             <b-input-group>
                 <b-form-input size="sm" v-model="searchTxt" placeholder="Search"/>
@@ -31,19 +32,17 @@
             </div> -->
         </div>
 
-         <div class="total-cont mt-3">
+         <div class="total-cont mt-5">
+            <h3> Històric de vendes </h3>
+
             <table class="table text-light" >
                 <thead>
                 <th> Data </th>
-                <th> Model </th>
-                <th> Mida </th>
                 <th> Preu </th>
 
                 </thead>
                 <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
                 <td class="w-25">{{arrVendes[index].fecha}}</td>
-                <td class="w-25">{{arrVendes[index].modelo}}</td>
-                <td class="w-25">{{arrVendes[index].tamaño}}</td>
                 <td class="w-25">{{arrVendes[index].preu}}</td>          
 
                 </tr>
@@ -107,13 +106,11 @@
 
 .vendes-cont {
     height: max-content;
-    border: 1px solid black;
     margin: auto;
     width: 47%;
 }
 .total-cont {
     height: max-content;
-    border: 1px solid black;
     width: 47%;
     margin: auto;
 

@@ -6,23 +6,23 @@
                 <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
                     <img class="logo" src="../assets/logo.png" alt="logo">
                 </div>
-                <div>
-                    
-                </div>
+
                 <!-- BOTONS NAV -->
                 <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
                 <b-button class="logout btn btn-danger">Logout</b-button>
 
             </div>
-            
-
         </div>
             <!-- SIDEBAR -->
         <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
             <div class="px-3 py-2">
+
+                
                 <p>
                     PÀGINES
                 </p>
+
+                
                 <hr>
                 <div class="links-navbar-cont">
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
@@ -32,13 +32,32 @@
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToMES()">Mesures</b-button>
                 </div>
             </div>
+                <hr>
+
+            <div class="meteo-cont">
+                    <div class="meteo">
+                        <div class="container-temp m-3">
+                            <img class="img-sol" src="../assets/temps-icon.png" alt="temps">
+                            <p class="tempText">
+                                El tiempo en Barcelona ahora es de {{temps}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
         </b-sidebar>
+        
     </div>
+    
 </template>
 
 <script>
     export default {
         name: 'Nav',
+        data() {
+            return {
+                temps:''
+            }
+        },
         methods: {
             redirectToINV() {
             this.$router.push({ path: '/InventarioV' });
@@ -58,11 +77,34 @@
 
             redirectToMES() {
             this.$router.push({ path: '/Mesures' });
+            },
+            getMeteo() {
+
+                fetch('https://api.open-meteo.com/v1/forecast?latitude=41.3879&longitude=2.16992&current_weather=true', {
+                    headers: {
+                    'Accept': 'application/json'
+                    }
+                })
+                .then((response)=>{
+                    return response.json()
+                }).then(
+                    data =>{
+                    this.temps = data.current_weather.temperature + 'º';
+                    }
+                )
+                .catch((error)=>{
+                    console.log(error);
+                })
             }
-
-
         
-        }
+        },
+        mounted: function () {
+            this.$nextTick(function () {
+                this.getMeteo()
+    // Código que se ejecutará solo después de
+    // haber renderizado la vista completa
+  })
+}
     }
 </script>
 
@@ -134,6 +176,21 @@
 
 hr {
     background-color: white;
+}
+
+.container-temp {
+    display: flex;
+    justify-content: space-between;
+}
+
+.img-sol {
+    width: 50px;
+    height: 50px;
+}
+
+.tempText {
+    font-size: 1rem;
+    color: white;
 }
 
 </style>

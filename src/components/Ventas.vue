@@ -109,7 +109,8 @@
 <style scoped>
 
 .container-gral {
-    height: 100vh;
+    height: max-content;
+    min-height: 100vh;
 
 }
 .params {

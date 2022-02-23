@@ -21,7 +21,7 @@ import Nav from './components/Nav.vue'
 
 export default {
   name: 'App',
-  components: { Nav }
+  components: { Nav },
 }
 </script>
 
@@ -34,9 +34,10 @@ export default {
   color: #2c3e50;
   background-image: url('./assets/vendes-comp-bg.jpeg');
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
+  background-repeat:repeat-y;
+  background-size:100vw;
+  height: max-content;
+  min-height: 100vh;
 }
 
 </style>
