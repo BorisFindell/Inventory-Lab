@@ -43,7 +43,7 @@
                 </thead>
                 <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
                 <td class="w-25">{{arrVendes[index].fecha}}</td>
-                <td class="w-25">{{arrVendes[index].preu}}</td>          
+                <td class="w-25">{{arrVendes[index].preu}}</td>        
 
                 </tr>
             </table>

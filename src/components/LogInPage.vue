@@ -32,26 +32,22 @@
 <script>
     export default {
         computed: {
-      state() {
-        return this.name.length >= 5
-      },
-      invalidFeedback() {
-        if (this.name.length > 0) {
-          return 'Mínimo 5 caracteres.'
-        }
-        return 'Este campo no puede quedar vacío .'
-      }
-    },
-    data() {
-      return {
-        name: '',
-        password: ''
-      }
-    },
-    methods: {
-
-    }
-        
+          state() {
+            return this.name.length >= 5
+          },
+          invalidFeedback() {
+            if (this.name.length > 0) {
+              return 'Mínimo 5 caracteres.'
+            }
+            return 'Este campo no puede quedar vacío .'
+          }
+        },
+        data() {
+          return {
+            name: '',
+            password: ''
+          }
+        },        
     }
 </script>
 
@@ -60,25 +56,10 @@
 .container-gral {
   height: 100vh;
   background-image: url("../assets/login-bg.jpeg");
-
-  /* Add the blur effect */
-  /* filter: blur(8px);
-  -webkit-filter: blur(8px); */
-  /* Full height */
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-/* .home-wrapp {
-  height: 100vh;
-  background-image: url("assets/pexels-quang-nguyen-vinh-2166456.jpeg");
-
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
 
 .contLG {
     width: 50%;

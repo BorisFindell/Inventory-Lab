@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Nav></Nav>
     <Registre></Registre>
   </div>
 </template>
@@ -8,10 +9,12 @@
 // @ is an alias to /src
 
 import Registre from '../components/Registre'
+import Nav from '../components/Nav.vue'
+
 
 export default {
 
   name: 'RegistreV',
-  components: { Registre }
+  components: { Registre, Nav }
 }
 </script>

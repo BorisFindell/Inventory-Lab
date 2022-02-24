@@ -5,7 +5,7 @@
       <!-- Fecha -->
 
     <div class="d-flex justify-content-center align-items-center">
-        <div class="mx-2">Fecha: </div>
+        <div class="mx-2">Data: </div>
         <b-form-input v-model="fecha" placeholder="Ingresa la fecha"></b-form-input>
     </div>
 
@@ -13,16 +13,16 @@
 
 
     <div class="d-flex justify-content-center align-items-center">
-      <div class="mx-2">Modelo: </div>
-      <b-form-select v-model="modelo" :options="modelos"></b-form-select>
+      <div class="mx-2">Model: </div>
+      <b-form-select v-model="model" :options="$store.getters.obtenirModels"></b-form-select>
     </div>
       
 
     <!-- Tamaño -->
 
     <div class="d-flex justify-content-center align-items-center">
-      <div class="mx-2">Tamaño: </div>
-      <b-form-select v-model="tamaño" :options="tamaños"></b-form-select>
+      <div class="mx-2">Mida: </div>
+      <b-form-select v-model="mida" :options="$store.getters.obtenirMidas"></b-form-select>
     </div>  
 
 
@@ -38,7 +38,7 @@
     </div>
 
     <div class="ultimes-vendes-cont">
-      <table class="table text-light" >
+      <table class="table text-light">
         <thead>
           <th> Data </th>
           <th> Model </th>
@@ -46,11 +46,11 @@
           <th> Preu </th>
 
         </thead>
-        <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
-          <td class="w-25">{{arrVendes[index].fecha}}</td>
-          <td class="w-25">{{arrVendes[index].modelo}}</td>
-          <td class="w-25">{{arrVendes[index].tamaño}}</td>
-          <td class="w-25">{{arrVendes[index].preu}}</td>          
+        <tr class="border-dark" v-for="(item, index) in $store.state.vendes" :key="index">
+          <td class="w-25">{{item.date}}</td>
+          <td class="w-25">{{item.model}}</td>
+          <td class="w-25">{{item.size}}</td>
+          <td class="w-25">{{item.price}}</td>          
 
         </tr>
       </table>
@@ -70,38 +70,35 @@
 
     export default {
         name: 'Ventas',
+        mounted() {
+            this.$store.dispatch('obtenirVendes')
+            this.$store.dispatch('obtenirItems')
+        },
         data () {
           return {
-            modelo: null,
-            tamaño: null,
+            model: null,
+            mida: null,
             fecha: '',
             preu: null,
-            modelos: [
-              { value: null, text: 'Escoge un modelo' },
-              { value: 'a', text: 'Mundito azul' },
-              { value: 'b', text: 'Cáctus' },
-            ],
-            tamaños: [
-              { value: null, text: 'Escoge un tamaño' },
-              { value: 'a', text: 'Chico' },
-              { value: 'b', text: 'Mediano' },
-            ],
-            arrVendes: []
           }
         },
         
 
         methods: {
-          afegVend() {
-            this.arrVendes.push(
-              {
-              fecha: this.fecha,
-              modelo: this.modelo,
-              tamaño: this.tamaño,
-              preu: this.preu
-              }
-            )
+
+          obtenirMidas() {
+            
           }
+        //   afegVend() {
+        //     this.arrVendes.push(
+        //       {
+        //       fecha: this.fecha,
+        //       modelo: this.modelo,
+        //       tamaño: this.tamaño,
+        //       preu: this.preu
+        //       }
+        //     )
+        //   }
         }
     }
 </script>

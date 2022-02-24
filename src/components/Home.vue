@@ -46,10 +46,6 @@
 .container-gral {
     max-width: 100%;
     height: 100vh;
-    /* background-image: url('../assets/home-bg.jpeg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
     display: block;
 }
 
@@ -60,7 +56,7 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 3%;
     padding: 20px;
 }
 
@@ -111,7 +107,6 @@
 .vendes-titol {
     font-size: 2.7vw;
     color: white;
-
 }
 
 </style>

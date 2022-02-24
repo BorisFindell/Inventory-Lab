@@ -1,27 +1,42 @@
 <template>
-    <div class="container-general">
-        <div class="nav-wrapper">
-            <div class="navbar">
+
+        <div>
+        <b-navbar toggleable="lg" type="dark" variant="dark">
+            <b-navbar-brand href="#">
+
                 <!-- LOGO -->
                 <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
                     <img class="logo" src="../assets/logo.png" alt="logo">
                 </div>
+            </b-navbar-brand>
 
-                <!-- BOTONS NAV -->
+            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+            <b-collapse id="nav-collapse" is-nav>
+            <b-navbar-nav >
                 <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
-                <b-button class="logout btn btn-danger">Logout</b-button>
+            </b-navbar-nav>
 
-            </div>
-        </div>
-            <!-- SIDEBAR -->
+            <!-- Right aligned nav items -->
+            <b-navbar-nav class="ml-auto">
+
+                <b-nav-item-dropdown right>
+                <!-- Using 'button-content' slot -->
+                <template #button-content>
+                    <em>User</em>
+                </template>
+                <b-dropdown-item href="#">Logout</b-dropdown-item>
+                </b-nav-item-dropdown>
+            </b-navbar-nav>
+            </b-collapse>
+        </b-navbar>
+
         <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
             <div class="px-3 py-2">
-
                 
                 <p>
                     PÀGINES
                 </p>
-
                 
                 <hr>
                 <div class="links-navbar-cont">
@@ -45,8 +60,15 @@
                     </div>
                 </div>
         </b-sidebar>
+
+
+        </div>
+
+
         
-    </div>
+            <!-- SIDEBAR -->
+        
+        
     
 </template>
 
@@ -80,7 +102,7 @@
             },
             getMeteo() {
 
-                fetch('https://api.open-meteo.com/v1/forecast?latitude=41.3879&longitude=2.16992&current_weather=true', {
+                fetch('https://api.open-meteo.com/v1/forecast?latitude=41.3879&longitude=2.15992&current_weather=true', {
                     headers: {
                     'Accept': 'application/json'
                     }
@@ -111,11 +133,11 @@
 <style scoped>
 
 .navbar {
-    width: 60%;
+    width: 70%;
     background-color: rgba(0, 0, 0, 0.336);
     margin: auto;
     padding: 10px;
-    display: grid;
+    display: flex;
     grid-template-columns: 2fr 3fr 2fr 3fr 2fr;
     align-items: center;
     justify-items: center;
@@ -146,8 +168,7 @@
     height: max-content;
     background-color: rgb(231, 201, 64);
     color: black;
-    grid-column: 4;
-    justify-self: end;
+    justify-self: right;
     font-size: 1.3vw;
 }
 
@@ -191,6 +212,10 @@ hr {
 .tempText {
     font-size: 1rem;
     color: white;
+}
+
+#nav-collapse {
+    flex-direction: row-reverse;
 }
 
 </style>

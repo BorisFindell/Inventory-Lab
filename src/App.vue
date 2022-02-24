@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <div>
-        <Nav></Nav>
-    </div>
-    <div>
         <router-view/>
     </div>
   </div>
@@ -16,12 +13,12 @@
 
 <script>
 
-import Nav from './components/Nav.vue'
+// import Nav from './components/Nav.vue'
 
 
 export default {
   name: 'App',
-  components: { Nav },
+  // components: { Nav },
 }
 </script>
 
@@ -34,10 +31,11 @@ export default {
   color: #2c3e50;
   background-image: url('./assets/vendes-comp-bg.jpeg');
   background-position: center;
-  background-repeat:repeat-y;
-  background-size:100vw;
+  background-repeat:no-repeat;
+  background-size:cover;
   height: max-content;
-  min-height: 100vh;
+  max-height: 100vh;
+  overflow:auto;
 }
 
 </style>

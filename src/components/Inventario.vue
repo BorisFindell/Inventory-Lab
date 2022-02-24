@@ -9,24 +9,27 @@
           <th class="table-style" scope="col">Fer</th>
         </thead>
         <tbody class="table-style">
-        <tr v-for="item in items" :key="item.id">
+        <tr v-for="(item, i) in $store.state.items" :key="i">
           <td class="w-25 table-style">
             {{ item.model }}
           </td>
           <td class="w-25 table-style">
-            {{ item.mida }}
+            {{ item.size }}
           </td>
           <td class="w-25 table-style">
-            {{ item.quant }}
+            {{ item.stock }}
           </td>
           <td class="w-25 table-style">
-            <input type="number" v-model="todo">
+
+            <input type="number" @blur="setTodo(item.id)" :value="item.todo">
+
           </td>
         </tr>
         </tbody>
       </table>
       <div class="btn-cont">
         <button type="button" class="btn" >Resoldre tot</button>
+
       </div>
     
     </div>
@@ -39,16 +42,19 @@
 <script>
     export default {
         name: 'Inventario',
-        data() {
-          return{
-            items: [
-              {model: 'Cactus', mida: 'chico', quant: 1, todo:Number},
-              {model: 'Mundito azul', mida: 'chico', quant: 4, todo:Number},
-              {model: 'Bici', mida: 'chico', quant: 5, todo:Number},
-              {model: 'Cactus', mida: 'mediano', quant: 3, todo:Number},
-              {model: 'Mundito azul', mida: 'mediano', quant: 1, todo:Number},
-              {model: 'Bici', mida: 'mediano', quant: 9, todo:Number},
-            ]
+        mounted() {
+            this.$store.dispatch('obtenirItems')
+        }
+        // data() {
+        //   return{
+        //     items: [
+        //       {model: 'Cactus', mida: 'chico', quant: 1, todo:Number},
+        //       {model: 'Mundito azul', mida: 'chico', quant: 4, todo:Number},
+        //       {model: 'Bici', mida: 'chico', quant: 5, todo:Number},
+        //       {model: 'Cactus', mida: 'mediano', quant: 3, todo:Number},
+        //       {model: 'Mundito azul', mida: 'mediano', quant: 1, todo:Number},
+        //       {model: 'Bici', mida: 'mediano', quant: 9, todo:Number},
+        //     ]
             
             // items: [
             //   { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
@@ -68,8 +74,8 @@
             //   },
             //   { age: 29, first_name: 'Dick', last_name: 'Dunlap' }
             // ]
-          }
-        }
+          // }
+        // }
     }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Nav></Nav>
     <Medidas></Medidas>
   </div>
 </template>
@@ -8,10 +9,12 @@
 // @ is an alias to /src
 
 import Medidas from '../components/Medidas'
+import Nav from '../components/Nav.vue'
+
 
 export default {
 
   name: 'MedidasV',
-  components: { Medidas }
+  components: { Medidas, Nav }
 }
 </script>

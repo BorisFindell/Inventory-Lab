@@ -1,5 +1,6 @@
 <template>
   <div class="cont" >
+    <Nav></Nav>
     <Ventas></Ventas>
   </div>
 </template>
@@ -8,12 +9,13 @@
 // @ is an alias to /src
 
 import Ventas from '../components/Ventas'
+import Nav from '../components/Nav.vue'
 
 
 export default {
 
   name: 'VentasV',
-  components: { Ventas }
+  components: { Ventas, Nav }
 }
 </script>
 
