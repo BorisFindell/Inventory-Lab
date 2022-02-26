@@ -9,7 +9,7 @@
           <th class="table-style" scope="col">Fer</th>
         </thead>
         <tbody class="table-style">
-        <tr v-for="(item, i) in $store.state.items" :key="i">
+        <tr v-for="item in $store.state.items" :key="item.id">
           <td class="w-25 table-style">
             {{ item.model }}
           </td>
@@ -19,16 +19,15 @@
           <td class="w-25 table-style">
             {{ item.stock }}
           </td>
-          <td class="w-25 table-style">
-
-            <input type="number" @blur="setTodo(item.id)" :value="item.todo">
+          <td class="w-25 table-style" >
+              <input type="number" v-model="item.todo" @blur="setTodo(item.id)">
 
           </td>
         </tr>
         </tbody>
       </table>
       <div class="btn-cont">
-        <button type="button" class="btn" >Resoldre tot</button>
+        <button type="button" class="btn">Resoldre tot</button>
 
       </div>
     
@@ -44,38 +43,24 @@
         name: 'Inventario',
         mounted() {
             this.$store.dispatch('obtenirItems')
-        }
-        // data() {
-        //   return{
-        //     items: [
-        //       {model: 'Cactus', mida: 'chico', quant: 1, todo:Number},
-        //       {model: 'Mundito azul', mida: 'chico', quant: 4, todo:Number},
-        //       {model: 'Bici', mida: 'chico', quant: 5, todo:Number},
-        //       {model: 'Cactus', mida: 'mediano', quant: 3, todo:Number},
-        //       {model: 'Mundito azul', mida: 'mediano', quant: 1, todo:Number},
-        //       {model: 'Bici', mida: 'mediano', quant: 9, todo:Number},
-        //     ]
+        },
+        data() {
+          return {
+            num: []
             
-            // items: [
-            //   { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-            //   { age: 21, first_name: 'Larsen', last_name: 'Shaw' }
-            // ],
-            //   {
-            //     age: 89,
-            //     first_name: 'Geneva',
-            //     last_name: 'Wilson',
-            //     _rowVariant: 'danger'
-            //   },
-            //   {
-            //     age: 40,
-            //     first_name: 'Thor',
-            //     last_name: 'MacDonald',
-            //     _cellVariants: { age: 'info', first_name: 'warning' }
-            //   },
-            //   { age: 29, first_name: 'Dick', last_name: 'Dunlap' }
-            // ]
-          // }
-        // }
+          }
+        },
+
+        methods: {
+
+          setTodo(itemId) {
+            const storeItem = this.$store.state.items.find(el => el.id == itemId)
+            this.$store.dispatch('saveTodo', {id: itemId, payload: {todo: storeItem.todo}})
+
+            
+          }
+        }
+        
     }
 </script>
 

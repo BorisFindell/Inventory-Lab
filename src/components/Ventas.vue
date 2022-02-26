@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-center align-items-center">
         <div class="mx-2">Data: </div>
-        <b-form-input v-model="fecha" placeholder="Ingresa la fecha"></b-form-input>
+        <b-form-input v-model="date" placeholder="Ingresa la fecha"></b-form-input>
     </div>
 
       <!-- Modelo -->
@@ -14,7 +14,7 @@
 
     <div class="d-flex justify-content-center align-items-center">
       <div class="mx-2">Model: </div>
-      <b-form-select v-model="model" :options="$store.getters.obtenirModels"></b-form-select>
+      <b-form-select v-model="model" @change="obtenirMidas()" :options="$store.getters.obtenirModels"></b-form-select>
     </div>
       
 
@@ -22,7 +22,7 @@
 
     <div class="d-flex justify-content-center align-items-center">
       <div class="mx-2">Mida: </div>
-      <b-form-select v-model="mida" :options="$store.getters.obtenirMidas"></b-form-select>
+      <b-form-select v-model="mida" :options="$store.state.midasDisp"></b-form-select>
     </div>  
 
 
@@ -33,7 +33,8 @@
         <b-form-input v-model="preu" type="number" placeholder="Ingresa el monto"></b-form-input>
     </div>
 
-      <button @click="afegVend()" type="button" class="btn btn-success">Enviar</button>
+      <button @click="afegVendes()" type="button" class="btn btn-success">Enviar</button>
+
 
     </div>
 
@@ -55,10 +56,6 @@
         </tr>
       </table>
 
-      <!-- <div v-for="(item, index) in arrVendes" :key="index">
-          {{item}}
-      </div> -->
-
     </div>
   </div>
 </template>
@@ -78,28 +75,29 @@
           return {
             model: null,
             mida: null,
-            fecha: '',
+            date: '',
             preu: null,
+            
           }
         },
-        
 
         methods: {
 
           obtenirMidas() {
-            
+            this.$store.dispatch('obtenirMidas', this.model)
+
+          },
+          afegVendes() {
+            const item = this.$store.state.items.find(el => el.model == this.model && el.size == this.mida)
+            const params = {date: this.date, itemId: item.id, price: this.preu}
+            this.$store.dispatch('crearVenda', params)
+            this.$store.dispatch('obtenirVendes')
+            this.$store.dispatch('obtenirItems')
+
           }
-        //   afegVend() {
-        //     this.arrVendes.push(
-        //       {
-        //       fecha: this.fecha,
-        //       modelo: this.modelo,
-        //       tamaño: this.tamaño,
-        //       preu: this.preu
-        //       }
-        //     )
-        //   }
+
         }
+        
     }
 </script>
 

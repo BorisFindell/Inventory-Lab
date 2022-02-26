@@ -44,7 +44,6 @@
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventari</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Vendes</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToREG()">Registre de vendes</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToMES()">Mesures</b-button>
                 </div>
             </div>
                 <hr>
@@ -97,9 +96,6 @@
             this.$router.push({ path: '/RegistreV' });
             },
 
-            redirectToMES() {
-            this.$router.push({ path: '/Mesures' });
-            },
             getMeteo() {
 
                 fetch('https://api.open-meteo.com/v1/forecast?latitude=41.3879&longitude=2.15992&current_weather=true', {

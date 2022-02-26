@@ -6,7 +6,6 @@ import InventarioV from '../views/InventarioV.vue'
 import VentasV from '../views/VentasV.vue'
 import NavV from '../views/NavV.vue'
 import RegistreV from '../views/RegistreV.vue'
-import MedidasV from '../views/MedidasV.vue'
 import UsuariNouV from '../views/UsuariNouV.vue'
 
 
@@ -43,12 +42,6 @@ const routes = [
     path: '/NavV',
     name: 'NavV',
     component: NavV
-  },
-
-  {
-    path: '/MedidasV',
-    name: 'MedidasV',
-    component: MedidasV
   },
 
   {
