@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router'
 
 Vue.use(Vuex)
 
@@ -7,7 +8,9 @@ export default new Vuex.Store({
   state: {
     items:[],
     vendes:[],
-    midasDisp:[]
+    midasDisp:[],
+    userObj: null,
+
 
     
   },
@@ -22,6 +25,14 @@ export default new Vuex.Store({
 
     actualitzarMidas(state, midasAction) {
       state.midasDisp = midasAction
+    },
+
+    signInUser(state, user){
+      state.userObj = user
+    },
+    logOut(state) {
+      state.userObj = null
+      router.push('/')
     }
 
 
@@ -61,7 +72,22 @@ export default new Vuex.Store({
       };
       const id = params.id
       fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions)
-    }
+    },
+
+    LogIn(context, [username, password]){
+        const key= username
+        const displayNameJSON= (window.localStorage.getItem(key)) 
+        const userObj = JSON.parse(displayNameJSON)
+      
+        if(displayNameJSON !== null && password == userObj.password){
+          alert("Benvinguts!")
+          context.commit('signInUser', userObj)
+          router.push('/')
+      
+        }else{
+          alert("USERNAME OR PASSWORD INCORRECT")
+        }
+      }
   },
 
   getters: {

@@ -23,9 +23,9 @@
                 <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
-                    <em>User</em>
+                    <em>Hola: {{$store.state.userObj.username}}!</em>
                 </template>
-                <b-dropdown-item href="#">Logout</b-dropdown-item>
+                <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
             </b-collapse>
@@ -113,7 +113,10 @@
                 .catch((error)=>{
                     console.log(error);
                 })
-            }
+            },
+            logOut() {
+                this.$store.commit('logOut')
+      }
         
         },
         mounted: function () {

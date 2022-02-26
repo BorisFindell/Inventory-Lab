@@ -7,6 +7,7 @@ import VentasV from '../views/VentasV.vue'
 import NavV from '../views/NavV.vue'
 import RegistreV from '../views/RegistreV.vue'
 import UsuariNouV from '../views/UsuariNouV.vue'
+import store from '../store'
 
 
 
@@ -59,6 +60,15 @@ const routes = [
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  
+  if (to.name !== 'LogInPage' && !store.state.userObj){
+    next({ name: 'LogInPage' }) 
+  } 
+  else next()
+
 })
 
 export default router

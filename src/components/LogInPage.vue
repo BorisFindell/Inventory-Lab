@@ -17,7 +17,7 @@
                   <b-form-input id="input-2" type="password" v-model="password" :state="state" trim></b-form-input>
               </b-form-group>
                   
-              <button type="button" class="btn btn-success btn-sm shadow rounded mb-3">Aceptar</button>
+              <button type="button" class="btn btn-success btn-sm shadow rounded mb-3" @click="LogIn">Aceptar</button>
               <hr>
               <div class="registro-cont">
                 <h6 class="reg-text" >¿No tens un compte?</h6>
@@ -47,7 +47,15 @@
             name: '',
             password: ''
           }
-        },        
+        },
+        
+        methods: {
+          LogIn(){
+            this.$store.dispatch('LogIn', [this.name,this.password])
+      
+          },
+
+        }
     }
 </script>
 

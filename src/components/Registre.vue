@@ -62,24 +62,6 @@
         data () {
           return {
               searchTxt:'',
-            // modelo: null,
-            // tamaño: null,
-            // fecha: '',
-            // preu: null,
-            // modelos: [
-            //   { value: null, text: 'Escoge un modelo' },
-            //   { value: 'a', text: 'Mundito azul' },
-            //   { value: 'b', text: 'Cáctus' },
-            // ],
-            // tamaños: [
-            //   { value: null, text: 'Escoge un tamaño' },
-            //   { value: 'a', text: 'Chico' },
-            //   { value: 'b', text: 'Mediano' },
-            // ],
-            arrVendes: [
-                {fecha: '02/06/1986', modelo: 'Cáctus', tamaño: 'chico', preu: 10},
-                {fecha: '22/09/1990', modelo: 'Bici', tamaño: 'mediano', preu: 20}
-            ]
           }
         },
         methods:{
