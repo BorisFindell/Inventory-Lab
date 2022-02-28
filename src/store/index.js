@@ -10,6 +10,7 @@ export default new Vuex.Store({
     vendes:[],
     midasDisp:[],
     userObj: null,
+    // vendesHist: []
 
 
     
@@ -22,6 +23,10 @@ export default new Vuex.Store({
     generarVendes(state, vendesAction) {
       state.vendes = vendesAction
     },
+
+    // generarVendesHist(state, vendesHistAction) {
+    //   state.vendesHist = vendesHistAction
+    // },
 
     actualitzarMidas(state, midasAction) {
       state.midasDisp = midasAction
@@ -45,15 +50,32 @@ export default new Vuex.Store({
       commit ('generarItems', items)
     },
 
-    obtenirVendes: async function ({ commit }) {
-      const data = await fetch('https://feriastore.herokuapp.com/sales?sort=date&limit=5')
+    obtenirVendes: async function ({ commit }, limit) {
+      let data
+      if (limit) 
+        data = await fetch(`https://feriastore.herokuapp.com/sales?sort=date&limit=${limit}`)
+      else
+        data = await fetch('https://feriastore.herokuapp.com/sales?sort=date')
       const vendes = await data.json()
       commit ('generarVendes', vendes)
     },
 
+
+
+
     obtenirMidas({commit, state}, model) {
       commit ('actualitzarMidas', state.items.filter(el => el.model == model).map(el => el.size))
     },
+
+
+
+    // crearVendesHist({commit, state}) {
+      
+    //   })
+
+    //   commit ('generarVendesHist' )
+
+    // },
 
     crearVenda(state, params) {
       const requestOptions = {
@@ -87,7 +109,26 @@ export default new Vuex.Store({
         }else{
           alert("Nom d'usuari o contrasenya incorrecte")
         }
-      }
+      },
+
+      resoldreTot(){
+        const requestOptions = {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify()
+        };
+        fetch(`https://feriastore.herokuapp.com/items`, requestOptions)
+      },
+
+      deleteVenda(state, id) {
+        const requestOptions = {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify()
+        };
+        fetch(`https://feriastore.herokuapp.com/sales/${id}`, requestOptions)
+
+      },
   },
 
   getters: {
@@ -100,105 +141,3 @@ export default new Vuex.Store({
     
   }
 })
-
-
-
-
-// signInUser(state, user){
-//   state.displayNameObj = user
-// },
-// logOut(state) {
-//   state.displayNameObj = null
-// }
-// },
-
-// actions: {
-// obtenirNaus: async function ({ commit, state }) {
-//   const data = await fetch(state.nextPageUrl)
-//   const naus = await data.json()
-//   commit ('llenarNaus', naus)
-//   commit ('updatePage', naus.next)
-// },
-// LogIn(context, [username, password]){
-//   const key= username
-//   const displayNameJSON= (window.localStorage.getItem(key)) 
-//   const displayNameObj = JSON.parse(displayNameJSON)
-
-//   if(displayNameJSON !== null && password == displayNameObj.password){
-//     alert("¡WELCOME TO THE STARS!")
-//     context.commit('signInUser', displayNameObj)
-//     context.commit ('closeModal')
-//     router.push('/')
-
-//   }else{
-//     alert("USERNAME OR PASSWORD INCORRECT")
-//   }
-// },
-
-
-// },
-
-
-
-// state: {
-//   naus:[],
-//   nextPageUrl:"https://swapi.dev/api/starships",
-//   modal: null,
-//   displayNameObj: null
-
-// },
-
-// mutations: {
-//   llenarNaus(state, nausAccion) {
-//     state.naus.push(...(nausAccion.results))
-    
-//     nausAccion.results.forEach(nau => {
-//       let regex = new RegExp(/\d+/g)
-//       nau.id = parseInt(nau.url.match(regex)[0])
-//     })
-//   },
-
-//   updatePage(state, newUrl) {
-//     state.nextPageUrl = newUrl
-//   },
-//   resetStarshipList(state){
-//     state.naus = []
-//     state.nextPageUrl= "https://swapi.dev/api/starships"
-//   },
-
-//   closeModal(state){
-//     state.modal = null
-//   },
-//   openModal(state, modal){
-//     state.modal = modal
-//   },
-//   signInUser(state, user){
-//     state.displayNameObj = user
-//   },
-//   logOut(state) {
-//     state.displayNameObj = null
-//   }
-// },
-
-// actions: {
-//   obtenirNaus: async function ({ commit, state }) {
-//     const data = await fetch(state.nextPageUrl)
-//     const naus = await data.json()
-//     commit ('llenarNaus', naus)
-//     commit ('updatePage', naus.next)
-//   },
-//   LogIn(context, [username, password]){
-//     const key= username
-//     const displayNameJSON= (window.localStorage.getItem(key)) 
-//     const displayNameObj = JSON.parse(displayNameJSON)
-
-//     if(displayNameJSON !== null && password == displayNameObj.password){
-//       alert("¡WELCOME TO THE STARS!")
-//       context.commit('signInUser', displayNameObj)
-//       context.commit ('closeModal')
-//       router.push('/')
-
-//     }else{
-//       alert("USERNAME OR PASSWORD INCORRECT")
-//     }
-//   },

@@ -18,15 +18,14 @@
                 <th> Preu </th>
 
                 </thead>
-                <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
-                <td class="w-25">{{arrVendes[index].fecha}}</td>
-                <td class="w-25">{{arrVendes[index].modelo}}</td>
-                <td class="w-25">{{arrVendes[index].tamaño}}</td>
-                <td class="w-25">{{arrVendes[index].preu}}</td>          
-
+                <tr class="border-dark" v-for="(item, index) in $store.state.vendes" :key="index">
+                <td class="w-25">{{item.date}}</td>
+                <td class="w-25">{{item.model}}</td>
+                <td class="w-25">{{item.size}}</td>
+                <td class="w-25">{{item.price}}</td>          
                 </tr>
             </table>
-
+                
             <!-- <div>
                 <button class="btn btn-primary" @click="reset" ></button>
             </div> -->
@@ -41,9 +40,9 @@
                 <th> Preu </th>
 
                 </thead>
-                <tr class="border-dark" v-for="(item, index) in arrVendes" :key="index">
-                <td class="w-25">{{arrVendes[index].fecha}}</td>
-                <td class="w-25">{{arrVendes[index].preu}}</td>        
+                <tr class="border-dark" v-for="(item, index) in $store.state.vendesHist" :key="index">
+                <td class="w-25">{{item.date}}</td>
+                <td class="w-25">{{item.price}}</td>
 
                 </tr>
             </table>
@@ -64,14 +63,19 @@
               searchTxt:'',
           }
         },
+        mounted() {
+            this.$store.dispatch('obtenirVendes')
+
+        },
+
         methods:{
-            search() {
-                const newArray = this.arrVendes.filter(el => el.modelo.toLowerCase().includes(this.searchTxt.toLowerCase()))
-                return this.arrVendes = newArray
-            },
-            reset() {
+            // search() {
+            //     const newArray = this.arrVendes.filter(el => el.modelo.toLowerCase().includes(this.searchTxt.toLowerCase()))
+            //     return this.arrVendes = newArray
+            // },
+            // reset() {
                 
-            }
+            // }
         }
         
     }

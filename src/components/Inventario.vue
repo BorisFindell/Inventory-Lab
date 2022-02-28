@@ -27,7 +27,7 @@
         </tbody>
       </table>
       <div class="btn-cont">
-        <button type="button" class="btn">Resoldre tot</button>
+        <button type="button" @click="resoldreTot()" class="btn">Resoldre tot</button>
 
       </div>
     
@@ -58,6 +58,10 @@
             this.$store.dispatch('saveTodo', {id: itemId, payload: {todo: storeItem.todo}})
 
             
+          },
+          resoldreTot() {
+            this.$store.dispatch('resoldreTot')
+            this.$store.dispatch('obtenirItems')
           }
         }
         

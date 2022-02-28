@@ -1,8 +1,10 @@
 <template>
-
+        
         <div>
         <b-navbar toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand href="#">
+        <!-- <buttonVendesTot @showMessage="message" ></buttonVendesTot>
+        {{mensaje}} -->
 
                 <!-- LOGO -->
                 <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
@@ -72,11 +74,14 @@
 </template>
 
 <script>
+// import buttonVendesTot from './buttonVendesTot.vue'
     export default {
+//   components: { buttonVendesTot },
         name: 'Nav',
         data() {
             return {
-                temps:''
+                temps:'',
+                mensaje: ''
             }
         },
         methods: {
@@ -95,6 +100,10 @@
             redirectToREG() {
             this.$router.push({ path: '/RegistreV' });
             },
+
+            // message() {
+            //     this.mensaje = 'Has vendido un total de: ' + this.$store.state.vendes.length
+            // },
 
             getMeteo() {
 

@@ -35,7 +35,6 @@
 
       <button @click="afegVendes()" type="button" class="btn btn-success">Enviar</button>
 
-
     </div>
 
     <div class="ultimes-vendes-cont">
@@ -51,7 +50,11 @@
           <td class="w-25">{{item.date}}</td>
           <td class="w-25">{{item.model}}</td>
           <td class="w-25">{{item.size}}</td>
-          <td class="w-25">{{item.price}}</td>          
+          <td class="w-25">{{item.price}}</td>
+          <td class="w-25" >
+            <button @click="eliminarVenda(item.id)" type="button" class="btn btn-danger">Eliminar</button>
+          </td>
+
 
         </tr>
       </table>
@@ -68,7 +71,7 @@
     export default {
         name: 'Ventas',
         mounted() {
-            this.$store.dispatch('obtenirVendes')
+            this.$store.dispatch('obtenirVendes', 5)
             this.$store.dispatch('obtenirItems')
         },
         data () {
@@ -91,9 +94,16 @@
             const item = this.$store.state.items.find(el => el.model == this.model && el.size == this.mida)
             const params = {date: this.date, itemId: item.id, price: this.preu}
             this.$store.dispatch('crearVenda', params)
-            this.$store.dispatch('obtenirVendes')
+            this.$store.dispatch('obtenirVendes', 5)
             this.$store.dispatch('obtenirItems')
 
+          },
+
+          
+
+          eliminarVenda(id) {
+            this.$store.dispatch('deleteVenda', id)
+            
           }
 
         }
