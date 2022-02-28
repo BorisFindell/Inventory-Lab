@@ -109,4 +109,32 @@
     color: white;
 }
 
+@media (max-width: 800px) {
+    .container-display{
+        width: 75%;
+    }
+}
+@media (max-width: 500px) {
+    .inventari-cont,
+    .vendes-cont {
+        width: 100%;
+        height: 40%;
+        margin-left: 0px;
+        margin-top: 15px;
+    }
+
+    .inventari-cont {
+        background-position-y: 20%;
+    }
+
+    .vendes-cont {
+        background-position-y: 50%;
+    }
+
+    .container-display {
+        display: block;
+        width: 85%;
+        text-align: center;
+    }
+}
 </style>

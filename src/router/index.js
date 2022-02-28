@@ -64,7 +64,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   
-  if (to.name !== 'LogInPage' && !store.state.userObj){
+  if (to.name !== 'LogInPage' && to.name !== 'UsuariNouV' && !store.state.userObj){
     next({ name: 'LogInPage' }) 
   } 
   else next()

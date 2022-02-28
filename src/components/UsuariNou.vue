@@ -5,6 +5,9 @@
         Formulari de registre
       </h1>
     </div>
+    <div class="btn-torna">
+      <router-link class="text-light btn border" to="/"> Tornar al Log In </router-link>
+    </div>
     <div class="form-cont mx-auto">
       <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="show">
         
@@ -105,7 +108,7 @@
         <b-form-checkbox 
           v-model="$v.form.checked.$model"
           :state="validateState('checked')"
-          class="text-dark font-weight-bold h5 mr-3" value="acept">Accept terms and conditions</b-form-checkbox>
+          class="text-dark font-weight-bold h5 mr-3 accept-txt" value="acept">Accept terms and conditions</b-form-checkbox>
 
         <!-- BUTTONS -->
 
@@ -239,6 +242,13 @@ import { required, minLength, } from "vuelidate/lib/validators";
 
 .titol {
   color: rgb(107, 48, 30);
+}
+
+.btn-torna{
+  display: flex;
+  justify-content: flex-start;
+  font-size: 1rem;
+  padding: 20px;
 }
 
 </style>

@@ -82,10 +82,10 @@ export default new Vuex.Store({
         if(displayNameJSON !== null && password == userObj.password){
           alert("Benvinguts!")
           context.commit('signInUser', userObj)
-          router.push('/')
+          router.push('/HomeV')
       
         }else{
-          alert("USERNAME OR PASSWORD INCORRECT")
+          alert("Nom d'usuari o contrasenya incorrecte")
         }
       }
   },

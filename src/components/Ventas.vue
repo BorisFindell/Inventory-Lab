@@ -4,7 +4,7 @@
 
       <!-- Fecha -->
 
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center params-cont">
         <div class="mx-2">Data: </div>
         <b-form-input v-model="date" placeholder="Ingresa la fecha"></b-form-input>
     </div>
@@ -12,7 +12,7 @@
       <!-- Modelo -->
 
 
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center params-cont">
       <div class="mx-2">Model: </div>
       <b-form-select v-model="model" @change="obtenirMidas()" :options="$store.getters.obtenirModels"></b-form-select>
     </div>
@@ -20,7 +20,7 @@
 
     <!-- Tamaño -->
 
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center params-cont">
       <div class="mx-2">Mida: </div>
       <b-form-select v-model="mida" :options="$store.state.midasDisp"></b-form-select>
     </div>  
@@ -28,7 +28,7 @@
 
   <!-- Preu -->
 
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center params-cont">
         <div class="mx-2">Preu: </div>
         <b-form-input v-model="preu" type="number" placeholder="Ingresa el monto"></b-form-input>
     </div>
@@ -116,6 +116,8 @@
     justify-content: space-between;
 }
 
+
+
 .ultimes-vendes-cont {
   height: max-content;
   border: 1px solid black;
@@ -125,6 +127,23 @@
 
 .table {
   background-color: rgba(50, 99, 46, 0.7);
+}
+
+@media (max-width: 800px) {
+  .params {
+    width: 50%;
+    display: block;
+  }
+  
+  .params-cont {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .params {
+    width: 60%;
+  }
 }
 
 </style>

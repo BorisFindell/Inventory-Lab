@@ -168,7 +168,7 @@
     background-color: rgb(231, 201, 64);
     color: black;
     justify-self: right;
-    font-size: 1.3vw;
+    font-size: 1rem
 }
 
 .logout {
@@ -215,6 +215,12 @@ hr {
 
 #nav-collapse {
     flex-direction: row-reverse;
+}
+
+@media (max-width: 800px) {
+    .btn-login {
+        font-size: 0.8rem;
+    }
 }
 
 </style>
