@@ -15,3 +15,4 @@ export default {
   components: { UsuariNou }
 }
 </script>
+

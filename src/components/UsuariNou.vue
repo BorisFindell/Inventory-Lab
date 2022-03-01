@@ -190,7 +190,8 @@ import { required, minLength, } from "vuelidate/lib/validators";
           cog:this.form.cog,
           email:this.form.email,
           username:this.form.username,
-          password: this.form.password
+          password: this.form.password,
+          role: 'user'
         
         }
           

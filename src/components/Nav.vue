@@ -25,7 +25,7 @@
                 <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
-                    <em :class="textLoginColor" >Hola: {{$store.state.userObj.username}}!</em>
+                    <em :class="textLoginColor" >Hola: {{$store.state.userObj.name}}!</em>
                 </template>
                 <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>

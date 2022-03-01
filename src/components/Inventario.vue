@@ -6,7 +6,7 @@
           <th class="table-style" scope="col">Model</th>
           <th class="table-style" scope="col">Mida</th>
           <th class="table-style" scope="col">Quantitat</th>
-          <th class="table-style" scope="col">Fer</th>
+          <th class="table-style" v-if="$store.state.userObj.role === 'administrator'"  scope="col">Fer</th>
         </thead>
         <tbody class="table-style">
         <tr v-for="item in $store.state.items" :key="item.id">
@@ -19,7 +19,7 @@
           <td class="w-25 table-style">
             {{ item.stock }}
           </td>
-          <td class="w-25 table-style" >
+          <td class="w-25 table-style" v-if="$store.state.userObj.role === 'administrator'" >
               <input type="number" v-model="item.todo" @blur="setTodo(item.id)">
 
           </td>
@@ -27,7 +27,7 @@
         </tbody>
       </table>
       <div class="btn-cont">
-        <button type="button" @click="resoldreTot()" class="btn">Resoldre tot</button>
+        <button type="button" v-if="$store.state.userObj.role === 'administrator'" @click="resoldreTot()" class="btn">Resoldre tot</button>
 
       </div>
     

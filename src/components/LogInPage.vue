@@ -81,6 +81,15 @@ import { required, minLength, } from "vuelidate/lib/validators";
             },
           }
         },
+        created() {
+
+          const displayNameJSON= (window.localStorage.getItem('administrator')) 
+          const userObj = JSON.parse(displayNameJSON)
+          if(displayNameJSON == null || userObj.password !== 'administrator'){
+            const administrator = {name: 'administrator', password: 'administrator', role: 'administrator'}
+            window.localStorage.setItem('administrator', JSON.stringify(administrator))
+          }
+        },
         
         methods: {
           LogIn(){

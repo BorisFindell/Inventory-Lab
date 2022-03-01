@@ -17,7 +17,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'LogInPage',
+    name: 'LogInPageV',
     component: LogInPage
   },
   
@@ -62,11 +62,18 @@ const router = new VueRouter({
   routes
 })
 
+const userPages = ['HomeV', 'InventarioV', 'VentasV']
+const adminPages = ['RegistreV']
+
 router.beforeEach((to, from, next) => {
   
-  if (to.name !== 'LogInPage' && to.name !== 'UsuariNouV' && !store.state.userObj){
-    next({ name: 'LogInPage' }) 
+  if (!store.state.userObj && (userPages.includes(to.name) || adminPages.includes(to.name))){
+    next({ name: 'LogInPageV' })
   } 
+
+  else if (adminPages.includes(to.name) && store.state.userObj.role !== 'administrator')
+    next({ name: 'HomeV' })
+
   else next()
 
 })
