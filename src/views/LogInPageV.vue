@@ -1,5 +1,5 @@
 <template>
-  <div class="prueba">
+  <div class="logInCont">
     <LogInPage></LogInPage>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-  .prueba {
+  .logInCont {
     height: 100vh;
   }
 </style>

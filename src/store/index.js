@@ -10,7 +10,6 @@ export default new Vuex.Store({
     vendes:[],
     midasDisp:[],
     userObj: null,
-    // vendesHist: []
 
 
     
@@ -24,10 +23,6 @@ export default new Vuex.Store({
       state.vendes = vendesAction
     },
 
-    // generarVendesHist(state, vendesHistAction) {
-    //   state.vendesHist = vendesHistAction
-    // },
-
     actualitzarMidas(state, midasAction) {
       state.midasDisp = midasAction
     },
@@ -39,7 +34,6 @@ export default new Vuex.Store({
       state.userObj = null
       router.push('/')
     }
-
 
 
   },
@@ -64,26 +58,23 @@ export default new Vuex.Store({
 
 
     obtenirMidas({commit, state}, model) {
-      commit ('actualitzarMidas', state.items.filter(el => el.model == model).map(el => el.size))
+      commit ('actualitzarMidas', state.items.filter(el => el.model == model && el.stock > 0).map(el => el.size))
     },
 
-
-
-    // crearVendesHist({commit, state}) {
-      
-    //   })
-
-    //   commit ('generarVendesHist' )
-
-    // },
-
-    crearVenda(state, params) {
+    crearVenda: async function (state, params) {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(params)
       };
       fetch("https://feriastore.herokuapp.com/sales", requestOptions)
+    },
+
+    crearVentaYRefrescar: async function (state, params) {
+      await this.dispatch('crearVenda', params)
+      this.dispatch('obtenirVendes', 5)
+      this.dispatch('obtenirItems')
+
     },
 
     saveTodo(state, params) {

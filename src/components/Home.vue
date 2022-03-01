@@ -28,6 +28,12 @@
 
     export default {
         name: 'Home',
+        data() {
+            return {
+                
+            }
+        },
+
         methods :{
             redirectToINV() {
             this.$router.push({ path: '/InventarioV' });

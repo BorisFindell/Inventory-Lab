@@ -93,10 +93,11 @@
           afegVendes() {
             const item = this.$store.state.items.find(el => el.model == this.model && el.size == this.mida)
             const params = {date: this.date, itemId: item.id, price: this.preu}
-            this.$store.dispatch('crearVenda', params)
-            this.$store.dispatch('obtenirVendes', 5)
-            this.$store.dispatch('obtenirItems')
-
+            this.$store.dispatch('crearVentaYRefrescar', params)
+            this.model = null
+            this.mida = null
+            this.date = ''
+            this.preu = null
           },
 
           

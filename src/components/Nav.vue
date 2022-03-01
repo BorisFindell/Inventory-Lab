@@ -1,16 +1,16 @@
 <template>
         
         <div>
-        <b-navbar toggleable="lg" type="dark" variant="dark">
+        <b-navbar toggleable="lg" type="dark" :style="color">
             <b-navbar-brand href="#">
-        <!-- <buttonVendesTot @showMessage="message" ></buttonVendesTot>
-        {{mensaje}} -->
 
                 <!-- LOGO -->
                 <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
-                    <img class="logo" src="../assets/logo.png" alt="logo">
+                    <img class="logo" :src="logo" alt="logo">
                 </div>
             </b-navbar-brand>
+
+            <buttonMeteo @showMessage="showMessage" :msg="message" :tempsTxt="temps" :tempsTxtColor="textLoginColor" ></buttonMeteo>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -25,7 +25,7 @@
                 <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
-                    <em>Hola: {{$store.state.userObj.username}}!</em>
+                    <em :class="textLoginColor" >Hola: {{$store.state.userObj.username}}!</em>
                 </template>
                 <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
                 </b-nav-item-dropdown>
@@ -50,16 +50,6 @@
             </div>
                 <hr>
 
-            <div class="meteo-cont">
-                    <div class="meteo">
-                        <div class="container-temp m-3">
-                            <img class="img-sol" src="../assets/temps-icon.png" alt="temps">
-                            <p class="tempText">
-                                El tiempo en Barcelona ahora es de {{temps}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
         </b-sidebar>
 
 
@@ -74,16 +64,22 @@
 </template>
 
 <script>
-// import buttonVendesTot from './buttonVendesTot.vue'
+import buttonMeteo from './buttonMeteo.vue'
     export default {
-//   components: { buttonVendesTot },
+  components: { buttonMeteo },
         name: 'Nav',
         data() {
             return {
                 temps:'',
-                mensaje: ''
+                message: false
             }
         },
+        props: {
+            color: Object,
+            logo: String,
+            textLoginColor: String
+        },
+
         methods: {
             redirectToINV() {
             this.$router.push({ path: '/InventarioV' });
@@ -101,9 +97,10 @@
             this.$router.push({ path: '/RegistreV' });
             },
 
-            // message() {
-            //     this.mensaje = 'Has vendido un total de: ' + this.$store.state.vendes.length
-            // },
+            showMessage() {
+                this.message = !this.message
+
+            },
 
             getMeteo() {
 
@@ -131,8 +128,6 @@
         mounted: function () {
             this.$nextTick(function () {
                 this.getMeteo()
-    // Código que se ejecutará solo después de
-    // haber renderizado la vista completa
   })
 }
     }
@@ -142,7 +137,6 @@
 
 .navbar {
     width: 70%;
-    background-color: rgba(0, 0, 0, 0.336);
     margin: auto;
     padding: 10px;
     display: flex;
@@ -225,6 +219,8 @@ hr {
 #nav-collapse {
     flex-direction: row-reverse;
 }
+
+
 
 @media (max-width: 800px) {
     .btn-login {

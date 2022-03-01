@@ -1,6 +1,6 @@
 <template>
   <div class="home-cont">
-    <Nav></Nav>
+    <Nav :color="bgc" :logo="logoHome" :textLoginColor="textColor"></Nav>
     <Home></Home>
   </div>
 </template>
@@ -14,6 +14,17 @@ import Nav from '../components/Nav.vue'
 export default {
 
   name: 'HomeV',
+  data() {
+    return {
+        bgc: {
+          backgroundColor: '#D82148'
+        },
+        logoHome: require("../assets/logo.png"),
+        textColor: 'text-light'
+
+    }
+  },
+  
   components: { Home, Nav}
 }
 </script>
@@ -21,5 +32,12 @@ export default {
 <style scoped>
   .home-cont {
     height: 100vh;
+    background-image: url('../assets/vendes-comp-bg.jpeg');
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    height: max-content;
+    max-height: 100vh;
+    overflow:auto;
 }
 </style>

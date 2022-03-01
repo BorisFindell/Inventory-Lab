@@ -3,20 +3,44 @@
         
       <div class="row justify-content-center" >
           <div class="contLG border rounded justify-content-center shadow rounded">
-          
-              <b-form-group
-                  class="w-75 m-auto py-4"
-                  id="fieldset-1"
-                  label="Ingesa tus datos"
-                  label-for="input-1"
-                  valid-feedback="¡Perfecto!"
-                  :invalid-feedback="invalidFeedback"
-                  :state="state"
-              >
-                  <b-form-input class="mb-3" id="input-1" type="text" v-model="name" :state="state" trim></b-form-input>
-                  <b-form-input id="input-2" type="password" v-model="password" :state="state" trim></b-form-input>
+
+              <!-- USERNAME -->
+
+              <b-form-group class="h5 mb-4 text-dark mx-auto" 
+              id="input-group-5"
+              label="Nom d'usuari: "
+              label-cols-lg="3"
+              label-for="input-5" >
+                <b-form-input
+                  id="input-5"
+                  v-model="$v.form.name.$model"
+                  :state="validateState('name')"
+                  placeholder="Enter username"
+                  class="py-4"
+                ></b-form-input>
+                <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-5-live-feedback"
+                >This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
               </b-form-group>
+
+              <!-- PASSWORD -->
+
+              <b-form-group class="text-dark h5 mx-auto"
+              id="input-group-4"
+              label="Contrasenya:"
+              label-cols-lg="3"
+              label-for="input-4">
+                <b-form-input
+                  id="input-4"
+                  v-model="$v.form.password.$model"
+                  :state="validateState('password')"
+                  type="password"
+                  placeholder="Enter password"
+                  class="py-4"
                   
+                ></b-form-input>
+                <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-4-live-feedback">This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
+              </b-form-group>
+
               <button type="button" class="btn btn-success btn-sm shadow rounded mb-3" @click="LogIn">Aceptar</button>
               <hr>
               <div class="registro-cont">
@@ -30,29 +54,43 @@
 </template>
 
 <script>
+import { validationMixin } from "vuelidate";
+import { required, minLength, } from "vuelidate/lib/validators";
+
     export default {
-        computed: {
-          state() {
-            return this.name.length >= 5
-          },
-          invalidFeedback() {
-            if (this.name.length > 0) {
-              return 'Mínimo 5 caracteres.'
-            }
-            return 'Este campo no puede quedar vacío .'
-          }
-        },
+
+    mixins: [validationMixin],
+       
         data() {
           return {
-            name: '',
-            password: ''
+            form: {
+              name: '',
+              password: ''
+            }
+          }
+        },
+
+        validations: {
+          form: {
+            name: {
+              required,
+              minLength: minLength(8)
+            },
+            password: {
+              required,
+              minLength: minLength(8)
+            },
           }
         },
         
         methods: {
           LogIn(){
-            this.$store.dispatch('LogIn', [this.name,this.password])
+            this.$store.dispatch('LogIn', [this.form.name,this.form.password])
       
+          },
+          validateState(name) {
+            const { $dirty, $error } = this.$v.form[name];
+            return $dirty ? !$error : null;
           },
 
         }
@@ -62,6 +100,7 @@
 <style scoped>
 
 .container-gral {
+  max-width: 100%;
   height: 100vh;
   background-image: url("../assets/login-bg.jpeg");
   background-position: center;
