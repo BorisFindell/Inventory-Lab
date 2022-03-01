@@ -10,6 +10,7 @@ export default new Vuex.Store({
     vendes:[],
     midasDisp:[],
     userObj: null,
+    groupedVendes: {}
 
 
     
@@ -33,6 +34,17 @@ export default new Vuex.Store({
     logOut(state) {
       state.userObj = null
       router.push('/')
+    },
+
+    agruparVendes(state) {
+      state.groupedVendes = {}
+      state.vendes.forEach(function(venda) {
+        if (!state.groupedVendes[venda.date]) {
+          Vue.set(state.groupedVendes, venda.date, {total: 0, cant: 0})
+        }
+        state.groupedVendes[venda.date].total += venda.price
+        state.groupedVendes[venda.date].cant ++
+      })
     }
 
 
@@ -54,8 +66,12 @@ export default new Vuex.Store({
       commit ('generarVendes', vendes)
     },
 
+    obtenirVendesIAgrupar: async function ({commit}) {
+      await this.dispatch('obtenirVendes')
+      commit ('agruparVendes')
+    },
 
-
+    
 
     obtenirMidas({commit, state}, model) {
       commit ('actualitzarMidas', state.items.filter(el => el.model == model && el.stock > 0).map(el => el.size))
@@ -67,7 +83,7 @@ export default new Vuex.Store({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(params)
       };
-      fetch("https://feriastore.herokuapp.com/sales", requestOptions)
+      await fetch("https://feriastore.herokuapp.com/sales", requestOptions)
     },
 
     crearVentaYRefrescar: async function (state, params) {
@@ -77,14 +93,14 @@ export default new Vuex.Store({
 
     },
 
-    saveTodo(state, params) {
+    saveTodo: async function (state, params) {
       const requestOptions = {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(params.payload)
       };
       const id = params.id
-      fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions)
+      await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions)
     },
 
     LogIn(context, [username, password]){
@@ -111,13 +127,15 @@ export default new Vuex.Store({
         fetch(`https://feriastore.herokuapp.com/items`, requestOptions)
       },
 
-      deleteVenda(state, id) {
+      deleteVenda: async function (state, id) {
         const requestOptions = {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify()
         };
-        fetch(`https://feriastore.herokuapp.com/sales/${id}`, requestOptions)
+        await fetch(`https://feriastore.herokuapp.com/sales/${id}`, requestOptions)
+        this.dispatch('obtenirVendes', 5)
+
 
       },
   },

@@ -1,7 +1,7 @@
 <template>
         
         <div>
-        <b-navbar toggleable="lg" type="dark" :style="color">
+        <b-navbar toggleable="lg" type="light" :style="color">
             <b-navbar-brand href="#">
 
                 <!-- LOGO -->
@@ -12,7 +12,7 @@
 
             <buttonMeteo @showMessage="showMessage" :msg="message" :tempsTxt="temps" :tempsTxtColor="textLoginColor" ></buttonMeteo>
 
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            <b-navbar-toggle class="toggle-btn" toggle-class="text-dark" target="nav-collapse"></b-navbar-toggle>
 
             <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav >
@@ -221,6 +221,13 @@ hr {
 }
 
 
+.toggle-btn {
+
+    background-color: rgba(240, 205, 205, 0.521);
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
 
 @media (max-width: 800px) {
     .btn-login {

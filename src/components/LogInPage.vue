@@ -47,7 +47,6 @@
                 <h6 class="reg-text" >¿No tens un compte?</h6>
               <router-link to="/UsuariNouV" class="btn btn-outline-danger btn-sm mb-3" tag="button" >¡Registra't!</router-link>
               </div>
-              <router-link to="/HomeV" class="btn btn-sm btn-danger" tag="button" ></router-link>
           </div>
       </div>
     </div>
