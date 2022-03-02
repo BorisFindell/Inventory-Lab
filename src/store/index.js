@@ -88,7 +88,7 @@ export default new Vuex.Store({
 
     crearVentaYRefrescar: async function (state, params) {
       await this.dispatch('crearVenda', params)
-      this.dispatch('obtenirVendes', 5)
+      this.dispatch('obtenirVendes')
       this.dispatch('obtenirItems')
 
     },
@@ -137,7 +137,7 @@ export default new Vuex.Store({
           body: JSON.stringify()
         };
         await fetch(`https://feriastore.herokuapp.com/sales/${id}`, requestOptions)
-        this.dispatch('obtenirVendes', 5)
+        this.dispatch('obtenirVendes')
 
 
       },
