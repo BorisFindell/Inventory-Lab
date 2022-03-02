@@ -46,6 +46,7 @@
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventari</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Vendes</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToREG()">Registre de vendes</b-button>
+                    <i class="bi bi-file-lock2" ></i>
                 </div>
             </div>
                 <hr>

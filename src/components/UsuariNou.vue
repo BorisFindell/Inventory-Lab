@@ -5,8 +5,8 @@
         Formulari de registre
       </h1>
     </div>
-    <div class="btn-torna">
-      <router-link class="text-light btn border" to="/"> Tornar al Log In </router-link>
+    <div class="btn-torna-cont">
+      <router-link class=" font-weight-bold btn border btn-torna" to="/"> ⇠ LOGIN </router-link>
     </div>
     <div class="form-cont mx-auto">
       <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="show">
@@ -229,7 +229,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
     width: 60%;
     height: 100vh;
     padding-top: 50px;
-    background-color: rgb(185, 211, 211, .5);
+    background-color: rgb(185, 211, 211, .8);
     margin-top: 2%;
 
 }
@@ -238,18 +238,25 @@ import { required, minLength, } from "vuelidate/lib/validators";
 }
 
 .titol-cont {
-  background-color: rgb(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255, 0.8);
 }
 
 .titol {
   color: rgb(107, 48, 30);
 }
 
-.btn-torna{
+.btn-torna-cont{
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   font-size: 1rem;
   padding: 20px;
+  
+}
+.btn-torna {
+  background-color: rgba(233, 149, 149, 0.9);
+  color: rgb(107, 48, 30);
+
+
 }
 
 </style>

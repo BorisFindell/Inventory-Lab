@@ -40,7 +40,7 @@ export default {
 
   .cont-gral {
     height: 100vh;
-    background-image: url('../assets/vendes-comp-bg.jpeg');
+    background-image: url('../assets/general-bg.jpeg');
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;

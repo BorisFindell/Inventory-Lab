@@ -13,12 +13,10 @@
 
 <script>
 
-// import Nav from './components/Nav.vue'
 
 
 export default {
   name: 'App',
-  // components: { Nav },
 }
 </script>
 
@@ -29,10 +27,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* background-image: url('./assets/vendes-comp-bg.jpeg');
-  background-position: center;
-  background-repeat:no-repeat;
-  background-size:cover; */
   height: max-content;
   max-height: 100vh;
   overflow:auto;

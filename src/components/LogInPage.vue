@@ -81,9 +81,10 @@ import { required, minLength, } from "vuelidate/lib/validators";
             },
           }
         },
+
         created() {
 
-          const displayNameJSON= (window.localStorage.getItem('administrator')) 
+          const displayNameJSON = (window.localStorage.getItem('administrator')) 
           const userObj = JSON.parse(displayNameJSON)
           if(displayNameJSON == null || userObj.password !== 'administrator'){
             const administrator = {name: 'administrator', password: 'administrator', role: 'administrator'}
@@ -110,10 +111,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
 .container-gral {
   max-width: 100%;
   height: 100vh;
-  background-image: url("../assets/login-bg.jpeg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .contLG {

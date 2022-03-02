@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import LogInPage from '../components/LogInPage.vue'
+import LogInPageV from '../views/LogInPageV.vue'
 import HomeV from '../views/HomeV.vue'
 import InventarioV from '../views/InventarioV.vue'
 import VentasV from '../views/VentasV.vue'
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/',
     name: 'LogInPageV',
-    component: LogInPage
+    component: LogInPageV
   },
   
   {

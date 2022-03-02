@@ -1,5 +1,5 @@
 <template>
-  <div class="logInCont">
+  <div class="cont-gral">
     <LogInPage></LogInPage>
   </div>
 </template>
@@ -17,7 +17,14 @@ export default {
 </script>
 
 <style scoped>
-  .logInCont {
+  .cont-gral {
     height: 100vh;
+    background-image: url('../assets/login-bg.jpeg');
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size:cover;
+    height: max-content;
+    max-height: 100vh;
+    overflow:auto;
   }
 </style>
