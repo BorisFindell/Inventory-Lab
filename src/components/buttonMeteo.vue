@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container justify-content-start">
         <div>
-            <button type="button" @click="$emit('showMessage')" class="btn btn-dark btn-sm">Consulta el tiempo</button>
+            <button type="button" @click="$emit('showMessage')" class="btn btn-dark btn-sm ">Consulta el temps</button>
         </div>
         <div>
             <div v-if="msg === true">
@@ -10,7 +10,7 @@
                             <div class="container-temp m-3">
                                 <img class="img-sol" src="../assets/temps-icon.png" alt="temps">
                                 <p :class="tempsTxtColor">
-                                    El tiempo en Barcelona ahora es de {{tempsTxt}}
+                                    El temps a Barcelona ara és: {{tempsTxt}}
                                 </p>
                             </div>
                         </div>

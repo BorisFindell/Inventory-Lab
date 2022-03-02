@@ -96,6 +96,7 @@
             this.mida = null
             this.date = ''
             this.preu = null
+            this.$store.state.midasDisp = []
           },
 
           
