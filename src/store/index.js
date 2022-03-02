@@ -101,6 +101,7 @@ export default new Vuex.Store({
       };
       const id = params.id
       await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions)
+
     },
 
     LogIn(context, [username, password]){
@@ -118,13 +119,15 @@ export default new Vuex.Store({
         }
       },
 
-      resoldreTot(){
+      resoldreTot: async function (){
         const requestOptions = {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify()
         };
-        fetch(`https://feriastore.herokuapp.com/items`, requestOptions)
+        await fetch(`https://feriastore.herokuapp.com/items`, requestOptions)
+        await this.dispatch('obtenirItems')
+
       },
 
       deleteVenda: async function (state, id) {

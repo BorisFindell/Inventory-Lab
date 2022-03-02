@@ -2,11 +2,9 @@
   <div  class="container-gral">
     <div class="params mx-auto mt-5 border border-success rounded shadow-lg p-3 mb-5 bg-white rounded">
 
-      <!-- Fecha -->
-
     <div class="d-flex justify-content-center align-items-center params-cont">
-        <div class="mx-2">Data: </div>
-        <b-form-input v-model="date" placeholder="Ingresa la fecha"></b-form-input>
+      <label for="date-picker" class="mx-2 my-auto">Data</label>
+      <b-form-datepicker placeholder="Tria una data" id="date-picker" v-model="date"></b-form-datepicker>
     </div>
 
       <!-- Modelo -->
@@ -30,32 +28,32 @@
 
     <div class="d-flex justify-content-center align-items-center params-cont">
         <div class="mx-2">Preu: </div>
-        <b-form-input v-model="preu" type="number" placeholder="Ingresa el monto"></b-form-input>
+        <b-form-input v-model="preu" type="number" placeholder="Escriu el preu"></b-form-input>
     </div>
 
       <button @click="afegVendes()" type="button" class="btn btn-success">Enviar</button>
 
     </div>
 
-    <div class="ultimes-vendes-cont">
-      <table class="table text-light">
-        <thead>
+    <div v-if="$store.state.vendes.length > 0" class="ultimes-vendes-cont">
+      <table class="table text-light mb-0">
+        <thead class="headers-style">
           <th> Data </th>
           <th> Model </th>
           <th> Mida </th>
           <th> Preu </th>
+          <th></th>
+
 
         </thead>
-        <tr class="border-dark" v-for="(item, index) in $store.state.vendes" :key="index">
+        <tr class="border-dark vertical-align-middle" v-for="(item, index) in $store.state.vendes" :key="index">
           <td class="w-25">{{item.date}}</td>
           <td class="w-25">{{item.model}}</td>
           <td class="w-25">{{item.size}}</td>
           <td class="w-25">{{item.price}}</td>
-          <td class="w-25" >
-            <button @click="eliminarVenda(item.id)" type="button" class="btn btn-danger">Eliminar</button>
+          <td class="w-25">
+            <button @click="eliminarVenda(item.id)" type="button" class="btn btn-danger btn-sm">Eliminar</button>
           </td>
-
-
         </tr>
       </table>
 
@@ -149,6 +147,11 @@
   .params-cont {
     margin-top: 10px;
   }
+}
+
+
+.headers-style {
+  background-color: rgba(39, 46, 44, 0.685);
 }
 
 @media (max-width: 500px) {
