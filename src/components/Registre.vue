@@ -10,7 +10,7 @@
             </b-input-group>
             </b-form>
             <table class="table text-light" >
-                <thead>
+                <thead class="headers-style">
                 <th> Data </th>
                 <th> Model </th>
                 <th> Mida </th>
@@ -31,7 +31,7 @@
             <h3> Històric de vendes </h3>
 
             <table class="table text-light" >
-                <thead>
+                <thead class="headers-style">
                 <th> Data </th>
                 <th> Preu </th>
                 <th> Quantitat </th>
@@ -99,6 +99,10 @@
 
 .table {
   background-color: rgba(50, 99, 46, 0.7);
+}
+
+.headers-style {
+  background-color: rgba(39, 46, 44, 0.685);
 }
 
 </style>

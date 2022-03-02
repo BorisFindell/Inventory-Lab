@@ -69,7 +69,7 @@
     export default {
         name: 'Ventas',
         mounted() {
-            this.$store.dispatch('obtenirVendes')
+            this.$store.dispatch('obtenirVendes', 5)
             this.$store.dispatch('obtenirItems')
         },
         data () {
