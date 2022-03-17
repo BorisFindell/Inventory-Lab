@@ -10,7 +10,8 @@ export default new Vuex.Store({
     vendes:[],
     midasDisp:[],
     userObj: null,
-    groupedVendes: {}
+    groupedVendes: {},
+    nouItem: {}
 
 
     
@@ -141,6 +142,10 @@ export default new Vuex.Store({
 
 
       },
+      // addItem: async function (state) {
+          //agregar nouItem al Back
+          //luego el mísmo método de CrearInventario lo vacía para poder agregar otro
+      // }
   },
 
   getters: {

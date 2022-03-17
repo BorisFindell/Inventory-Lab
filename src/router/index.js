@@ -7,6 +7,7 @@ import VentasV from '../views/VentasV.vue'
 import NavV from '../views/NavV.vue'
 import RegistreV from '../views/RegistreV.vue'
 import UsuariNouV from '../views/UsuariNouV.vue'
+import CrearInventariV from '../views/CrearInventariV.vue'
 import store from '../store'
 
 
@@ -55,6 +56,12 @@ const routes = [
     path: '/UsuariNouV',
     name: 'UsuariNouV',
     component: UsuariNouV
+  },
+
+  {
+    path: '/CrearInventariV',
+    name: 'CrearInventariV',
+    component: CrearInventariV
   },
 ]
 

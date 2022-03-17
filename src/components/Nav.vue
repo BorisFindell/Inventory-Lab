@@ -43,6 +43,7 @@
                 <hr>
                 <div class="links-navbar-cont">
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToCREA()">Modificar inventari</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventari</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Vendes</b-button>
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'user'" @click="redirectToREG()">Registre de vendes <b-icon icon="file-lock2"></b-icon></b-button>
@@ -84,6 +85,10 @@ import buttonMeteo from './buttonMeteo.vue'
         methods: {
             redirectToINV() {
             this.$router.push({ path: '/InventarioV' });
+            },
+
+            redirectToCREA() {
+            this.$router.push({ path: '/CrearInventariV' });
             },
 
             redirectToVEN() {
