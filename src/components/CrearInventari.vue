@@ -1,15 +1,26 @@
 <template>
   <b-container fluid class="d-flex justify-content-center container-gral">
+    <div class="w-75 d-flex justify-between">
+      <div class="col-5">   
+        <!-- Agregar Producto -->
+        <b-form-group label="Producto">
+          <b-form-input 
+          v-model="name" 
+          placeholder="Nombre del producto"
+          ></b-form-input>
+        </b-form-group>
+        <!-- <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback> -->
+<!-- :state="validateState('name')" -->
+      </div>
 
-    
-
-<div id="app">
+      <div class="col-7">
+      <!-- Tabla para agregar propiedades -->
         <table class="table">
             <thead>
                 <tr>
-                    <td><strong>Title</strong></td>
-                    <td><strong>Description</strong></td>
-                    <td><strong>File</strong></td>
+                    <td><strong>Propiedad</strong></td>
+                    <td><strong>Opciones</strong></td>
+                    <td><strong>Eliminar</strong></td>
                     <td></td>
                 </tr>
             </thead>
@@ -18,23 +29,28 @@
 
                     <td><input type="text" v-model="row.title"></td>
                     <td><input type="text" v-model="row.description"></td>
-                    <td>
+
+                    <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->
+
+                    <!-- <td>
                         <label class="fileContainer">
                             {{row.file.name}}
                             <input type="file" @change="setFilename($event, row)" :id="index">
                         </label>
-                    </td>
+                    </td> -->
                     <td>
-                        <a v-on:click="removeElement(index);" style="cursor: pointer">Remove</a>
+                        <b-button variant="danger" v-on:click="removeElement(index);" style="cursor: pointer">Remove</b-button>
                     </td>
 
 
                 </tr>
             </tbody>
+            <div>
+              <button class="button btn-primary" @click="addRow">Agregar nueva propiedad</button>
+            </div>
         </table>
-        <div>
-            <button class="button btn-primary" @click="addRow">Add row</button>
-        </div>
+      </div>
+      
     </div>
 
 
@@ -130,16 +146,15 @@ name: 'CrearInventari',
 
             data() {
               return {
-
-              
                 rows: []
               }
             },
             methods: {
-                addRow: function() {
+                addRow() {
                     this.rows.push({
-                        title: "",
-                        description: "",
+                        name: '',
+                        title: '',
+                        description: '',
                         file: {
                             name: 'Choose File'
                         }
@@ -212,7 +227,8 @@ name: 'CrearInventari',
     margin: auto;
     margin-top: 2%;
     height: 100vh;
-    display: inline-flex
+    
+
 }
 
 .inputs {
