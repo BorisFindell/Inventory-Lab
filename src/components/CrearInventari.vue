@@ -13,7 +13,7 @@
 <!-- :state="validateState('name')" -->
       </div>
 
-      <div class="col-7">
+      <div class="col-6">
       <!-- Tabla para agregar propiedades -->
         <table class="table">
             <thead>
@@ -27,8 +27,8 @@
             <tbody>
                 <tr v-for="(row, index) in rows" :key="index">
 
-                    <td><input type="text" v-model="row.title"></td>
-                    <td><input type="text" v-model="row.description"></td>
+                    <td><b-form-input type="text" v-model="row.prop"></b-form-input></td>
+                    <td><b-form-input type="text" v-model="row.option"></b-form-input></td>
 
                     <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->
 
@@ -39,92 +39,26 @@
                         </label>
                     </td> -->
                     <td>
-                        <b-button variant="danger" v-on:click="removeElement(index);" style="cursor: pointer">Remove</b-button>
+                        <b-button variant="danger" v-on:click="removeElement(index);" style="cursor: pointer">Borrar</b-button>
                     </td>
 
 
                 </tr>
             </tbody>
+            
+            
+        </table>
             <div>
               <button class="button btn-primary" @click="addRow">Agregar nueva propiedad</button>
             </div>
-        </table>
+            <div class="d-flex justify-content-end">
+              <b-button class="btn btn-sm btn-submit" @click="submit">Agregar item</b-button>
+              {{this.$store.state.nouItem}}
+            </div>
       </div>
-      
+        
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <b-form class="inputs">
-      <b-form-group
-      label="Producto">
-
-        <b-form-input 
-        v-model="name" 
-        placeholder="Enter your product"
-        ></b-form-input>
-      </b-form-group> -->
-        <!-- <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback> -->
-<!-- :state="validateState('name')" -->
-        <!-- <div class="d-flex">
-          <p>Categoría</p>
-          <b-form-input v-model="prop" placeholder="Enter your name"></b-form-input>
-          <p>Propiedad</p>
-          <b-form-input v-model="option" placeholder="Enter your name"></b-form-input>
-          <b-button class="btn success btn-sm" @click="addMore">Agregar otra propiedad</b-button>
-        </div>
-
-        <button @click="submit" type="submit" >Add</button>
-    </b-form>
-   
-    <div>
-        {{this.$store.state.nouItem}} -->
-        <!-- <b-table>
-          <th>
-            <tr v-for="(item, index) in this.$store.state.nouItem" :key="index">
-
-            </tr>
-          </th>
-        </b-table> -->
-    <!-- </div> -->
+    
 
   </b-container>
 </template>
@@ -140,84 +74,45 @@
 name: 'CrearInventari',
     // mixins: [validationMixin],
 
+  data() {
+    return {
+      rows: [],
+      name: ''
+    }
 
-
-
-
-            data() {
-              return {
-                rows: []
+  },
+  methods: {
+      addRow() {
+          this.rows.push({
+              prop: '',
+              option: '',
+              file: {
+                  fileName: 'Choose File'
               }
-            },
-            methods: {
-                addRow() {
-                    this.rows.push({
-                        name: '',
-                        title: '',
-                        description: '',
-                        file: {
-                            name: 'Choose File'
-                        }
-                    });
-                },
-                removeElement: function(index) {
-                    this.rows.splice(index, 1);
-                },
-                setFilename: function(event, row) {
-                    var file = event.target.files[0];
-                    row.file = file
-                }
-            }
+          });
+      },
+      removeElement: function(index) {
+          this.rows.splice(index, 1);
+      },
+      setFilename: function(event, row) {
+          var file = event.target.files[0];
+          row.file = file
+      },
+      submit() {
+        this.$store.state.nouItem.name = this.name
+        if (this.prop != '' && this.option != '')
+        this.$store.state.nouItem[this.row.prop] = this.row.option
+                
+        // this.$store.dispatch('addItem')
+
+        this.name = ''
+        this.prop = ''
+        this.option = ''
+      }
+
   }
-  //   data() {
-  //     return {
-  //       name: '',
-  //       prop: '',
-  //       option: ''
-  //     }
-  //   },
-  //   // validations: {
-  //   //   name: {
-  //   //     required
-  //   //   }
-  //   // },
-  //   methods: {
-  //     // validateState(name) {
-  //     //   const { $dirty, $error } = this.$v[name];
-  //     //   return $dirty ? !$error : null;
-  //     // },
-  //       submit() {
-
-  //       // this.$v.$touch();
-  //       //   if (this.$v.form.$anyError) {
-  //       //   return;
-  //       // }
-        
-  //       // else{
-        
-  //         this.$store.state.nouItem.name = this.name
-  //         if (this.prop != '' && this.option != '')
-  //         this.$store.state.nouItem[this.prop] = this.option
-                  
-  //         this.$store.dispatch('addItem')
-
-  //         this.name = ''
-  //         this.prop = ''
-  //         this.option = ''
-
-        
-  //       },
-  //       addMore() {
-  //         this.$store.state.nouItem.name = this.name
-  //         if (this.prop != '' && this.option != '')
-  //         this.$store.state.nouItem[this.prop] = this.option
-
-  //         this.prop = ''
-  //         this.option = ''
-          
-  //       }
-  //   }
-  // }
+}
+ 
 </script>
 
 
@@ -229,6 +124,11 @@ name: 'CrearInventari',
     height: 100vh;
     
 
+}
+
+.btn-submit {
+    margin-top: 15px;
+    background-color: rgb(30, 114, 27);
 }
 
 .inputs {

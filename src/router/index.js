@@ -8,7 +8,11 @@ import NavV from '../views/NavV.vue'
 import RegistreV from '../views/RegistreV.vue'
 import UsuariNouV from '../views/UsuariNouV.vue'
 import CrearInventariV from '../views/CrearInventariV.vue'
-import store from '../store'
+
+//PARA ROL ADMIN Y USER. COMENTADO PARA HACER COMPONENTE "CREAR INVENTARIO"
+
+
+// import store from '../store'
 
 
 
@@ -69,20 +73,23 @@ const router = new VueRouter({
   routes
 })
 
-const userPages = ['HomeV', 'InventarioV', 'VentasV']
-const adminPages = ['RegistreV']
 
-router.beforeEach((to, from, next) => {
+//PARA ROL ADMIN Y USER. COMENTADO PARA HACER COMPONENTE "CREAR INVENTARIO"
+
+// const userPages = ['HomeV', 'InventarioV', 'VentasV']
+// const adminPages = ['RegistreV']
+
+// router.beforeEach((to, from, next) => {
   
-  if (!store.state.userObj && (userPages.includes(to.name) || adminPages.includes(to.name))){
-    next({ name: 'LogInPageV' })
-  } 
+//   if (!store.state.userObj && (userPages.includes(to.name) || adminPages.includes(to.name))){
+//     next({ name: 'LogInPageV' })
+//   } 
 
-  else if (adminPages.includes(to.name) && store.state.userObj.role !== 'administrator')
-    next({ name: 'HomeV' })
+//   else if (adminPages.includes(to.name) && store.state.userObj.role !== 'administrator')
+//     next({ name: 'HomeV' })
 
-  else next()
+//   else next()
 
-})
+// })
 
 export default router
