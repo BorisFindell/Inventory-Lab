@@ -1,17 +1,31 @@
 <template>
   <b-container fluid class="d-flex justify-content-center container-gral">
-    <div class="w-75 d-flex justify-between">
-      <div class="col-5">   
+    <b-form class="w-75 d-flex justify-between">
+      <div class="col-3">   
         <!-- Agregar Producto -->
         <b-form-group label="Producto">
-          <b-form-input 
-          v-model="name" 
+          <b-form-input
+          id="name"
+          v-model="$v.name.$model"
           placeholder="Nombre del producto"
+          :state="validateState('name')"
+          aria-describedby="name"
+          ></b-form-input>
+        <b-form-invalid-feedback class="text-dark font-weight-bold" id="name">Este campo no puede quedar en blanco.</b-form-invalid-feedback>
+
+        </b-form-group>
+      </div>
+
+      <div class="col-2">   
+        <!-- Agregar Stock Inicial -->
+        <b-form-group label="Stock inicial">
+          <b-form-input 
+          v-model="stockInit" 
+          placeholder="Ingrese un número"
+          type="number"
           ></b-form-input>
         </b-form-group>
-        <!-- <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback> -->
-<!-- :state="validateState('name')" -->
-      </div>
+      </div>    
 
       <div class="col-6">
       <!-- Tabla para agregar propiedades -->
@@ -20,7 +34,7 @@
                 <tr>
                     <td><strong>Propiedad</strong></td>
                     <td><strong>Opciones</strong></td>
-                    <td><strong>Eliminar</strong></td>
+                    <td></td>
                     <td></td>
                 </tr>
             </thead>
@@ -53,61 +67,106 @@
             </div>
             <div class="d-flex justify-content-end">
               <b-button class="btn btn-sm btn-submit" @click="submit">Agregar item</b-button>
-              {{this.$store.state.nouItem}}
             </div>
       </div>
-        
-    </div>
     
+    </b-form>
+    
+    {{this.$store.state.nouItem}}
 
   </b-container>
 </template>
 
 <script type="text/javascript">
 
-// import { validationMixin } from "vuelidate";
-// import { required } from "vuelidate/lib/validators";
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 
   export default {
 
 
 name: 'CrearInventari',
-    // mixins: [validationMixin],
+    mixins: [validationMixin],
 
   data() {
     return {
-      rows: [],
-      name: ''
+      rows: [
+        {
+          prop:'',
+          option: ''
+        }
+      ],
+      name: '',
+      stockInit: Number
     }
 
   },
+
+  validations: {
+    name: {
+      required
+    }
+  },
+
   methods: {
+
+      validateState(name) {
+        const { $dirty, $error } = this.$v[name];
+        return $dirty ? !$error : null;
+      },
+
       addRow() {
           this.rows.push({
               prop: '',
-              option: '',
-              file: {
-                  fileName: 'Choose File'
-              }
+              option: ''
+
+              //PARA AGREGAR ARCHIVOS EN UN FUTURO
+
+              // file: {
+              //     fileName: 'Choose File'
+              // }
           });
       },
       removeElement: function(index) {
           this.rows.splice(index, 1);
       },
-      setFilename: function(event, row) {
-          var file = event.target.files[0];
-          row.file = file
-      },
+
+      
+
+      //PARA AGREGAR ARCHIVOS EN UN FUTURO
+
+      // setFilename: function(event, row) {
+      //     var file = event.target.files[0];
+      //     row.file = file
+      // },
       submit() {
+
+        this.$v.$touch();
+        if (this.$v.$anyError) {
+          return;
+        }
+        alert("Form submitted!");
+
         this.$store.state.nouItem.name = this.name
-        if (this.prop != '' && this.option != '')
-        this.$store.state.nouItem[this.row.prop] = this.row.option
-                
+        this.$store.state.nouItem.stockInit = this.stockInit
+        
+        for (let i = 0; i < this.rows.length; i++) {
+          if (this.rows[i].prop != '' && this.rows[i].option != '')
+            this.$store.state.nouItem[this.rows[i].prop] = this.rows[i].option
+        }
+
+        
         // this.$store.dispatch('addItem')
 
         this.name = ''
-        this.prop = ''
-        this.option = ''
+        this.rows = []
+        this.stockInit = ''
+        // this.$store.state.nouItem = {}
+
+        // if (this.rows[0].prop != '' && this.rows[0].option != '') {
+        //   this.$store.state.nouItem[this.row.prop] = this.row.option
+        // }
+
       }
 
   }
