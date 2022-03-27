@@ -142,10 +142,17 @@ export default new Vuex.Store({
 
 
       },
-      // addItem: async function (state) {
-          //agregar nouItem al Back
-          //luego el mísmo método de CrearInventario lo vacía para poder agregar otro
-      // }
+
+      addItem: async function (nouItem) {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(nouItem)
+        };
+        await fetch("https://feriastore.herokuapp.com/items", requestOptions)
+      },
+
+      
   },
 
   getters: {

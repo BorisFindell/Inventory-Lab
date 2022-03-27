@@ -20,7 +20,7 @@
         <!-- Agregar Stock Inicial -->
         <b-form-group label="Stock inicial">
           <b-form-input 
-          v-model="stockInit" 
+          v-model="stock" 
           placeholder="Ingrese un número"
           type="number"
           ></b-form-input>
@@ -72,8 +72,6 @@
     
     </b-form>
     
-    {{this.$store.state.nouItem}}
-
   </b-container>
 </template>
 
@@ -97,7 +95,7 @@ name: 'CrearInventari',
         }
       ],
       name: '',
-      stockInit: Number
+      stock: null
     }
 
   },
@@ -148,24 +146,21 @@ name: 'CrearInventari',
         alert("Form submitted!");
 
         this.$store.state.nouItem.name = this.name
-        this.$store.state.nouItem.stockInit = this.stockInit
-        
+        this.$store.state.nouItem.stock = this.stock
+        this.$store.state.nouItem.custom = {}
+
         for (let i = 0; i < this.rows.length; i++) {
           if (this.rows[i].prop != '' && this.rows[i].option != '')
-            this.$store.state.nouItem[this.rows[i].prop] = this.rows[i].option
+            this.$store.state.nouItem.custom[this.rows[i].prop] = this.rows[i].option
         }
 
-        
-        // this.$store.dispatch('addItem')
+        this.$store.dispatch('addItem')
 
         this.name = ''
         this.rows = []
-        this.stockInit = ''
+        this.stock = ''
         // this.$store.state.nouItem = {}
 
-        // if (this.rows[0].prop != '' && this.rows[0].option != '') {
-        //   this.$store.state.nouItem[this.row.prop] = this.row.option
-        // }
 
       }
 
