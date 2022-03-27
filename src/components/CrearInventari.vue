@@ -1,10 +1,11 @@
 <template>
-  <b-container fluid class="d-flex justify-content-center container-gral">
+  <b-container fluid class="d-flex justify-content-center mt-5 container-gral">
     <b-form class="w-75 d-grid">
       <div class="row justify-content-center">
         <div class="col-4">   
           <!-- Agregar Producto -->
-          <b-form-group label="Producto">
+          <b-form-group class="form-inline">
+            <b-label class="mr-3 h5">Producto:</b-label>
             <b-form-input
             id="name"
             v-model="$v.name.$model"
@@ -17,9 +18,10 @@
           </b-form-group>
         </div>
 
-        <div class="col-2">   
+        <div class="col-4">   
           <!-- Agregar Stock Inicial -->
-          <b-form-group label="Stock inicial">
+          <b-form-group class="form-inline">
+            <b-label class="mr-3 h5">Stock inicial:</b-label>
             <b-form-input 
             v-model="stock" 
             type="number"
@@ -128,6 +130,7 @@ name: 'CrearInventari',
               //     fileName: 'Choose File'
               // }
           });
+          
       },
       removeElement: function(index) {
           this.rows.splice(index, 1);
@@ -183,10 +186,10 @@ name: 'CrearInventari',
     
 }
 
-.label {
+/* label {
   display: inline-block;
   text-align: right;
-}
+} */
 
 
 .btn-submit {
