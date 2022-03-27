@@ -1,40 +1,42 @@
 <template>
   <b-container fluid class="d-flex justify-content-center container-gral">
-    <b-form class="w-75 d-flex justify-between">
-      <div class="col-3">   
-        <!-- Agregar Producto -->
-        <b-form-group label="Producto">
-          <b-form-input
-          id="name"
-          v-model="$v.name.$model"
-          placeholder="Nombre del producto"
-          :state="validateState('name')"
-          aria-describedby="name"
-          ></b-form-input>
-        <b-form-invalid-feedback class="text-dark font-weight-bold" id="name">Este campo no puede quedar en blanco.</b-form-invalid-feedback>
+    <b-form class="w-75 d-grid">
+      <div class="row justify-content-center">
+        <div class="col-4">   
+          <!-- Agregar Producto -->
+          <b-form-group label="Producto">
+            <b-form-input
+            id="name"
+            v-model="$v.name.$model"
+            placeholder="Nombre del producto"
+            :state="validateState('name')"
+            aria-describedby="name"
+            ></b-form-input>
+          <b-form-invalid-feedback class="text-dark font-weight-bold" id="name">Este campo no puede quedar en blanco.</b-form-invalid-feedback>
 
-        </b-form-group>
+          </b-form-group>
+        </div>
+
+        <div class="col-2">   
+          <!-- Agregar Stock Inicial -->
+          <b-form-group label="Stock inicial">
+            <b-form-input 
+            v-model="stock" 
+            type="number"
+            ></b-form-input>
+          </b-form-group>
+        </div>    
       </div>
 
-      <div class="col-2">   
-        <!-- Agregar Stock Inicial -->
-        <b-form-group label="Stock inicial">
-          <b-form-input 
-          v-model="stock" 
-          placeholder="Ingrese un número"
-          type="number"
-          ></b-form-input>
-        </b-form-group>
-      </div>    
+      <div class="row">
 
-      <div class="col-6">
+      <div class="col">
       <!-- Tabla para agregar propiedades -->
-        <table class="table">
+        <table class="table border shadow tableProps">
             <thead>
                 <tr>
-                    <td><strong>Propiedad</strong></td>
-                    <td><strong>Opciones</strong></td>
-                    <td></td>
+                    <td class="text-light"><strong>Propiedad</strong></td>
+                    <td class="text-light"><strong>Opciones</strong></td>
                     <td></td>
                 </tr>
             </thead>
@@ -63,12 +65,14 @@
             
         </table>
             <div>
-              <button class="button btn-primary" @click="addRow">Agregar nueva propiedad</button>
+              <b-button variant="warning" @click="addRow">Agregar</b-button>
             </div>
             <div class="d-flex justify-content-end">
-              <b-button class="btn btn-sm btn-submit" @click="submit">Agregar item</b-button>
+              <b-button variant="success" class="border border-dark" @click="submit">Guardar</b-button>
             </div>
       </div>
+      </div>
+
     
     </b-form>
     
@@ -177,18 +181,22 @@ name: 'CrearInventari',
     margin-top: 2%;
     height: 100vh;
     
-
 }
+
+.label {
+  display: inline-block;
+  text-align: right;
+}
+
 
 .btn-submit {
     margin-top: 15px;
     background-color: rgb(30, 114, 27);
 }
 
-.inputs {
-    width: 60%;
+.tableProps {
+  background-color: #495371b4
 }
-
 
 </style>
 
