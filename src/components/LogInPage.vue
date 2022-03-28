@@ -84,11 +84,11 @@ import { required, minLength, } from "vuelidate/lib/validators";
 
         created() {
 
-          const displayNameJSON = (window.localStorage.getItem('administrator')) 
+          const displayNameJSON = (window.localStorage.getItem('admin')) 
           const userObj = JSON.parse(displayNameJSON)
-          if(displayNameJSON == null || userObj.password !== 'administrator'){
-            const administrator = {name: 'administrator', password: 'administrator', role: 'administrator'}
-            window.localStorage.setItem('administrator', JSON.stringify(administrator))
+          if(displayNameJSON == null || userObj.password !== 'admin'){
+            const admin = {name: 'admin', password: 'admin', role: 'admin'}
+            window.localStorage.setItem('admin', JSON.stringify(admin))
           }
         },
         

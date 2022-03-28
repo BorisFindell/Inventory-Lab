@@ -197,6 +197,7 @@ name: 'CrearInventari',
         this.stock = ''
         // this.$store.state.nouItem = {}
         this.showAlert()
+        this.$v.$reset()
 
       }
 

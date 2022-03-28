@@ -70,7 +70,7 @@ const router = new VueRouter({
 })
 
 
-const userPages = ['HomeV', 'InventarioV', 'VentasV']
+const userPages = ['HomeV', 'InventarioV', 'VentasV', 'CrearInventariV']
 const adminPages = ['RegistreV']
 
 router.beforeEach((to, from, next) => {
@@ -79,7 +79,7 @@ router.beforeEach((to, from, next) => {
     next({ name: 'LogInPageV' })
   } 
 
-  else if (adminPages.includes(to.name) && store.state.userObj.role !== 'administrator')
+  else if (adminPages.includes(to.name) && store.state.userObj.role !== 'admin')
     next({ name: 'HomeV' })
 
   else next()

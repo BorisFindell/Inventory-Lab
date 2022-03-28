@@ -62,11 +62,15 @@ export default new Vuex.Store({
     },
 
     obtenirVendes: async function ({ commit }, limit) {
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json", "Authorization": "Basic " + Buffer.from('agulab@protonmail.com' + ":" + '1234', 'utf8').toString('base64')},
+      };
       let data
       if (limit) 
-        data = await fetch(`https://feriastore.herokuapp.com/sales?sort=date&limit=${limit}`)
+        data = await fetch(`https://feriastore.herokuapp.com/sales?sort=date&limit=${limit}`, requestOptions)
       else
-        data = await fetch('https://feriastore.herokuapp.com/sales?sort=date')
+        data = await fetch('https://feriastore.herokuapp.com/sales?sort=date', requestOptions)
       const vendes = await data.json()
       commit ('generarVendes', vendes)
     },
