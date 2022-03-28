@@ -52,7 +52,11 @@ export default new Vuex.Store({
   },
   actions: {
     obtenirItems: async function ({ commit }) {
-      const data = await fetch('https://feriastore.herokuapp.com/items')
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json", "Authorization": "Basic " + Buffer.from('agulab@protonmail.com' + ":" + '1234', 'utf8').toString('base64')},
+      };
+      const data = await fetch('https://feriastore.herokuapp.com/items', requestOptions)
       const items = await data.json()
       commit ('generarItems', items)
     },
@@ -143,13 +147,22 @@ export default new Vuex.Store({
 
       },
 
-      // addItem: async function (nouItem) {
+      addItem: async function (state, nouItem) {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Basic " + Buffer.from('agulab@protonmail.com' + ":" + '1234', 'utf8').toString('base64')},
+          body: JSON.stringify(nouItem)
+        };
+        await fetch("https://feriastore.herokuapp.com/items", requestOptions)
+      },
+
+      // createUser: async function (state) {
       //   const requestOptions = {
       //     method: "POST",
       //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify(nouItem)
+      //     body: JSON.stringify()
       //   };
-      //   await fetch("https://feriastore.herokuapp.com/items", requestOptions)
+      //   await fetch("https://feriastore.herokuapp.com/users", requestOptions)
       // },
 
       

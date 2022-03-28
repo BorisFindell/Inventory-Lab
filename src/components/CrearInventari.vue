@@ -75,7 +75,7 @@
               <b-button variant="info" class="shadow-sm" @click="addRow">Agregar</b-button>
             </div>
             <div class="d-flex justify-content-end">
-              <b-button variant="success" class="shadow-sm" @click="submit">Guardar</b-button>
+              <b-button variant="success" type="submit" class="shadow-sm" @click="submit">Guardar</b-button>
             </div>
             <b-alert
               :show="dismissCountDown"
@@ -186,7 +186,7 @@ name: 'CrearInventari',
             this.$store.state.nouItem.custom[this.rows[i].prop] = this.rows[i].option
         }
 
-        // this.$store.dispatch('addItem')
+        this.$store.dispatch('addItem', this.$store.state.nouItem )
 
         
         this.name = ''
@@ -197,7 +197,6 @@ name: 'CrearInventari',
         this.stock = ''
         // this.$store.state.nouItem = {}
         this.showAlert()
-        
 
       }
 

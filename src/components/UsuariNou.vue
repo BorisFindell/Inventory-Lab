@@ -66,23 +66,7 @@
           <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-3-live-feedback">This is a required field.</b-form-invalid-feedback>
         </b-form-group>
 
-        <!-- USERNAME -->
-
-        <b-form-group class="h5 mb-4 text-dark mx-auto" 
-        id="input-group-5"
-        label="Nom d'usuari: "
-        label-cols-lg="3"
-        label-for="input-5" >
-          <b-form-input
-            id="input-5"
-            v-model="$v.form.username.$model"
-            :state="validateState('username')"
-            placeholder="Enter username"
-            class="py-4"
-          ></b-form-input>
-          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-5-live-feedback"
-          >This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
-        </b-form-group>
+        
 
         <!-- PASSWORD -->
 
@@ -134,7 +118,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
           cog: '',
           email: '',
           password: '',
-          username: '',
           checked: [],
         },
         show: true
@@ -155,10 +138,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
         required,
         minLength: minLength(8)
       },
-      username: {
-        required,
-        minLength: minLength(8)
-      },
+      
       checked: {
         required
       }
@@ -172,7 +152,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
       },
       
       onSubmit() {
-        const key = this.form.username
+        const key = this.form.email
         const userEx = (window.localStorage.getItem(key) !==null)
         if(userEx){
           alert("¡El usuario ya existe!")
@@ -189,7 +169,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
           name:this.form.name,
           cog:this.form.cog,
           email:this.form.email,
-          username:this.form.username,
           password: this.form.password,
           role: 'user'
         
