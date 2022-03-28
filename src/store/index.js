@@ -143,14 +143,14 @@ export default new Vuex.Store({
 
       },
 
-      addItem: async function (nouItem) {
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(nouItem)
-        };
-        await fetch("https://feriastore.herokuapp.com/items", requestOptions)
-      },
+      // addItem: async function (nouItem) {
+      //   const requestOptions = {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify(nouItem)
+      //   };
+      //   await fetch("https://feriastore.herokuapp.com/items", requestOptions)
+      // },
 
       
   },

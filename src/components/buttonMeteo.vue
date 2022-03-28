@@ -4,18 +4,21 @@
             <button type="button" @click="$emit('showMessage')" class="btn btn-dark btn-sm ">Consulta el temps</button>
         </div>
         <div>
-            <div v-if="msg === true">
-                <div class="meteo-cont">
-                        <div class="meteo">
-                            <div class="container-temp m-3">
-                                <img class="img-sol" src="../assets/temps-icon.png" alt="temps">
-                                <p :class="tempsTxtColor">
-                                    El temps a Barcelona ara és: {{tempsTxt}}
-                                </p>
+            <transition name="fade">
+                <div v-if="msg === true">
+                    <div class="meteo-cont">
+                            <div class="meteo">
+                                <div class="container-temp m-3">
+                                    <img class="img-sol" src="../assets/temps-icon.png" alt="temps">
+                                    <p :class="tempsTxtColor">
+                                        El temps a Barcelona ara és: {{tempsTxt}}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                    </div>
                 </div>
-            </div>
+            </transition>
+            
         </div>
     </div>
 </template>
@@ -50,4 +53,10 @@
     color: white;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
 </style>

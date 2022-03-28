@@ -1,5 +1,6 @@
 <template>
   <b-container fluid class="d-flex justify-content-center mt-5 container-gral">
+    
     <b-form class="w-75 d-grid">
       <div class="row justify-content-center">
         <div class="col-4">   
@@ -34,7 +35,8 @@
 
       <div class="col">
       <!-- Tabla para agregar propiedades -->
-        <table class="table border shadow tableProps">
+        <table class="table border shadow-lg tableProps">
+
             <thead>
                 <tr>
                     <td class="text-light"><strong>Propiedad</strong></td>
@@ -42,36 +44,51 @@
                     <td></td>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="(row, index) in rows" :key="index">
 
-                    <td><b-form-input type="text" v-model="row.prop"></b-form-input></td>
-                    <td><b-form-input type="text" v-model="row.option"></b-form-input></td>
+            <tbody name="fade" is="transition-group">
+                
+                    <tr v-for="(row, index) in rows" :key="index">
+                    
+                      <td><b-form-input type="text" v-model="row.prop"></b-form-input></td>
+                      <td><b-form-input type="text" v-model="row.option"></b-form-input></td>
 
-                    <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->
+                      <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->
 
-                    <!-- <td>
-                        <label class="fileContainer">
-                            {{row.file.name}}
-                            <input type="file" @change="setFilename($event, row)" :id="index">
-                        </label>
-                    </td> -->
-                    <td>
-                        <b-button variant="danger" v-on:click="removeElement(index);" style="cursor: pointer">Borrar</b-button>
-                    </td>
-
-
-                </tr>
+                      <!-- <td>
+                          <label class="fileContainer">
+                              {{row.file.name}}
+                              <input type="file" @change="setFilename($event, row)" :id="index">
+                          </label>
+                      </td> -->
+                      <td>
+                          <b-button variant="danger" class="border" @click="removeElement(index)" style="cursor: pointer">Borrar</b-button>
+                      </td>
+                    </tr>
+                    
+                
             </tbody>
             
             
         </table>
+
             <div>
-              <b-button variant="warning" @click="addRow">Agregar</b-button>
+              <b-button variant="info" class="shadow-sm" @click="addRow">Agregar</b-button>
             </div>
             <div class="d-flex justify-content-end">
-              <b-button variant="success" class="border border-dark" @click="submit">Guardar</b-button>
+              <b-button variant="success" class="shadow-sm" @click="submit">Guardar</b-button>
             </div>
+            <b-alert
+              :show="dismissCountDown"
+              dismissible
+              fade
+              variant="warning"
+              @dismissed="dismissCountDown=0"
+              @dismiss-count-down="countDownChanged"
+              class="alertBanner"
+            >
+              Guardado correctamente
+              
+            </b-alert>
       </div>
       </div>
 
@@ -101,7 +118,8 @@ name: 'CrearInventari',
         }
       ],
       name: '',
-      stock: null
+      stock: null,
+      dismissSecs: 4,
     }
 
   },
@@ -136,6 +154,14 @@ name: 'CrearInventari',
           this.rows.splice(index, 1);
       },
 
+      countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+
+      showAlert() {
+        this.dismissCountDown = this.dismissSecs
+      },
+
       
 
       //PARA AGREGAR ARCHIVOS EN UN FUTURO
@@ -150,7 +176,6 @@ name: 'CrearInventari',
         if (this.$v.$anyError) {
           return;
         }
-        alert("Form submitted!");
 
         this.$store.state.nouItem.name = this.name
         this.$store.state.nouItem.stock = this.stock
@@ -161,13 +186,18 @@ name: 'CrearInventari',
             this.$store.state.nouItem.custom[this.rows[i].prop] = this.rows[i].option
         }
 
-        this.$store.dispatch('addItem')
+        // this.$store.dispatch('addItem')
 
+        
         this.name = ''
-        this.rows = []
+        this.rows = [{
+          prop:'',
+          option: ''
+        }]
         this.stock = ''
         // this.$store.state.nouItem = {}
-
+        this.showAlert()
+        
 
       }
 
@@ -201,5 +231,16 @@ name: 'CrearInventari',
   background-color: #495371b4
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
+
+.alertBanner{
+  width: fit-content;
+  margin: auto;
+}
 </style>
 

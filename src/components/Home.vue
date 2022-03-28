@@ -2,7 +2,7 @@
     <div class="container-gral">
         <div class="container-display">
 
-            <div class="inventari-cont" style="cursor: pointer;" @click="redirectToINV()">
+            <div class="inventari-cont shadow-lg" style="cursor: pointer;" @click="redirectToINV()">
                 <div class="inventari-titol-cont">
                     <h2 class="inventari-titol">
                         Inventari
@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <div class="vendes-cont" style="cursor: pointer;" @click="redirectToVEN()">
+            <div class="vendes-cont shadow-lg" style="cursor: pointer;" @click="redirectToVEN()">
                 <div class="vendes-titol-cont">
                     <h2 class="vendes-titol">
                         Vendes

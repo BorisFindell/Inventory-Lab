@@ -1,7 +1,7 @@
 <template>
         
         <div>
-        <b-navbar toggleable="lg" type="light" :style="color">
+        <b-navbar toggleable="lg" type="light" :style="color" class="shadow-lg">
             <b-navbar-brand href="#">
 
                 <!-- LOGO -->
