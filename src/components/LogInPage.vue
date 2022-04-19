@@ -4,18 +4,18 @@
       <div class="row justify-content-center" >
           <div class="contLG border rounded justify-content-center shadow rounded">
 
-              <!-- USERNAME -->
+              <!-- EMAIL -->
 
               <b-form-group class="h5 mb-4 text-dark mx-auto" 
               id="input-group-5"
-              label="Nom d'usuari: "
+              label="Email: "
               label-cols-lg="3"
               label-for="input-5" >
                 <b-form-input
                   id="input-5"
-                  v-model="$v.form.name.$model"
-                  :state="validateState('name')"
-                  placeholder="Enter username"
+                  v-model="$v.form.email.$model"
+                  :state="validateState('email')"
+                  placeholder="Enter email"
                   class="py-4"
                 ></b-form-input>
                 <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-5-live-feedback"
@@ -54,7 +54,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, minLength, } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 
     export default {
 
@@ -63,7 +63,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
         data() {
           return {
             form: {
-              name: '',
+              email: '',
               password: ''
             }
           }
@@ -71,31 +71,28 @@ import { required, minLength, } from "vuelidate/lib/validators";
 
         validations: {
           form: {
-            name: {
+            email: {
               required,
-              minLength: minLength(8)
             },
             password: {
               required,
-              minLength: minLength(8)
             },
           }
         },
 
-        created() {
+        // created() {
 
-          const displayNameJSON = (window.localStorage.getItem('admin')) 
-          const userObj = JSON.parse(displayNameJSON)
-          if(displayNameJSON == null || userObj.password !== 'admin'){
-            const admin = {name: 'admin', password: 'admin', role: 'admin'}
-            window.localStorage.setItem('admin', JSON.stringify(admin))
-          }
-        },
+        //   const displayNameJSON = (window.localStorage.getItem('admin')) 
+        //   const userObj = JSON.parse(displayNameJSON)
+        //   if(displayNameJSON == null || userObj.password !== 'admin'){
+        //     const admin = {name: 'admin', password: 'admin', role: 'admin'}
+        //     window.localStorage.setItem('admin', JSON.stringify(admin))
+        //   }
+        // },
         
         methods: {
           LogIn(){
-            this.$store.dispatch('LogIn', [this.form.name,this.form.password])
-      
+            this.$store.dispatch('LogIn', {email: this.form.email, password: this.form.password})
           },
           validateState(name) {
             const { $dirty, $error } = this.$v.form[name];

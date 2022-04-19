@@ -3,15 +3,15 @@
     <div tabla-cont>
       <table class="table table-striped table-warning table-hover ">
         <thead class="table-head text-light">
-          <th class="table-style" scope="col">Model</th>
-          <th class="table-style" scope="col">Mida</th>
-          <th class="table-style" scope="col">Quantitat</th>
-          <th class="table-style" v-if="$store.state.userObj.role === 'admin'"  scope="col">Fer</th>
+          <th class="table-style" scope="col">Producto</th>
+          <th class="table-style" scope="col">Propiedades</th>
+          <th class="table-style" scope="col">Cantidad</th>
+          <th class="table-style" v-if="$store.state.userObj.role === 'admin'"  scope="col">Hacer</th>
         </thead>
         <tbody class="table-style">
         <tr v-for="item in $store.state.items" :key="item.id">
           <td class="w-25 table-style">
-            {{ item.model }}
+            {{ item.name }}
           </td>
           <td class="w-25 table-style">
             {{ item.size }}

@@ -75,6 +75,11 @@ const adminPages = ['RegistreV']
 
 router.beforeEach((to, from, next) => {
   
+  if (!store.state.userObj) {
+    const localUser = window.localStorage.getItem('user')
+    store.state.userObj = localUser ? JSON.parse(localUser) : null
+  }
+
   if (!store.state.userObj && (userPages.includes(to.name) || adminPages.includes(to.name))){
     next({ name: 'LogInPageV' })
   } 

@@ -29,23 +29,6 @@
           <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback>
         </b-form-group>
 
-        <!-- COGNOM -->
-
-        <b-form-group class="h5 mb-4 text-dark mx-auto" 
-        id="input-group-2" 
-        label="Cognom:" 
-        label-cols-lg="3"
-        label-for="input-2"
-        >
-          <b-form-input
-            id="input-2"
-            v-model="$v.form.cog.$model"
-            :state="validateState('cog')"
-            placeholder="Enter last name"
-            class="py-4"
-          ></b-form-input>
-          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-2-live-feedback">This is a required field.</b-form-invalid-feedback>
-        </b-form-group>
         
         <!-- EMAIL -->
 
@@ -90,9 +73,8 @@
         <!-- TERMS AND COND -->
           
         <b-form-checkbox 
-          v-model="$v.form.checked.$model"
-          :state="validateState('checked')"
-          class="text-dark font-weight-bold h5 mr-3 accept-txt" value="acept">Accept terms and conditions</b-form-checkbox>
+          v-model="form.checked"
+          class="text-dark font-weight-bold h5 mr-3 accept-txt" value="acept">Subscribe to our newsletter</b-form-checkbox>
 
         <!-- BUTTONS -->
 
@@ -115,7 +97,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
       return {
         form: {
           name:'',
-          cog: '',
           email: '',
           password: '',
           checked: [],
@@ -128,9 +109,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
       name: {
         required
       },
-      cog: {
-        required
-      },
       email: {
         required,
       },
@@ -138,10 +116,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
         required,
         minLength: minLength(8)
       },
-      
-      checked: {
-        required
-      }
     }
   },
     methods: {
@@ -151,6 +125,8 @@ import { required, minLength, } from "vuelidate/lib/validators";
         return $dirty ? !$error : null;
       },
       
+      //VER COMPROBACIÓN DE USUSARIO EXISTENTE CON AGUS
+
       onSubmit() {
         const key = this.form.email
         const userEx = (window.localStorage.getItem(key) !==null)
@@ -167,15 +143,14 @@ import { required, minLength, } from "vuelidate/lib/validators";
         else{
         const newUser ={
           name:this.form.name,
-          cog:this.form.cog,
           email:this.form.email,
           password: this.form.password,
-          role: 'user'
+          role: 'admin'
         
         }
           
-        window.localStorage.setItem(key, JSON.stringify(newUser))
-        alert('¡Nuevo usuario registrado!')
+        this.$store.dispatch('createUser', newUser)
+        // window.localStorage.setItem(key, JSON.stringify(newUser))
         this.$router.push('/')
         }
       },
@@ -185,8 +160,6 @@ import { required, minLength, } from "vuelidate/lib/validators";
         this.form.email = ''
         this.form.name = ''
         this.form.checked = []
-        this.form.cog = ''
-        this.form.username = ''
         this.form.password = ''
         // Trick to reset/clear native browser form validation state
         this.show = false

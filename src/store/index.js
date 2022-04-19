@@ -11,7 +11,7 @@ export default new Vuex.Store({
     midasDisp:[],
     userObj: null,
     groupedVendes: {},
-    nouItem: {}
+    nouItem: {},
 
 
     
@@ -46,6 +46,10 @@ export default new Vuex.Store({
         state.groupedVendes[venda.date].total += venda.price
         state.groupedVendes[venda.date].cant ++
       })
+    },
+
+    createUserObj(state, userObj) {
+      state.userObj = userObj
     }
 
 
@@ -54,7 +58,7 @@ export default new Vuex.Store({
     obtenirItems: async function ({ commit }) {
       const requestOptions = {
         method: "GET",
-        headers: { "Content-Type": "application/json", "Authorization": "Basic " + Buffer.from('agulab@protonmail.com' + ":" + '1234', 'utf8').toString('base64')},
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + this.state.userObj.jwt}
       };
       const data = await fetch('https://feriastore.herokuapp.com/items', requestOptions)
       const items = await data.json()
@@ -113,20 +117,29 @@ export default new Vuex.Store({
 
     },
 
-    LogIn(context, [username, password]){
-        const key= username
-        const displayNameJSON= (window.localStorage.getItem(key)) 
-        const userObj = JSON.parse(displayNameJSON)
+    LogIn: async function ({commit, state}, {email, password}) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "email": email, "password": password})
+      };
+      const response = await fetch("https://feriastore.herokuapp.com/sessions", requestOptions)
       
-        if(displayNameJSON !== null && password == userObj.password){
-          alert("Benvinguts!")
-          context.commit('signInUser', userObj)
-          router.push('/HomeV')
-      
-        }else{
-          alert("Nom d'usuari o contrasenya incorrecte")
-        }
-      },
+
+      if (!response.ok) {
+        alert('entro')
+        if (response.status > 400 && response.status < 500)
+        alert('cachiturlin')
+
+        //401 pass
+        //404 email
+        //else error por defecto
+
+      }
+      commit('createUserObj', await response.json())
+      window.localStorage.setItem('user', JSON.stringify(state.userObj))
+
+    },
 
       resoldreTot: async function (){
         const requestOptions = {
@@ -160,14 +173,14 @@ export default new Vuex.Store({
         await fetch("https://feriastore.herokuapp.com/items", requestOptions)
       },
 
-      // createUser: async function (state) {
-      //   const requestOptions = {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify()
-      //   };
-      //   await fetch("https://feriastore.herokuapp.com/users", requestOptions)
-      // },
+      createUser: async function (state, newUser) {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser)
+        };
+        await fetch("https://feriastore.herokuapp.com/users", requestOptions)
+      },
 
       
   },
