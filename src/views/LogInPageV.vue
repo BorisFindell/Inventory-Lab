@@ -12,8 +12,15 @@ import LogInPage from '../components/LogInPage'
 export default {
 
   name: 'LogInPageV',
-  components: { LogInPage }
+  components: { LogInPage },
+
+  //ELIMINA "USER" DEL LOCALSTORAGE PARA QUE SE LIMPIE CUANDO SE CIERRE EL NAVEGADOR O LA PESTAÑA
+
+  mounted() {
+    window.localStorage.removeItem("user")
+  },
 }
+
 </script>
 
 <style scoped>
