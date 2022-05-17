@@ -15,8 +15,9 @@
           </td>
           <td class="w-25 table-style">
             <ul>
-              <li v-for="prop in item.custom" :key="prop">
-                 {{ prop }}
+              <li v-for="(v, k) in item.custom" :key="(v, k)">
+                 {{ k }}:
+                 {{ v }}
               </li>
             </ul>
           </td>

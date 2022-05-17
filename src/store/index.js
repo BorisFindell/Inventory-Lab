@@ -32,7 +32,7 @@ export default new Vuex.Store({
     logOut(state) {
       state.userObj = null;
       window.localStorage.removeItem("user")
-      router.push("/");
+      router.push("/LogIn");
     },
 
     agruparVendes(state) {
@@ -163,7 +163,7 @@ export default new Vuex.Store({
 
       commit("createUserObj", await response.json());
       window.localStorage.setItem("user", JSON.stringify(state.userObj));
-      router.push('/HomeV')
+      router.push('/')
     },
 
     resoldreTot: async function () {
@@ -204,10 +204,10 @@ export default new Vuex.Store({
         },
         body: JSON.stringify(nouItem),
       };
-      await fetch("https://feriastore.herokuapp.com/items", requestOptions);
+      return fetch("https://feriastore.herokuapp.com/items", requestOptions);
+
     },
 
-    //WORKING
 
     deleteItem: async function (state, id) {
       const requestOptions = {

@@ -18,14 +18,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'LogInPageV',
-    component: LogInPageV
+    name: 'HomeV',
+    component: HomeV
   },
   
   {
-    path: '/HomeV',
-    name: 'HomeV',
-    component: HomeV
+    path: '/LogIn',
+    name: 'LogInPageV',
+    component: LogInPageV
   },
 
   {

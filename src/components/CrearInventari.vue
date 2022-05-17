@@ -75,7 +75,7 @@
               <b-button variant="info" class="shadow-sm" @click="addRow">Agregar</b-button>
             </div>
             <div class="d-flex justify-content-end">
-              <b-button variant="success" type="submit" class="shadow-sm" @click="submit">Guardar</b-button>
+              <b-button variant="success" type="button" class="shadow-sm" @click="submit">Guardar</b-button>
             </div>
             <b-alert
               :show="dismissCountDown"
@@ -118,7 +118,7 @@ name: 'CrearInventari',
         }
       ],
       name: '',
-      stock: null,
+      stock: 0,
       dismissSecs: 4,
     }
 
@@ -127,7 +127,10 @@ name: 'CrearInventari',
   validations: {
     name: {
       required
-    }
+    },
+    // stock: {
+    //   required
+    // }
   },
 
   methods: {
@@ -186,19 +189,35 @@ name: 'CrearInventari',
             this.$store.state.nouItem.custom[this.rows[i].prop] = this.rows[i].option
         }
 
-        this.$store.dispatch('addItem', this.$store.state.nouItem )
+        this.$store.dispatch('addItem', this.$store.state.nouItem).then((response) => 
+            
+          { 
 
-        
-        this.name = ''
-        this.rows = [{
-          prop:'',
-          option: ''
-        }]
-        this.stock = ''
-        // this.$store.state.nouItem = {}
-        this.showAlert()
-        this.$v.$reset()
+            
+            if (response.ok) {
+              this.name = '',
+              this.rows = [{
+                prop:'',
+                option: ''
+              }],
+              this.stock = '',
+              this.showAlert(),
+              this.$v.$reset()
+            }
 
+            //MANEJAR CASOS DE ERRORES
+
+            else if (response.status == 500)
+              alert("Pass incorrecto");
+
+            //ERROR POR DEFECTO
+
+            else 
+              alert("Problemón");
+
+          }
+
+        )
       }
 
   }

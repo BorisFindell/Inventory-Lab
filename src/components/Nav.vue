@@ -96,7 +96,7 @@ import buttonMeteo from './buttonMeteo.vue'
             },
 
             redirectToHOME() {
-            this.$router.push({ path: '/HomeV' });
+            this.$router.push({ name: 'HomeV' });
             },
 
             redirectToREG() {
