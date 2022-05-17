@@ -14,7 +14,11 @@
             {{ item.name }}
           </td>
           <td class="w-25 table-style">
-            {{ item.size }}
+            <ul>
+              <li v-for="prop in item.custom" :key="prop">
+                 {{ prop }}
+              </li>
+            </ul>
           </td>
           <td class="w-25 table-style">
             {{ item.stock }}
@@ -22,6 +26,9 @@
           <td class="w-25 table-style" v-if="$store.state.userObj.role === 'admin'" >
               <input type="number" v-model="item.todo" @blur="setTodo(item.id)">
 
+          </td>
+          <td class="w-25 table-style">
+            <button @click="deleteItem(item.id)" type="button" class="btn btn-danger btn-sm">Eliminar</button>
           </td>
         </tr>
         </tbody>
@@ -62,6 +69,10 @@
           resoldreTot() {
             this.$store.dispatch('resoldreTot')
             this.$store.dispatch('obtenirItems')
+          },
+
+          deleteItem(id) {
+            this.$store.dispatch('deleteItem', id)
           }
         }
         

@@ -110,9 +110,11 @@ export default new Vuex.Store({
     crearVenda: async function (state, params) {
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt
+        },
         body: JSON.stringify(params),
-        Authorization: "Bearer " + this.state.userObj.jwt,
       };
       await fetch("https://feriastore.herokuapp.com/sales", requestOptions);
     },
@@ -126,9 +128,11 @@ export default new Vuex.Store({
     saveTodo: async function (state, params) {
       const requestOptions = {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt
+        },
         body: JSON.stringify(params.payload),
-        Authorization: "Bearer " + this.state.userObj.jwt,
       };
       const id = params.id;
       await fetch(
@@ -165,9 +169,11 @@ export default new Vuex.Store({
     resoldreTot: async function () {
       const requestOptions = {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt
+        },
         body: JSON.stringify(),
-        Authorization: "Bearer " + this.state.userObj.jwt,
       };
       await fetch(`https://feriastore.herokuapp.com/items`, requestOptions);
       this.dispatch("obtenirItems");
@@ -176,9 +182,11 @@ export default new Vuex.Store({
     deleteVenda: async function (state, id) {
       const requestOptions = {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt
+        },
         body: JSON.stringify(),
-        Authorization: "Bearer " + this.state.userObj.jwt,
       };
       await fetch(
         `https://feriastore.herokuapp.com/sales/${id}`,
@@ -197,6 +205,21 @@ export default new Vuex.Store({
         body: JSON.stringify(nouItem),
       };
       await fetch("https://feriastore.herokuapp.com/items", requestOptions);
+    },
+
+    //WORKING
+
+    deleteItem: async function (state, id) {
+      const requestOptions = {
+        method: "DELETE",
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt
+        },
+        body: JSON.stringify(),
+      };
+      await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions);
+      this.dispatch("obtenirItems");
     },
 
     createUser: async function (state, newUser) {
