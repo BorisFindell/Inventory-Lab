@@ -1,99 +1,140 @@
 <template>
   <div container-gral>
     <div tabla-cont>
-      <table class="table table-striped table-warning table-hover ">
-        <thead class="table-head text-light">
-          <th class="table-style" scope="col">Producto</th>
-          <th class="table-style" scope="col">Propiedades</th>
-          <th class="table-style" scope="col">Cantidad</th>
-          <th class="table-style" v-if="$store.state.userObj.role === 'admin'"  scope="col">Hacer</th>
+      <table class="table table-striped">
+        <thead>
+          <th class="table-head table-style" scope="col">Producto</th>
+          <th class="table-head table-style" scope="col">Propiedades</th>
+          <th class="table-head table-style" scope="col">Cantidad</th>
+          <th
+            class="table-head table-style"
+            v-if="$store.state.userObj.role === 'admin'"
+            scope="col"
+          >
+            Hacer
+          </th>
+          <th class="transparent-cells" scope="col"></th>
+          <th class="transparent-cells" scope="col"></th>
         </thead>
         <tbody class="table-style">
-        <tr v-for="item in $store.state.items" :key="item.id">
-          <td class="w-25 table-style">
-            {{ item.name }}
-          </td>
-          <td class="w-25 table-style">
-            <ul>
-              <li v-for="(v, k) in item.custom" :key="(v, k)">
-                 {{ k }}:
-                 {{ v }}
-              </li>
-            </ul>
-          </td>
-          <td class="w-25 table-style">
-            {{ item.stock }}
-          </td>
-          <td class="w-25 table-style" v-if="$store.state.userObj.role === 'admin'" >
-              <input type="number" v-model="item.todo" @blur="setTodo(item.id)">
+          <tr v-for="item in $store.state.items" :key="item.id">
+            <td class="table-style">
+              {{ item.name }}
+            </td>
+            <td class="table-style-props">
+              <table class="table-props">
+                <tr v-for="(v, k) in item.custom" :key="(v, k)">
+                  {{ k + ": " + v }}
+                </tr>
+              </table>
+            </td>
+            <td class="table-style">
+              {{ item.stock }}
+            </td>
+            <td
+              class="table-style"
+              v-if="$store.state.userObj.role === 'admin'"
+            >
+              <input
+                type="number"
+                v-model="item.todo"
+                @blur="setTodo(item.id)"
+              />
+            </td>
+            <td class="table-style">
+              <b-button class="btn-edit btn-sm" @click="$bvModal.show('modal1', item.id)" v-b-modal.modal-prevent-closing
+                >Editar item</b-button
+              >
 
-          </td>
-          <td class="w-25 table-style">
-            <button @click="deleteItem(item.id)" type="button" class="btn btn-danger btn-sm">Eliminar</button>
-          </td>
-        </tr>
+              <!-- <button @click="showModal()" type="button" class="btn btn-danger btn-sm">Editar</button> -->
+            </td>
+            <td class="table-style">
+              <b-button
+                @click="deleteItem(item.id)"
+                class="btn btn-delete btn-sm"
+                >Eliminar</b-button
+              >
+            </td>
+          </tr>
         </tbody>
       </table>
       <div class="btn-cont">
-        <button type="button" v-if="$store.state.userObj.role === 'admin'" @click="resoldreTot()" class="btn">Resoldre tot</button>
-
+        <b-button
+          type="button"
+          v-if="$store.state.userObj.role === 'admin'"
+          @click="resoldreTot()"
+          class="btn btn-resolve"
+          >Resoldre tot</b-button
+        >
       </div>
-    
     </div>
 
+    <!-- MODAL -->
+
+      <modalEditProd id="modal1" title="MODAL"></modalEditProd>
+
+    <!-- END OF MODAL -->
 
 
   </div>
 </template>
 
 <script>
-    export default {
-        name: 'Inventario',
-        mounted() {
-            this.$store.dispatch('obtenirItems')
-        },
-        data() {
-          return {
-            num: []
-            
-          }
-        },
 
-        methods: {
+import modalEditProd from '../components/modalEditProd.vue'
 
-          setTodo(itemId) {
-            const storeItem = this.$store.state.items.find(el => el.id == itemId)
-            this.$store.dispatch('saveTodo', {id: itemId, payload: {todo: storeItem.todo}})
+export default {
+  name: "Inventario",
+  components: { modalEditProd },
+  mounted() {
+    this.$store.dispatch("obtenirItems");
+  },
+  data() {
+    return {
+      num: [],
+    };
+  },
 
-            
-          },
-          resoldreTot() {
-            this.$store.dispatch('resoldreTot')
-            this.$store.dispatch('obtenirItems')
-          },
+  methods: {
+    setTodo(itemId) {
+      const storeItem = this.$store.state.items.find((el) => el.id == itemId);
+      this.$store.dispatch("saveTodo", {
+        id: itemId,
+        payload: { todo: storeItem.todo },
+      });
+    },
+    resoldreTot() {
+      this.$store.dispatch("resoldreTot");
+      this.$store.dispatch("obtenirItems");
+    },
 
-          deleteItem(id) {
-            this.$store.dispatch('deleteItem', id)
-          }
-        }
-        
-    }
+    editItem(id) {
+      this.$store.dispatch("editItem", id);
+    },
+
+    deleteItem(id) {
+      this.$store.dispatch("deleteItem", id);
+    },
+
+  },
+};
 </script>
 
 <style scoped>
-
 .table {
   width: 75%;
   margin: auto;
-  border: 1px solid black;
+  vertical-align: baseline;
 }
 
 .table-style {
   border: 1px solid black;
+  margin: auto;
+  background-color: rgba(243, 249, 153, 0.794);
 }
 
 .table-head {
-  background-color: rgb(126, 105, 60);
+  background-color: rgb(219, 191, 50);
 }
 
 .btn-cont {
@@ -104,7 +145,40 @@
   margin-top: 20px;
 }
 
-.btn {
+.btn-delete {
+  background-color: rgb(173, 49, 49);
+  color: white;
+}
+
+.btn-edit {
+  background-color: rgb(122, 166, 231);
+  color: black;
+}
+
+.btn-resolve {
   background-color: rgb(140, 228, 122);
+  color: black;
+}
+
+.table-props {
+  width: 100%;
+  margin: auto;
+  padding: 0px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.table-style-props {
+  border: 1px solid black;
+  margin: auto;
+  padding: 0px;
+}
+
+.transparent-cells {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 }
 </style>

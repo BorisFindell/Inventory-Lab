@@ -128,9 +128,6 @@ name: 'CrearInventari',
     name: {
       required
     },
-    // stock: {
-    //   required
-    // }
   },
 
   methods: {

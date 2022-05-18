@@ -222,6 +222,19 @@ export default new Vuex.Store({
       this.dispatch("obtenirItems");
     },
 
+    editItem: async function (state, id, nouItem) {
+      const requestOptions = {
+        method: "PATCH",
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt
+        },
+        body: JSON.stringify(nouItem),
+      };
+      await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions);
+      this.dispatch("obtenirItems");
+    },
+
     createUser: async function (state, newUser) {
       const requestOptions = {
         method: "POST",
