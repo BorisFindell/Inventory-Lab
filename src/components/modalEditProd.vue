@@ -1,25 +1,22 @@
 <template>
   <div>
 
-  <b-modal id="modal1" ref="modal1" title="EDITOR">
-    <p class="my-4">Edita el item!</p>
-  
+  <b-modal id="modal1" ref="modal1" title="EDITOR" hide-header-close="true" hide-footer="true">
       
     <b-container
       fluid
       class="d-flex justify-content-center mt-5 container-gral"
     >
-      <b-form class="w-75 d-grid">
-        <div class="row justify-content-center">
-          <div class="col-4">
+      <b-form>
+        <div class="justify-content-center">
+          <div>
             <!-- Agregar Producto -->
             <b-form-group class="form-inline">
               <b-label class="mr-3 h5">Producto:</b-label>
               <b-form-input
                 id="name"
-                v-model="name"
+                v-model="this.$store.state.itemForEdit.name"
                 placeholder="Nombre del producto"
-                :state="validateState('name')"
                 aria-describedby="name"
               ></b-form-input>
               <b-form-invalid-feedback
@@ -30,11 +27,11 @@
             </b-form-group>
           </div>
 
-          <div class="col-4">
+          <div>
             <!-- Agregar Stock Inicial -->
             <b-form-group class="form-inline">
               <b-label class="mr-3 h5">Stock inicial:</b-label>
-              <b-form-input v-model="stock" type="number"></b-form-input>
+              <b-form-input v-model="this.$store.state.itemForEdit.stock" type="number"></b-form-input>
             </b-form-group>
           </div>
         </div>
@@ -89,43 +86,28 @@
                 >Agregar</b-button
               >
             </div>
-            <div class="d-flex justify-content-end">
-              <b-button
-                variant="success"
-                type="button"
-                class="shadow-sm"
-                @click="submit"
-                >Guardar</b-button
-              >
-            </div>
-            <b-alert
-              :show="dismissCountDown"
-              dismissible
-              fade
-              variant="warning"
-              @dismissed="dismissCountDown = 0"
-              @dismiss-count-down="countDownChanged"
-              class="alertBanner"
-            >
-              Guardado correctamente
-            </b-alert>
+            
           </div>
         </div>
       </b-form>
     </b-container>
+    <div class="modal-footer">
+      <b-button @click="editItem()" type="button" class="btn btn-primary">Guardar cambios</b-button>
+      <b-button @click="$bvModal.hide('modal1'), limpiarItem()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</b-button>
+    </div>
+      <b-button @click="refactCustom()" type="button" class="btn btn-secondary" data-dismiss="modal">Prueba</b-button>
+
+    
     </b-modal>
+    
 </div>
 
 </template>
 
 <script type="text/javascript">
 
-import { validationMixin } from "vuelidate";
-import { required } from "vuelidate/lib/validators";
-
 export default {
   name: "modalEditProd",
-  mixins: [validationMixin],
 
   data() {
     return {
@@ -137,22 +119,20 @@ export default {
       ],
       name: "",
       stock: 0,
-      dismissSecs: 4,
+      newCustom: [],
+      final: []
     };
   },
-
-  validations: {
-    name: {
-      required,
-    },
-  },
-
+  
   methods: {
-
-    validateState(name) {
-      const { $dirty, $error } = this.$v[name];
-      return $dirty ? !$error : null;
+    
+    refactCustom() {
+     this.newCustom = Object.entries(this.$store.state.itemForEdit.custom)
+     this.final = Object.assign({...this.newCustom})
     },
+
+    // funcion que pase custom de objeto a array de objetos que sea prop = propiedad y option = opcion
+
 
     addRow() {
       this.rows.push({
@@ -170,13 +150,37 @@ export default {
       this.rows.splice(index, 1);
     },
 
-    countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown;
+    limpiarItem() {
+      this.$store.state.itemForEdit = {}
     },
 
-    showAlert() {
-      this.dismissCountDown = this.dismissSecs;
-    },
+    
+    
+
+    // editItemWithId(itemId) {
+    //   this.$store
+    //     .dispatch("editItemWithId", itemId)
+    //     .then((response) => {
+    //       if (response.ok) {
+    //         (this.name = ""),
+    //           (this.rows = [
+    //             {
+    //               prop: "",
+    //               option: "",
+    //             },
+    //           ]),
+    //           (this.stock = ""),
+    //           this.showAlert(),
+    //           this.$v.$reset();
+    //       }
+
+    //       //MANEJAR CASOS DE ERRORES
+    //       else if (response.status == 500) alert("Pass incorrecto");
+    //       //ERROR POR DEFECTO
+    //       else alert("Problemón");
+    //     });
+    // },
+    // }
 
     //PARA AGREGAR ARCHIVOS EN UN FUTURO
 
@@ -184,44 +188,40 @@ export default {
     //     var file = event.target.files[0];
     //     row.file = file
     // },
-    submit() {
-      this.$v.$touch();
-      if (this.$v.$anyError) {
-        return;
-      }
+    // submit() {
+      
+    //   this.$store.state.nouItem.name = this.name;
+    //   this.$store.state.nouItem.stock = this.stock;
+    //   this.$store.state.nouItem.custom = {};
 
-      this.$store.state.nouItem.name = this.name;
-      this.$store.state.nouItem.stock = this.stock;
-      this.$store.state.nouItem.custom = {};
+    //   for (let i = 0; i < this.rows.length; i++) {
+    //     if (this.rows[i].prop != "" && this.rows[i].option != "")
+    //       this.$store.state.nouItem.custom[this.rows[i].prop] =
+    //         this.rows[i].option;
+    //   }
 
-      for (let i = 0; i < this.rows.length; i++) {
-        if (this.rows[i].prop != "" && this.rows[i].option != "")
-          this.$store.state.nouItem.custom[this.rows[i].prop] =
-            this.rows[i].option;
-      }
+    //   this.$store
+    //     .dispatch("addItem", this.$store.state.nouItem)
+    //     .then((response) => {
+    //       if (response.ok) {
+    //         (this.name = ""),
+    //           (this.rows = [
+    //             {
+    //               prop: "",
+    //               option: "",
+    //             },
+    //           ]),
+    //           (this.stock = ""),
+    //           this.showAlert(),
+    //           this.$v.$reset();
+    //       }
 
-      this.$store
-        .dispatch("addItem", this.$store.state.nouItem)
-        .then((response) => {
-          if (response.ok) {
-            (this.name = ""),
-              (this.rows = [
-                {
-                  prop: "",
-                  option: "",
-                },
-              ]),
-              (this.stock = ""),
-              this.showAlert(),
-              this.$v.$reset();
-          }
-
-          //MANEJAR CASOS DE ERRORES
-          else if (response.status == 500) alert("Pass incorrecto");
-          //ERROR POR DEFECTO
-          else alert("Problemón");
-        });
-    },
+    //       //MANEJAR CASOS DE ERRORES
+    //       else if (response.status == 500) alert("Pass incorrecto");
+    //       //ERROR POR DEFECTO
+    //       else alert("Problemón");
+    //     });
+    // },
   },
 };
 </script>
@@ -229,8 +229,7 @@ export default {
 <style scoped>
 .container-gral {
   margin: auto;
-  margin-top: 2%;
-  height: 100vh;
+  margin-bottom: 20px;
 }
 
 /* label {
@@ -259,4 +258,5 @@ export default {
   width: fit-content;
   margin: auto;
 }
+
 </style>

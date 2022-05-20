@@ -42,11 +42,9 @@
               />
             </td>
             <td class="table-style">
-              <b-button class="btn-edit btn-sm" @click="$bvModal.show('modal1', item.id)" v-b-modal.modal-prevent-closing
+              <b-button class="btn-edit btn-sm" @click="$bvModal.show('modal1'), storeItemEdit(item.id)" v-b-modal.modal-prevent-closing
                 >Editar item</b-button
               >
-
-              <!-- <button @click="showModal()" type="button" class="btn btn-danger btn-sm">Editar</button> -->
             </td>
             <td class="table-style">
               <b-button
@@ -58,6 +56,7 @@
           </tr>
         </tbody>
       </table>
+
       <div class="btn-cont">
         <b-button
           type="button"
@@ -70,6 +69,7 @@
     </div>
 
     <!-- MODAL -->
+
 
       <modalEditProd id="modal1" title="MODAL"></modalEditProd>
 
@@ -108,12 +108,13 @@ export default {
       this.$store.dispatch("obtenirItems");
     },
 
-    editItem(id) {
-      this.$store.dispatch("editItem", id);
-    },
-
     deleteItem(id) {
       this.$store.dispatch("deleteItem", id);
+    },
+
+    storeItemEdit(id) {
+      this.$store.dispatch("storeItemEdit", id);
+
     },
 
   },

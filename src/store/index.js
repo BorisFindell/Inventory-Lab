@@ -12,10 +12,15 @@ export default new Vuex.Store({
     userObj: null,
     groupedVendes: {},
     nouItem: {},
+    itemForEdit: {}
   },
   mutations: {
     generarItems(state, itemsAction) {
       state.items = itemsAction;
+    },
+
+    generarStoreItem(state, itemsStore) {
+      state.itemForEdit = itemsStore;
     },
 
     generarVendes(state, vendesAction) {
@@ -95,17 +100,6 @@ export default new Vuex.Store({
       commit("agruparVendes");
       
     },
-
-    //CREO QUE ES VIEJO ---> CHEQUEAR
-
-    // obtenirMidas({ commit, state }, model) {
-    //   commit(
-    //     "actualitzarMidas",
-    //     state.items
-    //       .filter((el) => el.model == model && el.stock > 0)
-    //       .map((el) => el.size)
-    //   );
-    // },
 
     crearVenda: async function (state, params) {
       const requestOptions = {
@@ -222,14 +216,39 @@ export default new Vuex.Store({
       this.dispatch("obtenirItems");
     },
 
-    editItem: async function (state, id, nouItem) {
+    storeItemEdit: async function ({ commit }, id) {
+      const requestOptions = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + this.state.userObj.jwt,
+        },
+      };
+      const data = await fetch(
+        `https://feriastore.herokuapp.com/items/${id}`,
+        requestOptions
+      );
+      const item = await data.json();
+      commit("generarStoreItem", item);
+    },
+
+    
+
+    //HACER UNA ACCIÓN PARA OBTENER ITEM
+    //EL ID LE LLEGA DEL BOTÓN DEL INVENTARIO QUE ABRE EL MODEL
+    //HACER UNA MUTACIÓN QUE CARGA LA RESPUESTA EN EL ESTADO EN UN OBJETO QUE SEA "ITEM PARA EDITAR"
+    //DESDE EL MODAL EL NOMBRE SE LLENA CON THIS.$STORE.STATE.EL_OBJETO_ITEM_PARA_EDITAR.NOMBRE
+    //AL APRETAR ACEPTAR EN EL MODAL LLAMA A LA ACCIÓN PATCH EDITITEM QUE RECIBE EL ID DEL OBJETO EN CUESTIÓN Y LO CAMBIA
+    //AL FINAL DE TODO SE VACÍA EL OBJETO "ITEM PARA EDITAR"
+
+    editItem: async function (state, id) {
       const requestOptions = {
         method: "PATCH",
         headers: { 
           "Content-Type": "application/json",
           Authorization: "Bearer " + this.state.userObj.jwt
         },
-        body: JSON.stringify(nouItem),
+        body: JSON.stringify(),
       };
       await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions);
       this.dispatch("obtenirItems");
