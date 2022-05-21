@@ -84,15 +84,15 @@ import buttonMeteo from './buttonMeteo.vue'
 
         methods: {
             redirectToINV() {
-            this.$router.push({ path: '/InventarioV' });
+            this.$router.push({ name: 'InventarioV' });
             },
 
             redirectToCREA() {
-            this.$router.push({ path: '/CrearInventariV' });
+            this.$router.push({ name: 'CrearInventariV' });
             },
 
             redirectToVEN() {
-            this.$router.push({ path: '/VentasV' });
+            this.$router.push({ name: 'VentasV' });
             },
 
             redirectToHOME() {
@@ -100,7 +100,7 @@ import buttonMeteo from './buttonMeteo.vue'
             },
 
             redirectToREG() {
-            this.$router.push({ path: '/RegistreV' });
+            this.$router.push({ name: 'RegistreV' });
             },
 
             showMessage() {

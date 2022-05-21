@@ -3,6 +3,7 @@
     <div class="row justify-content-center">
       <div class="contLG border rounded justify-content-center shadow rounded">
 
+        <b-form @submit.stop.prevent="onSubmit">
         <!-- EMAIL -->
 
         <b-form-group
@@ -14,6 +15,7 @@
         >
           <b-form-input
             id="input-5"
+            type="email"
             v-model="$v.form.email.$model"
             :state="validateState('email')"
             placeholder="Enter email"
@@ -22,8 +24,7 @@
           <b-form-invalid-feedback
             class="text-dark font-weight-bold h5"
             id="input-5-live-feedback"
-            >This is a required field and must be at least 8
-            characters.</b-form-invalid-feedback
+            >Este campo no puede quedar en blanco</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -47,15 +48,13 @@
           <b-form-invalid-feedback
             class="text-dark font-weight-bold h5"
             id="input-4-live-feedback"
-            >This is a required field and must be at least 8
-            characters.</b-form-invalid-feedback
+            >Este campo no puede quedar en blanco.</b-form-invalid-feedback
           >
         </b-form-group>
 
         <button
-          type="button"
+          type="submit"
           class="btn btn-success btn-sm shadow rounded mb-3"
-          @click="LogIn"
         >
           Aceptar
         </button>
@@ -68,7 +67,9 @@
             tag="button"
             >¡Registra't!</router-link
           >
+          
         </div>
+        </b-form>
       </div>
     </div>
   </div>
@@ -114,6 +115,17 @@ export default {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
     },
+
+    onSubmit() {
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      }
+      else if (!this.$v.form.$anyError) {
+        return this.LogIn();
+      }
+
+    }
   },
 };
 </script>

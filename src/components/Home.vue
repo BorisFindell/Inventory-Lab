@@ -36,10 +36,10 @@
 
         methods :{
             redirectToINV() {
-            this.$router.push({ path: '/InventarioV' });
+            this.$router.push({ name: 'InventarioV' });
             },
              redirectToVEN() {
-            this.$router.push({ path: '/VentasV' });
+            this.$router.push({ name: 'VentasV' });
 
             }
         }
