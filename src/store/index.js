@@ -13,7 +13,7 @@ export default new Vuex.Store({
     groupedVendes: {},
     nouItem: {},
     itemForEdit: {},
-    
+
   },
   mutations: {
     generarItems(state, itemsAction) {
@@ -45,7 +45,10 @@ export default new Vuex.Store({
       state.groupedVendes = {};
       state.vendes.forEach(function (venda) {
         if (!state.groupedVendes[venda.date]) {
-          Vue.set(state.groupedVendes, venda.date, { total: 0, cant: 0 });
+          Vue.set(state.groupedVendes, venda.date, {
+            total: 0,
+            cant: 0
+          });
         }
         state.groupedVendes[venda.date].total += venda.price;
         state.groupedVendes[venda.date].cant++;
@@ -61,7 +64,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    obtenirItems: async function ({ commit }) {
+    obtenirItems: async function ({
+      commit
+    }) {
       const requestOptions = {
         method: "GET",
         headers: {
@@ -77,7 +82,9 @@ export default new Vuex.Store({
       commit("generarItems", items);
     },
 
-    obtenirVendes: async function ({ commit }, limit) {
+    obtenirVendes: async function ({
+      commit
+    }, limit) {
       const requestOptions = {
         method: "GET",
         headers: {
@@ -100,10 +107,12 @@ export default new Vuex.Store({
       commit("generarVendes", vendes);
     },
 
-    obtenirVendesIAgrupar: async function ({ commit }) {
+    obtenirVendesIAgrupar: async function ({
+      commit
+    }) {
       await this.dispatch("obtenirVendes");
       commit("agruparVendes");
-      
+
     },
 
     crearVenda: async function (state, params) {
@@ -140,11 +149,22 @@ export default new Vuex.Store({
       );
     },
 
-    LogIn: async function ({ commit, state }, { email, password }) {
+    LogIn: async function ({
+      commit,
+      state
+    }, {
+      email,
+      password
+    }) {
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email, password: password }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        }),
       };
       const response = await fetch(
         "https://feriastore.herokuapp.com/sessions",
@@ -211,7 +231,7 @@ export default new Vuex.Store({
     deleteItem: async function (state, id) {
       const requestOptions = {
         method: "DELETE",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + this.state.userObj.jwt
         },
@@ -221,23 +241,25 @@ export default new Vuex.Store({
       this.dispatch("obtenirItems");
     },
 
-    storeItemEdit: async function ({ commit }, id) {
-      const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt,
-        },
-      };
-      const data = await fetch(
-        `https://feriastore.herokuapp.com/items/${id}`,
-        requestOptions
-      );
-      const item = await data.json();
+    storeItemEdit: async function ({
+      commit
+    }, item) {
+      // const requestOptions = {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: "Bearer " + this.state.userObj.jwt,
+      //   },
+      // };
+      // const data = await fetch(
+      //   `https://feriastore.herokuapp.com/items/${id}`,
+      //   requestOptions
+      // );
+      // const item = await data.json();
       commit("generarStoreItem", item);
     },
 
-    
+
 
     //HACER UNA ACCIÓN PARA OBTENER ITEM
     //EL ID LE LLEGA DEL BOTÓN DEL INVENTARIO QUE ABRE EL MODEL
@@ -249,7 +271,7 @@ export default new Vuex.Store({
     editItem: async function (state, id) {
       const requestOptions = {
         method: "PATCH",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + this.state.userObj.jwt
         },
@@ -262,15 +284,19 @@ export default new Vuex.Store({
     createUser: async function (state, newUser) {
       const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(newUser),
       };
       await fetch("https://feriastore.herokuapp.com/users", requestOptions);
     },
 
-    addRow: function ({ commit }) {
+    addRow: function ({
+      commit
+    }) {
       commit("addRow")
-      
+
     }
 
   },
@@ -278,9 +304,9 @@ export default new Vuex.Store({
 
 
   getters: {
-    
+
     //CREO QUE ES VIEJO ---> CHEQUEAR
-  
+
     obtenirModels(state) {
       const modelosFilt = state.items
         .filter((el) => el.stock > 0)

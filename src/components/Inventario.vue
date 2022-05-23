@@ -42,7 +42,7 @@
               />
             </td>
             <td class="table-style">
-              <b-button class="btn-edit btn-sm" @click="$bvModal.show('modal1'), storeItemEdit(item.id)" v-b-modal.modal-prevent-closing
+              <b-button class="btn-edit btn-sm" @click="openModal(item)" v-b-modal.modal-prevent-closing
                 >Editar item</b-button
               >
             </td>
@@ -96,6 +96,19 @@ export default {
   },
 
   methods: {
+    openModal(item){
+      this.itemToEdit = item;
+      this.itemToEdit.parsedCustom = []
+      let index = 0;
+      for (let prop of Object.keys(this.itemToEdit.custom)){
+        const aux = {id:index, key: prop, value: this.itemToEdit.custom[prop]}
+        this.itemToEdit.parsedCustom.push(aux)
+        index ++
+      }
+      this.$store.dispatch("storeItemEdit", item);
+      this.$bvModal.show('modal1');
+    },
+
     setTodo(itemId) {
       const storeItem = this.$store.state.items.find((el) => el.id == itemId);
       this.$store.dispatch("saveTodo", {
@@ -114,7 +127,6 @@ export default {
 
     storeItemEdit(id) {
       this.$store.dispatch("storeItemEdit", id);
-
     },
 
   },

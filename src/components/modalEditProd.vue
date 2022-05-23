@@ -49,20 +49,20 @@
               </thead>
 
               <tbody name="fade" is="transition-group">
-                <tr v-for="(v, k) in custom" :key="(v, k)">
+                <tr v-for="item in parsedCustom" v-bind:key="(item.id)">
                   <td>
                     <b-form-input
                     name="k"
                     type="text"
-                    :value="k"
-                    @change="updateProp"
+                    :value="item.key"
+                    @change="updateProp($event, item.id)"
                     ></b-form-input>
                   </td>
                   <td>
                     <b-form-input
                       type="text"
-                      @change="updateVal($event, k)"
-                      :value="v"
+                      @change="updateVal($event, item.id)"
+                      :value="item.value"
                     ></b-form-input>
                   </td>
 
@@ -141,29 +141,24 @@ export default {
       }
       
     },
-    custom: {
+    parsedCustom: {
       get() {
-        return this.$store.state.itemForEdit.custom
+        return this.$store.state.itemForEdit.parsedCustom
       },
-
-      set(newCustom) {
-        alert('Custom')
-        this.$store.state.itemForEdit.custom = newCustom
-      }
-      
     },
   },
   
   methods: {
 
-    updateProp(event) {
-      this.$store.state.itemForEdit.custom[event.target.value] = this.$store.state.itemForEdit.custom[event.target.name]
-      delete this.$store.state.itemForEdit.custom[event.target.name]
+    updateProp(value,id) {
+      const item = this.$store.state.itemForEdit.parsedCustom.find((item)=>item.id === id)
+      item.key = value
       
     },
 
-    updateVal(value, k) {
-      this.$store.state.itemForEdit.custom[k] = value
+    updateVal(value, id) {
+      const item = this.$store.state.itemForEdit.parsedCustom.find((item)=>item.id === id)
+      item.value = value
     },
 
     // funcion que pase custom de objeto a array de objetos que sea prop = propiedad y option = opcion
@@ -174,8 +169,11 @@ export default {
             // }
 
     addRow() {
-      this.$store.dispatch("addRow");
+      this.$store.state.itemForEdit.parsedCustom.push({id: this.$store.state.itemForEdit.parsedCustom.length, key:"", value:""})
+      const item = Object.assign({}, this.$store.state.itemForEdit)
+      this.$store.dispatch("storeItemEdit", item);
     },
+
     removeElement: function (index) {
       this.rows.splice(index, 1);
     },
