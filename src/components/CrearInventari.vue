@@ -4,7 +4,9 @@
     <b-form class="w-75 d-grid">
       <div class="row justify-content-center">
         <div class="col-4">   
+
           <!-- Agregar Producto -->
+
           <b-form-group class="form-inline">
             <b-label class="mr-3 h5">Producto:</b-label>
             <b-form-input
@@ -20,7 +22,9 @@
         </div>
 
         <div class="col-4">   
+
           <!-- Agregar Stock Inicial -->
+
           <b-form-group class="form-inline">
             <b-label class="mr-3 h5">Stock inicial:</b-label>
             <b-form-input 
@@ -34,7 +38,9 @@
       <div class="row">
 
       <div class="col">
+
       <!-- Tabla para agregar propiedades -->
+        
         <table class="table border shadow-lg tableProps">
 
             <thead>
@@ -232,12 +238,6 @@ name: 'CrearInventari',
     
 }
 
-/* label {
-  display: inline-block;
-  text-align: right;
-} */
-
-
 .btn-submit {
     margin-top: 15px;
     background-color: rgb(30, 114, 27);
@@ -258,5 +258,6 @@ name: 'CrearInventari',
   width: fit-content;
   margin: auto;
 }
+
 </style>
 

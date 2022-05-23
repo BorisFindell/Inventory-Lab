@@ -2,7 +2,7 @@
   <div class="container-gral">
     <div class="row justify-content-center">
       <div class="contLG border rounded justify-content-center shadow rounded">
-
+        
         <b-form @submit.stop.prevent="onSubmit">
         <!-- EMAIL -->
 
@@ -13,6 +13,7 @@
           label-cols-lg="3"
           label-for="input-5"
         >
+       
           <b-form-input
             id="input-5"
             type="email"
@@ -22,9 +23,16 @@
             class="py-4"
           ></b-form-input>
           <b-form-invalid-feedback
-            class="text-dark font-weight-bold h5"
+            v-if="!$v.form.email.required"
+            class="text-dark font-weight-bold h5 text-left"
             id="input-5-live-feedback"
-            >Este campo no puede quedar en blanco</b-form-invalid-feedback
+            >Campo requerido</b-form-invalid-feedback
+          >
+          <b-form-invalid-feedback
+            v-if="!$v.form.email.email"
+            class="text-dark font-weight-bold h5 text-left"
+            id="input-5-live-feedback"
+            >Formato de email incorrecto</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -46,9 +54,9 @@
             class="py-4"
           ></b-form-input>
           <b-form-invalid-feedback
-            class="text-dark font-weight-bold h5"
+            class="text-dark font-weight-bold h5 text-left"
             id="input-4-live-feedback"
-            >Este campo no puede quedar en blanco.</b-form-invalid-feedback
+            >Campo requerido</b-form-invalid-feedback
           >
         </b-form-group>
 
@@ -77,7 +85,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
@@ -95,6 +103,7 @@ export default {
     form: {
       email: {
         required,
+        email
       },
       password: {
         required,
@@ -109,8 +118,20 @@ export default {
         this.$store.dispatch("LogIn", {
           email: this.form.email,
           password: this.form.password,
-        });
-    },
+        }).then((response) => 
+        
+        {
+          if (!response.ok) {
+            if (response.status == 401) 
+              alert("Pass incorrecto");
+            else if (response.status == 404)
+              alert('algo')
+            else
+              alert("Error desconocido, inténtelo nuevamente en unos minutos");
+          }
+        }
+    )},
+    
     validateState(name) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
@@ -122,11 +143,13 @@ export default {
         return;
       }
       else if (!this.$v.form.$anyError) {
-        return this.LogIn();
+        return this.LogIn()
       }
 
-    }
+    },
+    
   },
+    
 };
 </script>
 
@@ -142,4 +165,10 @@ export default {
   margin-top: 10%;
   background-color: rgb(241, 252, 213, 0.8);
 }
+
+.alertBanner{
+  width: fit-content;
+  margin: auto;
+}
+
 </style>

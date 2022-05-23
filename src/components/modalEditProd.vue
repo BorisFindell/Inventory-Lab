@@ -15,7 +15,7 @@
               <b-label class="mr-3 h5">Producto:</b-label>
               <b-form-input
                 id="name"
-                v-model="this.$store.state.itemForEdit.name"
+                v-model="name"
                 placeholder="Nombre del producto"
                 aria-describedby="name"
               ></b-form-input>
@@ -49,14 +49,20 @@
               </thead>
 
               <tbody name="fade" is="transition-group">
-                <tr v-for="(row, index) in rows" :key="index">
+                <tr v-for="(v, k) in custom" :key="(v, k)">
                   <td>
-                    <b-form-input type="text" v-model="row.prop"></b-form-input>
+                    <b-form-input
+                    name="k"
+                    type="text"
+                    :value="k"
+                    @change="updateProp"
+                    ></b-form-input>
                   </td>
                   <td>
                     <b-form-input
                       type="text"
-                      v-model="row.option"
+                      @change="updateVal($event, k)"
+                      :value="v"
                     ></b-form-input>
                   </td>
 
@@ -111,40 +117,64 @@ export default {
 
   data() {
     return {
-      rows: [
-        {
-          prop: "",
-          option: "",
-        },
-      ],
-      name: "",
-      stock: 0,
-      newCustom: [],
-      final: []
     };
+  },
+
+  computed: {
+    name: {
+      get() {
+        return this.$store.state.itemForEdit.name
+      },
+
+      set(newName) {
+        this.$store.state.itemForEdit.name = newName
+      }
+      
+    },
+    stock: {
+      get() {
+        return this.$store.state.itemForEdit.stock
+      },
+
+      set(newStock) {
+        this.$store.state.itemForEdit.stock = newStock
+      }
+      
+    },
+    custom: {
+      get() {
+        return this.$store.state.itemForEdit.custom
+      },
+
+      set(newCustom) {
+        alert('Custom')
+        this.$store.state.itemForEdit.custom = newCustom
+      }
+      
+    },
   },
   
   methods: {
-    
-    refactCustom() {
-     this.newCustom = Object.entries(this.$store.state.itemForEdit.custom)
-     this.final = Object.assign({...this.newCustom})
+
+    updateProp(event) {
+      this.$store.state.itemForEdit.custom[event.target.value] = this.$store.state.itemForEdit.custom[event.target.name]
+      delete this.$store.state.itemForEdit.custom[event.target.name]
+      
+    },
+
+    updateVal(value, k) {
+      this.$store.state.itemForEdit.custom[k] = value
     },
 
     // funcion que pase custom de objeto a array de objetos que sea prop = propiedad y option = opcion
+    //PARA AGREGAR ARCHIVOS EN UN FUTURO
 
+            // file: {
+            //     fileName: 'Choose File'
+            // }
 
     addRow() {
-      this.rows.push({
-        prop: "",
-        option: "",
-
-        //PARA AGREGAR ARCHIVOS EN UN FUTURO
-
-        // file: {
-        //     fileName: 'Choose File'
-        // }
-      });
+      this.$store.dispatch("addRow");
     },
     removeElement: function (index) {
       this.rows.splice(index, 1);

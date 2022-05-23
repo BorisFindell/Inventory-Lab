@@ -12,7 +12,8 @@ export default new Vuex.Store({
     userObj: null,
     groupedVendes: {},
     nouItem: {},
-    itemForEdit: {}
+    itemForEdit: {},
+    
   },
   mutations: {
     generarItems(state, itemsAction) {
@@ -54,6 +55,10 @@ export default new Vuex.Store({
     createUserObj(state, userObj) {
       state.userObj = userObj;
     },
+
+    addRow(state) {
+      state.itemForEdit.custom.newProp = "value"
+    }
   },
   actions: {
     obtenirItems: async function ({ commit }) {
@@ -146,14 +151,14 @@ export default new Vuex.Store({
         requestOptions
       );
 
-      if (!response.ok) {
-        if (response.status == 401) 
-          alert("Pass incorrecto");
-        else if (response.status == 404)
-          alert("Email incorrecto");
-        else
-          alert("Error desconocido, inténtelo nuevamente en unos minutos");
-      }
+      // if (!response.ok) {
+      //   if (response.status == 401) 
+      //     alert("Pass incorrecto");
+      //   else if (response.status == 404)
+      //     alert('algo')
+      //   else
+      //     alert("Error desconocido, inténtelo nuevamente en unos minutos");
+      // }
 
       commit("createUserObj", await response.json());
       window.localStorage.setItem("user", JSON.stringify(state.userObj));
@@ -262,7 +267,14 @@ export default new Vuex.Store({
       };
       await fetch("https://feriastore.herokuapp.com/users", requestOptions);
     },
+
+    addRow: function ({ commit }) {
+      commit("addRow")
+      
+    }
+
   },
+
 
 
   getters: {
