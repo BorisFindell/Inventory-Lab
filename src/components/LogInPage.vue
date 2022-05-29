@@ -34,6 +34,7 @@
             :state="validateState('email')"
             placeholder="Enter email"
             class="py-4"
+            @blur="validationActive = true"
           ></b-form-input>
           <b-form-invalid-feedback
             v-if="!$v.form.email.required"
@@ -155,13 +156,13 @@ export default {
     },
 
     onSubmit() {
-      this.validationActive = true
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
       else if (!this.$v.form.$anyError) {
         return this.LogIn()
+        
       }
 
     },
