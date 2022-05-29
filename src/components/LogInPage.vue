@@ -1,5 +1,19 @@
 <template>
   <div class="container-gral">
+    <div class="alert-cont">
+      <b-alert
+        :show="dismissCountDown"
+        class="alertBanner"
+        fade
+        dismissible
+        variant="warning"
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{ errorBanner }}
+      </b-alert>
+      </div>
+
     <div class="row justify-content-center">
       <div class="contLG border rounded justify-content-center shadow rounded">
         
@@ -16,7 +30,6 @@
        
           <b-form-input
             id="input-5"
-            type="email"
             v-model="$v.form.email.$model"
             :state="validateState('email')"
             placeholder="Enter email"
@@ -78,6 +91,7 @@
           
         </div>
         </b-form>
+
       </div>
     </div>
   </div>
@@ -96,6 +110,17 @@ export default {
         email: "",
         password: "",
       },
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      errores: {
+        password: 'El password es incorrecto',
+        email: 'El email no existe en la base de datos'
+      },
+      errorBanner: '',
+      validationActive: false
+      
+
+      
     };
   },
 
@@ -118,26 +143,19 @@ export default {
         this.$store.dispatch("LogIn", {
           email: this.form.email,
           password: this.form.password,
-        }).then((response) => 
+        }, this.showAlert())
         
-        {
-          if (!response.ok) {
-            if (response.status == 401) 
-              alert("Pass incorrecto");
-            else if (response.status == 404)
-              alert('algo')
-            else
-              alert("Error desconocido, inténtelo nuevamente en unos minutos");
-          }
-        }
-    )},
+    },
     
     validateState(name) {
+      if (this.validationActive === true) {
       const { $dirty, $error } = this.$v.form[name];
       return $dirty ? !$error : null;
+      }
     },
 
     onSubmit() {
+      this.validationActive = true
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -147,7 +165,27 @@ export default {
       }
 
     },
-    
+
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+
+    showAlert(error) {
+      if (error == this.passErr) {
+          this.errorBanner = this.errores.password
+      }
+      else if (error == this.emailErr) {
+          this.errorBanner = this.errores.email
+      }
+      this.dismissCountDown = this.dismissSecs
+    },
+    pickError(num) {
+      if (num == 1) {
+          this.errorBanner = this.errores.passErr
+
+      }
+    }
+
   },
     
 };
@@ -162,7 +200,7 @@ export default {
 .contLG {
   width: 50%;
   padding: 60px 30px;
-  margin-top: 10%;
+  margin-top: 15px;
   background-color: rgb(241, 252, 213, 0.8);
 }
 
@@ -171,4 +209,7 @@ export default {
   margin: auto;
 }
 
+.alert-cont {
+  height: 50px
+}
 </style>

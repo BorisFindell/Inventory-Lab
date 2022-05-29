@@ -149,13 +149,10 @@ export default new Vuex.Store({
       );
     },
 
-    LogIn: async function ({
-      commit,
-      state
-    }, {
+    LogIn: async function ({ commit, state, showAlert, passErr, emailErr }, {
       email,
       password
-    }) {
+    }, ) {
       const requestOptions = {
         method: "POST",
         headers: {
@@ -169,16 +166,19 @@ export default new Vuex.Store({
       const response = await fetch(
         "https://feriastore.herokuapp.com/sessions",
         requestOptions
-      );
+      )
 
-      // if (!response.ok) {
-      //   if (response.status == 401) 
-      //     alert("Pass incorrecto");
-      //   else if (response.status == 404)
-      //     alert('algo')
-      //   else
-      //     alert("Error desconocido, inténtelo nuevamente en unos minutos");
-      // }
+      if (!response.ok) {
+        if (response.status == 401) {
+          showAlert(passErr)
+          
+        }
+        else if (response.status == 404) {
+          showAlert(emailErr)
+        }
+        else
+          alert("Error desconocido, inténtelo nuevamente en unos minutos");
+      }
 
       commit("createUserObj", await response.json());
       window.localStorage.setItem("user", JSON.stringify(state.userObj));
