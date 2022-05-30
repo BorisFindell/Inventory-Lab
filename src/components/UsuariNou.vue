@@ -128,19 +128,12 @@ import { required, minLength, } from "vuelidate/lib/validators";
       //VER COMPROBACIÓN DE USUSARIO EXISTENTE CON AGUS
 
       onSubmit() {
-        const key = this.form.email
-        const userEx = (window.localStorage.getItem(key) !==null)
-        if(userEx){
-          alert("¡El usuario ya existe!")
-        }
-
         
         this.$v.form.$touch();
           if (this.$v.form.$anyError) {
           return;
         }
         
-        else{
         const newUser ={
           name:this.form.name,
           email:this.form.email,
@@ -150,9 +143,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
         }
           
         this.$store.dispatch('createUser', newUser)
-        // window.localStorage.setItem(key, JSON.stringify(newUser))
-        this.$router.push('/')
-        }
+
       },
       onReset(event) {
         event.preventDefault()

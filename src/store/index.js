@@ -289,7 +289,16 @@ export default new Vuex.Store({
         },
         body: JSON.stringify(newUser),
       };
-      await fetch("https://feriastore.herokuapp.com/users", requestOptions);
+      const response = await fetch("https://feriastore.herokuapp.com/users", requestOptions)
+
+        if (!response.ok) {
+          if (response.status == 409) {
+            alert('ERROR')
+          }
+        }
+        else {
+          router.push({ name: 'LogInPageV' });
+        }
     },
 
     addRow: function ({
