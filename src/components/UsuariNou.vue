@@ -1,5 +1,18 @@
 <template>
   <div class="container-gral">
+    <div class="alert-cont">
+      <b-alert
+        :show="dismissCountDown"
+        class="alertBanner"
+        fade
+        dismissible
+        variant="warning"
+        @dismissed="dismissCountDown=0"
+        @dismiss-count-down="countDownChanged"
+      >
+        {{ errores.email }}
+    </b-alert>
+    </div>
     <div class="titol-cont p-5 border">
       <h1 class="titol">
         Formulari de registre
@@ -101,6 +114,11 @@ import { required, minLength, } from "vuelidate/lib/validators";
           password: '',
           checked: [],
         },
+        dismissSecs: 5,
+        dismissCountDown: 0,
+        errores: {
+          email: '¡El email ya existe en la base de datos!'
+        },
         show: true
       }
     },
@@ -124,6 +142,13 @@ import { required, minLength, } from "vuelidate/lib/validators";
         const { $dirty, $error } = this.$v.form[name];
         return $dirty ? !$error : null;
       },
+      countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+
+      showAlert() {
+        this.dismissCountDown = this.dismissSecs
+      },
       
       //VER COMPROBACIÓN DE USUSARIO EXISTENTE CON AGUS
 
@@ -133,6 +158,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
           if (this.$v.form.$anyError) {
           return;
         }
+
         
         const newUser ={
           name:this.form.name,
@@ -142,7 +168,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
         
         }
           
-        this.$store.dispatch('createUser', newUser)
+        this.$store.dispatch('createUser', newUser, this.showAlert())
 
       },
       onReset(event) {
@@ -200,6 +226,15 @@ import { required, minLength, } from "vuelidate/lib/validators";
   color: rgb(107, 48, 30);
 
 
+}
+
+.alertBanner{
+  width: fit-content;
+  margin: auto;
+}
+
+.alert-cont {
+  height: 50px
 }
 
 </style>
