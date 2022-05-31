@@ -149,10 +149,11 @@ export default new Vuex.Store({
       );
     },
 
-    LogIn: async function ({ commit, state, showAlert, passErr, emailErr }, {
+    LogIn: async function ({ commit, state }, {
       email,
-      password
-    }, ) {
+      password,
+      showAlert
+    }) {
       const requestOptions = {
         method: "POST",
         headers: {
@@ -170,11 +171,11 @@ export default new Vuex.Store({
 
       if (!response.ok) {
         if (response.status == 401) {
-          showAlert(passErr)
+          showAlert(401)
           
         }
         else if (response.status == 404) {
-          showAlert(emailErr)
+          showAlert(404)
         }
         else
           alert("Error desconocido, inténtelo nuevamente en unos minutos");
@@ -281,7 +282,7 @@ export default new Vuex.Store({
       this.dispatch("obtenirItems");
     },
 
-    createUser: async function (state, newUser, showAlert) {
+    createUser: async function (state, {newUser, showAlert}) {
       const requestOptions = {
         method: "POST",
         headers: {
@@ -293,7 +294,7 @@ export default new Vuex.Store({
 
         if (!response.ok) {
           if (response.status == 409) {
-            showAlert
+            showAlert()
           }
         }
         else {

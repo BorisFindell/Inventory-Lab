@@ -7,7 +7,7 @@
         fade
         dismissible
         variant="warning"
-        @dismissed="dismissCountDown=0"
+        @dismissed="dismissCountDown"
         @dismiss-count-down="countDownChanged"
       >
         {{ errorBanner }}
@@ -144,8 +144,7 @@ export default {
         this.$store.dispatch("LogIn", {
           email: this.form.email,
           password: this.form.password,
-        }, this.showAlert())
-        
+          showAlert: this.showAlert})
     },
     
     validateState(name) {
@@ -172,21 +171,14 @@ export default {
     },
 
     showAlert(error) {
-      if (error == this.passErr) {
+      if (error == 401) {
           this.errorBanner = this.errores.password
       }
-      else if (error == this.emailErr) {
+      else if (error == 404) {
           this.errorBanner = this.errores.email
       }
       this.dismissCountDown = this.dismissSecs
     },
-    pickError(num) {
-      if (num == 1) {
-          this.errorBanner = this.errores.passErr
-
-      }
-    }
-
   },
     
 };

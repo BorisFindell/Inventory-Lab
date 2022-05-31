@@ -15,10 +15,21 @@
               <b-label class="mr-3 h5">Producto:</b-label>
               <b-form-input
                 id="name"
+                list="nameList"
                 v-model="name"
                 placeholder="Nombre del producto"
                 aria-describedby="name"
               ></b-form-input>
+              
+              <datalist id="nameList">
+                <option value="Chrome"></option>
+                <option value="Firefox"></option>
+                <option value="Internet Explorer"></option>
+                <option value="Opera"></option>
+                <option value="Safari"></option>
+                <option value="Microsoft Edge"></option>
+              </datalist>
+
               <b-form-invalid-feedback
                 class="text-dark font-weight-bold"
                 id="name"
@@ -51,19 +62,41 @@
               <tbody name="fade" is="transition-group">
                 <tr v-for="item in parsedCustom" v-bind:key="(item.id)">
                   <td>
+
                     <b-form-input
                     name="k"
+                    list="propsList"
                     type="text"
                     :value="item.key"
                     @change="updateProp($event, item.id)"
                     ></b-form-input>
+
+                    <datalist id="propsList">
+                      <option value="Chrome"></option>
+                      <option value="Firefox"></option>
+                      <option value="Internet Explorer"></option>
+                      <option value="Opera"></option>
+                      <option value="Safari"></option>
+                      <option value="Microsoft Edge"></option>
+                    </datalist>
+
                   </td>
                   <td>
                     <b-form-input
                       type="text"
+                      list="valueList"
                       @change="updateVal($event, item.id)"
                       :value="item.value"
                     ></b-form-input>
+
+                    <datalist id="valueList">
+                      <option value="Chrome"></option>
+                      <option value="Firefox"></option>
+                      <option value="Internet Explorer"></option>
+                      <option value="Opera"></option>
+                      <option value="Safari"></option>
+                      <option value="Microsoft Edge"></option>
+                    </datalist>
                   </td>
 
                   <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->

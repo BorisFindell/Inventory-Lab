@@ -168,7 +168,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
         
         }
           
-        this.$store.dispatch('createUser', newUser, this.showAlert())
+        this.$store.dispatch('createUser', {newUser: newUser, showAlert: this.showAlert})
 
       },
       onReset(event) {
