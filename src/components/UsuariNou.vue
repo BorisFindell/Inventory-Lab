@@ -1,17 +1,17 @@
 <template>
   <div class="container-gral">
     <div class="alert-cont">
-      <b-alert
+      <!-- <b-alert
         :show="dismissCountDown"
         class="alertBanner"
         fade
         dismissible
-        variant="warning"
+        variant="danger"
         @dismissed="dismissCountDown=0"
         @dismiss-count-down="countDownChanged"
       >
         {{ errores.email }}
-    </b-alert>
+    </b-alert> -->
     </div>
     <div class="titol-cont p-5 border">
       <h1 class="titol">
@@ -38,6 +38,7 @@
             :state="validateState('name')"
             placeholder="Enter name"
             class="py-4"
+            @blur="validationActive = true"
           ></b-form-input>
           <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-1-live-feedback">This is a required field.</b-form-invalid-feedback>
         </b-form-group>
@@ -55,11 +56,22 @@
             id="input-3"
             v-model="$v.form.email.$model"
             :state="validateState('email')"
-            type="email"
             placeholder="Enter email"
             class="py-4"
+            @blur="validationActive = true"
           ></b-form-input>
-          <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-3-live-feedback">This is a required field.</b-form-invalid-feedback>
+          <b-form-invalid-feedback
+            v-if="!$v.form.email.required"
+            class="text-dark font-weight-bold h5 text-left"
+            id="input-5-live-feedback"
+            >Campo requerido</b-form-invalid-feedback
+          >
+          <b-form-invalid-feedback
+            v-if="!$v.form.email.email"
+            class="text-dark font-weight-bold h5 text-left"
+            id="input-5-live-feedback"
+            >Formato de email incorrecto</b-form-invalid-feedback
+          >
         </b-form-group>
 
         
@@ -78,7 +90,7 @@
             type="password"
             placeholder="Enter password"
             class="py-4"
-            
+            @blur="validationActive = true"
           ></b-form-input>
           <b-form-invalid-feedback class="text-dark font-weight-bold h5" id="input-4-live-feedback">This is a required field and must be at least 8 characters.</b-form-invalid-feedback>
         </b-form-group>
@@ -96,13 +108,36 @@
 
       </b-form>
     </div>
+    <div>
+      <b-modal id="modal-error" centered title="Email incorrecto" header-bg-variant="warning">
+        <template #modal-header>
+          <!-- Emulate built in modal header close button action -->
+          <h5>Error</h5>
+        </template>
+        <pre class="my-4 error-modal">{{ errores.email }}</pre>
+        <template #modal-footer>
+          <div class="w-100">
+            <p class="float-left"></p>
+            <b-button
+              variant="danger"
+              size="sm"
+              class="float-right"
+              @click="closeModal()"
+              
+            >
+              Close
+            </b-button>
+          </div>
+        </template>
+      </b-modal>
+    </div>
   </div>
 </template>
 
 <script>
 
 import { validationMixin } from "vuelidate";
-import { required, minLength, } from "vuelidate/lib/validators";
+import { required, minLength, email } from "vuelidate/lib/validators";
   
   export default {
     mixins: [validationMixin],
@@ -114,12 +149,13 @@ import { required, minLength, } from "vuelidate/lib/validators";
           password: '',
           checked: [],
         },
-        dismissSecs: 5,
-        dismissCountDown: 0,
+        // dismissSecs: 5,
+        // dismissCountDown: 0,
         errores: {
-          email: '¡El email ya existe en la base de datos!'
+          email: 'Ups...¡El email ya existe en la base de datos! \n\nEscoge uno nuevo y vuelve a intentarlo'
         },
-        show: true
+        show: true,
+        validationActive: false
       }
     },
     validations: {
@@ -129,6 +165,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
       },
       email: {
         required,
+        email
       },
       password: {
         required,
@@ -139,15 +176,21 @@ import { required, minLength, } from "vuelidate/lib/validators";
     methods: {
       
       validateState(name) {
+        if (this.validationActive === true) {
         const { $dirty, $error } = this.$v.form[name];
         return $dirty ? !$error : null;
+        }
       },
-      countDownChanged(dismissCountDown) {
-        this.dismissCountDown = dismissCountDown
+      // countDownChanged(dismissCountDown) {
+      //   this.dismissCountDown = dismissCountDown
+      // },
+
+      showModal() {
+        this.$bvModal.show('modal-error');
       },
 
-      showAlert() {
-        this.dismissCountDown = this.dismissSecs
+      closeModal() {
+        this.$bvModal.hide('modal-error')
       },
       
       //VER COMPROBACIÓN DE USUSARIO EXISTENTE CON AGUS
@@ -158,17 +201,17 @@ import { required, minLength, } from "vuelidate/lib/validators";
           if (this.$v.form.$anyError) {
           return;
         }
-
+          else {
         
-        const newUser ={
-          name:this.form.name,
-          email:this.form.email,
-          password: this.form.password,
-          role: 'admin'
-        
-        }
+            const newUser ={
+              name:this.form.name,
+              email:this.form.email,
+              password: this.form.password,
+              role: 'admin'
+            }
           
-        this.$store.dispatch('createUser', {newUser: newUser, showAlert: this.showAlert})
+            this.$store.dispatch('createUser', {newUser: newUser, showModal: this.showModal})
+          }
 
       },
       onReset(event) {
@@ -180,6 +223,7 @@ import { required, minLength, } from "vuelidate/lib/validators";
         this.form.password = ''
         // Trick to reset/clear native browser form validation state
         this.show = false
+        this.validationActive = false
         this.$nextTick(() => {
           this.show = true
         })
@@ -196,12 +240,13 @@ import { required, minLength, } from "vuelidate/lib/validators";
 
 .form-cont {
     width: 60%;
-    height: 100vh;
+    height: 100%;
     padding-top: 50px;
     background-color: rgb(185, 211, 211, .8);
     margin-top: 2%;
 
 }
+
 .form-group {
   width: 70%;
 }
@@ -219,13 +264,11 @@ import { required, minLength, } from "vuelidate/lib/validators";
   justify-content: center;
   font-size: 1rem;
   padding: 20px;
-  
 }
+
 .btn-torna {
   background-color: rgba(233, 149, 149, 0.9);
   color: rgb(107, 48, 30);
-
-
 }
 
 .alertBanner{
@@ -235,6 +278,12 @@ import { required, minLength, } from "vuelidate/lib/validators";
 
 .alert-cont {
   height: 50px
+}
+
+.error-modal {
+  font-family: monospace;
+  font-size: 1rem;
+  text-align: center;
 }
 
 </style>

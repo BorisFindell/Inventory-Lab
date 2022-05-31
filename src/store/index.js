@@ -282,7 +282,7 @@ export default new Vuex.Store({
       this.dispatch("obtenirItems");
     },
 
-    createUser: async function (state, {newUser, showAlert}) {
+    createUser: async function (state, {newUser, showModal}) {
       const requestOptions = {
         method: "POST",
         headers: {
@@ -294,7 +294,7 @@ export default new Vuex.Store({
 
         if (!response.ok) {
           if (response.status == 409) {
-            showAlert()
+            showModal()
           }
         }
         else {
