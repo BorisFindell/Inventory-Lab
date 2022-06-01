@@ -42,7 +42,7 @@
               />
             </td>
             <td class="table-style">
-              <b-button class="btn-edit btn-sm" @click="openModal(item)" v-b-modal.modal-prevent-closing
+              <b-button class="btn-edit btn-sm" @click="openModal(item), this.$store.dispatch('obtenerPropiedades')" v-b-modal.modal-prevent-closing
                 >Editar item</b-button
               >
             </td>

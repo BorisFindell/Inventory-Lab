@@ -15,21 +15,10 @@
               <b-label class="mr-3 h5">Producto:</b-label>
               <b-form-input
                 id="name"
-                list="nameList"
                 v-model="name"
                 placeholder="Nombre del producto"
                 aria-describedby="name"
               ></b-form-input>
-              
-              <datalist id="nameList">
-                <option value="Chrome"></option>
-                <option value="Firefox"></option>
-                <option value="Internet Explorer"></option>
-                <option value="Opera"></option>
-                <option value="Safari"></option>
-                <option value="Microsoft Edge"></option>
-              </datalist>
-
               <b-form-invalid-feedback
                 class="text-dark font-weight-bold"
                 id="name"
@@ -71,32 +60,17 @@
                     @change="updateProp($event, item.id)"
                     ></b-form-input>
 
-                    <datalist id="propsList">
-                      <option value="Chrome"></option>
-                      <option value="Firefox"></option>
-                      <option value="Internet Explorer"></option>
-                      <option value="Opera"></option>
-                      <option value="Safari"></option>
-                      <option value="Microsoft Edge"></option>
+                    <datalist id="propsList" v-for="props in item.this.$store.state.propiedadesList" :key="props.id">
+                      <option value="item.props"></option>
                     </datalist>
 
                   </td>
                   <td>
                     <b-form-input
                       type="text"
-                      list="valueList"
                       @change="updateVal($event, item.id)"
                       :value="item.value"
                     ></b-form-input>
-
-                    <datalist id="valueList">
-                      <option value="Chrome"></option>
-                      <option value="Firefox"></option>
-                      <option value="Internet Explorer"></option>
-                      <option value="Opera"></option>
-                      <option value="Safari"></option>
-                      <option value="Microsoft Edge"></option>
-                    </datalist>
                   </td>
 
                   <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->

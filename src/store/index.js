@@ -13,6 +13,7 @@ export default new Vuex.Store({
     groupedVendes: {},
     nouItem: {},
     itemForEdit: {},
+    propiedadesList: []
 
   },
   mutations: {
@@ -61,6 +62,10 @@ export default new Vuex.Store({
 
     addRow(state) {
       state.itemForEdit.custom.newProp = "value"
+    },
+    generarListaPropiedades (state, propiedadesList) {
+      state.propiedadesList = propiedadesList
+
     }
   },
   actions: {
@@ -311,19 +316,27 @@ export default new Vuex.Store({
 
   },
 
+  obtenerPropiedades: async function ({
+    commit
+  }) {
+    const requestOptions = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.state.userObj.jwt,
+      },
+    };
+    const data = await fetch(
+      "https://feriastore.herokuapp.com/properties",
+      requestOptions
+    );
+    const propiedadesList = await data.json();
+    commit("generarListaPropiedades", propiedadesList);
+  },
+
 
 
   getters: {
 
-    //CREO QUE ES VIEJO ---> CHEQUEAR
-
-    obtenirModels(state) {
-      const modelosFilt = state.items
-        .filter((el) => el.stock > 0)
-        .map((el) => el.model);
-      return modelosFilt.filter((valor, index) => {
-        return modelosFilt.indexOf(valor) === index;
-      });
-    },
   },
 });
