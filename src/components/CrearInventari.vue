@@ -234,7 +234,6 @@ name: 'CrearInventari',
 .container-gral {
     margin: auto;
     margin-top: 2%;
-    height: 100vh;
     
 }
 

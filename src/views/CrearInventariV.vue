@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
   .cont-gral {
-    height: 100%;
+    height: 100vh;
     background-image: url('../assets/general-bg.jpeg');
     background-position: center;
     background-repeat:no-repeat;

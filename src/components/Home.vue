@@ -52,13 +52,12 @@
 
 .container-gral {
     max-width: 100%;
-    height: 100vh;
     display: block;
 }
 
 .container-display {
     width: 60%;
-    height: 60%;
+    height: 60vh;
     display: flex;
     justify-content: center;
     align-items: center;

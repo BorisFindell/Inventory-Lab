@@ -33,18 +33,16 @@ export default {
 
 <style scoped>
   .inventari-cont {
-    height: 100vh;
     margin-top: 3%;
     
   }
 
   .cont-gral {
-    height: 100vh;
     background-image: url('../assets/general-bg.jpeg');
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;
-    height: max-content;
+    height: 100vh;
     max-height: 100vh;
     overflow:auto;
   }
