@@ -1,7 +1,7 @@
 <template>
     <div class="registre-cont">
         <div class="vendes-cont mt-5">
-            <h3> Vendes </h3>
+            <h3> Ventas </h3>
             <b-form action="/search">
             <b-input-group>
                 <b-form-input size="sm" v-model="searchTxt" placeholder="Search"/>
@@ -11,10 +11,10 @@
             </b-form>
             <table class="table text-light" >
                 <thead class="headers-style">
-                <th> Data </th>
-                <th> Model </th>
-                <th> Mida </th>
-                <th> Preu </th>
+                <th> Fecha </th>
+                <th> Producto </th>
+                <th> Propiedades </th>
+                <th> Precio </th>
 
                 </thead>
                 <tr class="border-dark" v-for="(item, index) in computedList" :key="index">

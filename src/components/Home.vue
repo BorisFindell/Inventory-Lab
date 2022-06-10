@@ -5,7 +5,7 @@
             <div class="inventari-cont shadow-lg" style="cursor: pointer;" @click="redirectToINV()">
                 <div class="inventari-titol-cont">
                     <h2 class="inventari-titol">
-                        Inventari
+                        Inventario
                     </h2>
                 </div>
             </div>
@@ -13,7 +13,7 @@
             <div class="vendes-cont shadow-lg" style="cursor: pointer;" @click="redirectToVEN()">
                 <div class="vendes-titol-cont">
                     <h2 class="vendes-titol">
-                        Vendes
+                        Ventas
                     </h2>
                 </div>
             </div>

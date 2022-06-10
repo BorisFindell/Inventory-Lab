@@ -37,17 +37,17 @@
             <div class="px-3 py-2">
                 
                 <p>
-                    PÀGINES
+                    PÁGINAS
                 </p>
                 
                 <hr>
                 <div class="links-navbar-cont">
                     <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToCREA()">Modificar inventari</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventari</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Vendes</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'user'" @click="redirectToREG()">Registre de vendes <b-icon icon="file-lock2"></b-icon></b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registre de vendes</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToCREA()">Modificar inventario</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventario</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Ventas</b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'user'" @click="redirectToREG()">Registro de ventas <b-icon icon="file-lock2"></b-icon></b-button>
+                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registro de ventas</b-button>
                 </div>
             </div>
             <hr>

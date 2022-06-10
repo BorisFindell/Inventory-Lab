@@ -3,23 +3,23 @@
     <div class="params mx-auto mt-5 border border-success rounded shadow-lg p-3 mb-5 bg-white rounded">
 
     <div class="d-flex justify-content-center align-items-center params-cont">
-      <label for="date-picker" class="mx-2 my-auto">Data</label>
-      <b-form-datepicker placeholder="Tria una data" id="date-picker" v-model="date"></b-form-datepicker>
+      <label for="date-picker" class="mx-2 my-auto">Fecha</label>
+      <b-form-datepicker placeholder="Escoge una fecha" id="date-picker" v-model="date"></b-form-datepicker>
     </div>
 
       <!-- Modelo -->
 
 
     <div class="d-flex justify-content-center align-items-center params-cont">
-      <div class="mx-2">Model: </div>
-      <b-form-select v-model="model" @change="obtenirMidas()" :options="$store.getters.obtenirModels"></b-form-select>
+      <div class="mx-2">Producto: </div>
+      <b-form-select v-model="producto" @change="obtenirMidas()" :options="$store.getters.obtenirModels"></b-form-select>
     </div>
       
 
     <!-- Tamaño -->
 
     <div class="d-flex justify-content-center align-items-center params-cont">
-      <div class="mx-2">Mida: </div>
+      <div class="mx-2">Propiedades: </div>
       <b-form-select v-model="mida" :options="$store.state.midasDisp"></b-form-select>
     </div>  
 
@@ -27,8 +27,8 @@
   <!-- Preu -->
 
     <div class="d-flex justify-content-center align-items-center params-cont">
-        <div class="mx-2">Preu: </div>
-        <b-form-input v-model="preu" type="number" placeholder="Escriu el preu"></b-form-input>
+        <div class="mx-2">Precio: </div>
+        <b-form-input v-model="preu" type="number" placeholder="Escribe el precio"></b-form-input>
     </div>
 
       <button @click="afegVendes()" type="button" class="btn btn-success">Enviar</button>
@@ -39,7 +39,7 @@
       <table class="table text-light mb-0">
         <thead class="headers-style">
           <th> Data </th>
-          <th> Model </th>
+          <th> Producto </th>
           <th> Mida </th>
           <th> Preu </th>
           <th></th>
@@ -74,7 +74,7 @@
         },
         data () {
           return {
-            model: null,
+            producto: null,
             mida: null,
             date: '',
             preu: null,
@@ -92,7 +92,7 @@
             const item = this.$store.state.items.find(el => el.model == this.model && el.size == this.mida)
             const params = {date: this.date, itemId: item.id, price: this.preu}
             this.$store.dispatch('crearVentaYRefrescar', params)
-            this.model = null
+            this.producto = null
             this.mida = null
             this.date = ''
             this.preu = null

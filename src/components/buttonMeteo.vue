@@ -1,7 +1,7 @@
 <template>
     <div class="container justify-content-start">
         <div>
-            <button type="button" @click="$emit('showMessage')" class="btn btn-dark btn-sm ">Consulta el temps</button>
+            <button type="button" @click="$emit('showMessage')" class="btn btn-dark btn-sm ">Consulta el tiempo</button>
         </div>
         <div>
             <transition name="fade">
@@ -11,7 +11,7 @@
                                 <div class="container-temp m-3">
                                     <img class="img-sol" src="../assets/temps-icon.png" alt="temps">
                                     <p :class="tempsTxtColor">
-                                        El temps a Barcelona ara és: {{tempsTxt}}
+                                        El tiempo en Barcelona ahora es: {{tempsTxt}}
                                     </p>
                                 </div>
                             </div>
