@@ -21,6 +21,9 @@
           </b-form-group>
         </div>
 
+
+        
+
         <div class="col-4">   
 
           <!-- Agregar Stock Inicial -->
@@ -55,7 +58,14 @@
                 
                     <tr v-for="(row, index) in rows" :key="index">
                     
-                      <td><b-form-input type="text" v-model="row.prop"></b-form-input></td>
+                      <!-- <td><b-form-input type="text" v-model="row.prop"></b-form-input></td> -->
+                      <td><vue-bootstrap-typeahead 
+                        v-model="row.prop"
+                        :data="propertyList"
+                        :minMatchingChars=2
+                      />
+                      </td>
+                      
                       <td><b-form-input type="text" v-model="row.option"></b-form-input></td>
 
                       <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->
@@ -76,7 +86,7 @@
             
             
         </table>
-
+            
             <div>
               <b-button variant="info" class="shadow-sm" @click="addRow">Agregar</b-button>
             </div>
@@ -95,6 +105,7 @@
               Guardado correctamente
               
             </b-alert>
+            
       </div>
       </div>
 
@@ -108,12 +119,17 @@
 
 import { validationMixin } from "vuelidate";
 import { required } from "vuelidate/lib/validators";
+import VueBootstrapTypeahead from 'vue-typeahead-bootstrap'
 
-  export default {
+export default {
 
+  async mounted() {
+    this.propertyList = await this.$store.getters.obtenerPropiedades
+  },
 
-name: 'CrearInventari',
-    mixins: [validationMixin],
+  name: 'CrearInventari',
+  mixins: [validationMixin],
+  components: { VueBootstrapTypeahead },
 
   data() {
     return {
@@ -122,11 +138,14 @@ name: 'CrearInventari',
           prop:'',
           option: ''
         }
+        
       ],
       name: '',
       stock: 0,
       dismissSecs: 4,
+      propertyList: '',
     }
+
 
   },
 

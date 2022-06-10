@@ -14,7 +14,6 @@ export default new Vuex.Store({
     groupedVendes: {},
     nouItem: {},
     itemForEdit: {},
-    propiedadesList: []
 
   },
   mutations: {
@@ -64,10 +63,6 @@ export default new Vuex.Store({
     addRow(state) {
       state.itemForEdit.custom.newProp = "value"
     },
-    generarListaPropiedades(state, propiedadesList) {
-      state.propiedadesList = propiedadesList
-
-    }
   },
   actions: {
     obtenirItems: async function ({
@@ -288,6 +283,15 @@ export default new Vuex.Store({
   },
 
   getters: {
-
+    obtenerPropiedades: async function () {
+      const requestOptions = {
+        method: "GET"
+      };
+      const data = await fetch(
+        "https://feriastore.herokuapp.com/properties",
+        requestOptions
+      );
+      return data.json()
+    },
   },
 });
