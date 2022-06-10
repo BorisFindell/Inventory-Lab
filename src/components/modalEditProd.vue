@@ -49,51 +49,37 @@
               </thead>
 
               <tbody name="fade" is="transition-group">
-                <tr v-for="item in parsedCustom" v-bind:key="(item.id)">
+                 <tr v-for="(v, k) in custom" :key="(v, k)">
                   <td>
-
-                    <b-form-input
-                    name="k"
-                    list="propsList"
-                    type="text"
-                    :value="item.key"
-                    @change="updateProp($event, item.id)"
-                    ></b-form-input>
-
-                    <datalist id="propsList" v-for="props in item.this.$store.state.propiedadesList" :key="props.id">
-                      <option value="item.props"></option>
-                    </datalist>
-
+                    <b-label class="mr-3 h5">{{k}}:</b-label>
                   </td>
                   <td>
                     <b-form-input
                       type="text"
-                      @change="updateVal($event, item.id)"
-                      :value="item.value"
+                      @change="updateVal($event, k)"
+                      :value="v"
                     ></b-form-input>
                   </td>
-
-                  <!-- AGREGAR ARCHIVO COMENTADO PARA USAR MÁS ADELANTE CON UNA FOTO DEL PRODUCTO -->
-
-                  <!-- <td>
-                          <label class="fileContainer">
-                              {{row.file.name}}
-                              <input type="file" @change="setFilename($event, row)" :id="index">
-                          </label>
-                      </td> -->
                   <td>
                     <b-button
                       variant="danger"
                       class="border"
-                      @click="removeElement(index)"
+                      @click="removeElement(k)"
                       style="cursor: pointer"
                       >Borrar</b-button
                     >
                   </td>
                 </tr>
+
+                <tr v-for="(row, index) in rows" :key="index">
+                  <td><b-form-input type="text" v-model="row.prop"></b-form-input></td>
+                  <td><b-form-input type="text" v-model="row.option"></b-form-input></td>
+                  <td>
+                      <b-button variant="danger" class="border" @click="removeRow(index)" style="cursor: pointer">Borrar</b-button>
+                  </td>
+                </tr>
               </tbody>
             </table>
-
             <div>
               <b-button variant="info" class="shadow-sm" @click="addRow"
                 >Agregar</b-button
@@ -106,12 +92,9 @@
     </b-container>
     <div class="modal-footer">
       <b-button @click="editItem()" type="button" class="btn btn-primary">Guardar cambios</b-button>
-      <b-button @click="$bvModal.hide('modal1'), limpiarItem()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</b-button>
+      <b-button @click="close()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</b-button>
     </div>
-      <b-button @click="refactCustom()" type="button" class="btn btn-secondary" data-dismiss="modal">Prueba</b-button>
-
-    
-    </b-modal>
+  </b-modal>
     
 </div>
 
@@ -124,6 +107,8 @@ export default {
 
   data() {
     return {
+      rows: [
+      ]
     };
   },
 
@@ -148,115 +133,62 @@ export default {
       }
       
     },
-    parsedCustom: {
+    custom: {
       get() {
-        return this.$store.state.itemForEdit.parsedCustom
+        return this.$store.state.itemForEdit.custom
       },
     },
+    newCustomProperties: {
+      get() {
+        return this.$store.state.itemForEdit.newCustomProperties
+      },
+    }
   },
   
   methods: {
 
-    updateProp(value,id) {
-      const item = this.$store.state.itemForEdit.parsedCustom.find((item)=>item.id === id)
-      item.key = value
-      
+    updateVal(value, k) {
+      this.$store.state.itemForEdit.custom[k] = value
     },
-
-    updateVal(value, id) {
-      const item = this.$store.state.itemForEdit.parsedCustom.find((item)=>item.id === id)
-      item.value = value
-    },
-
-    // funcion que pase custom de objeto a array de objetos que sea prop = propiedad y option = opcion
-    //PARA AGREGAR ARCHIVOS EN UN FUTURO
-
-            // file: {
-            //     fileName: 'Choose File'
-            // }
 
     addRow() {
-      this.$store.state.itemForEdit.parsedCustom.push({id: this.$store.state.itemForEdit.parsedCustom.length, key:"", value:""})
-      const item = Object.assign({}, this.$store.state.itemForEdit)
-      this.$store.dispatch("storeItemEdit", item);
+      this.rows.push({
+          prop: '',
+          option: ''
+      }); 
     },
 
-    removeElement: function (index) {
+    removeRow: function(index) {
       this.rows.splice(index, 1);
     },
 
-    limpiarItem() {
+    removeElement: function (k) {
+      delete this.$store.state.itemForEdit.custom[k]
+      this.refresh();
+    },
+
+    editItem(){
+      for (let row of this.rows){
+        this.$store.state.itemForEdit.custom[row.prop]=row.option
+      }
+      this.$store.dispatch("editItem");
+      this.reset();
+      this.close();
+    },
+
+    close(){
+      this.$bvModal.hide('modal1');
       this.$store.state.itemForEdit = {}
     },
 
-    
-    
+    reset(){
+      this.rows = []
+    },
 
-    // editItemWithId(itemId) {
-    //   this.$store
-    //     .dispatch("editItemWithId", itemId)
-    //     .then((response) => {
-    //       if (response.ok) {
-    //         (this.name = ""),
-    //           (this.rows = [
-    //             {
-    //               prop: "",
-    //               option: "",
-    //             },
-    //           ]),
-    //           (this.stock = ""),
-    //           this.showAlert(),
-    //           this.$v.$reset();
-    //       }
-
-    //       //MANEJAR CASOS DE ERRORES
-    //       else if (response.status == 500) alert("Pass incorrecto");
-    //       //ERROR POR DEFECTO
-    //       else alert("Problemón");
-    //     });
-    // },
-    // }
-
-    //PARA AGREGAR ARCHIVOS EN UN FUTURO
-
-    // setFilename: function(event, row) {
-    //     var file = event.target.files[0];
-    //     row.file = file
-    // },
-    // submit() {
-      
-    //   this.$store.state.nouItem.name = this.name;
-    //   this.$store.state.nouItem.stock = this.stock;
-    //   this.$store.state.nouItem.custom = {};
-
-    //   for (let i = 0; i < this.rows.length; i++) {
-    //     if (this.rows[i].prop != "" && this.rows[i].option != "")
-    //       this.$store.state.nouItem.custom[this.rows[i].prop] =
-    //         this.rows[i].option;
-    //   }
-
-    //   this.$store
-    //     .dispatch("addItem", this.$store.state.nouItem)
-    //     .then((response) => {
-    //       if (response.ok) {
-    //         (this.name = ""),
-    //           (this.rows = [
-    //             {
-    //               prop: "",
-    //               option: "",
-    //             },
-    //           ]),
-    //           (this.stock = ""),
-    //           this.showAlert(),
-    //           this.$v.$reset();
-    //       }
-
-    //       //MANEJAR CASOS DE ERRORES
-    //       else if (response.status == 500) alert("Pass incorrecto");
-    //       //ERROR POR DEFECTO
-    //       else alert("Problemón");
-    //     });
-    // },
+    refresh(){
+      const item = Object.assign({}, this.$store.state.itemForEdit);
+      this.$store.dispatch("storeItemEdit", item);
+    }
   },
 };
 </script>

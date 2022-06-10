@@ -64,6 +64,7 @@ export default new Vuex.Store({
     addRow(state) {
       state.itemForEdit.custom.newProp = "value"
     },
+    
     generarListaPropiedades(state, propiedadesList) {
       state.propiedadesList = propiedadesList
 
@@ -234,10 +235,11 @@ export default new Vuex.Store({
     //AL APRETAR ACEPTAR EN EL MODAL LLAMA A LA ACCIÓN PATCH EDITITEM QUE RECIBE EL ID DEL OBJETO EN CUESTIÓN Y LO CAMBIA
     //AL FINAL DE TODO SE VACÍA EL OBJETO "ITEM PARA EDITAR"
 
-    editItem: async function (state, id) {
+    editItem: async function () {
+      const id = this.state.itemForEdit.id;
       const requestOptions = {
         method: "PATCH",
-        body: JSON.stringify(),
+        body: JSON.stringify(this.state.itemForEdit),
       };
       await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions);
       this.dispatch("obtenirItems");
