@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import router from "../router";
+import "./interceptors"
 
 Vue.use(Vuex);
 
@@ -63,7 +64,7 @@ export default new Vuex.Store({
     addRow(state) {
       state.itemForEdit.custom.newProp = "value"
     },
-    generarListaPropiedades (state, propiedadesList) {
+    generarListaPropiedades(state, propiedadesList) {
       state.propiedadesList = propiedadesList
 
     }
@@ -73,11 +74,7 @@ export default new Vuex.Store({
       commit
     }) {
       const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt,
-        },
+        method: "GET"
       };
       const data = await fetch(
         "https://feriastore.herokuapp.com/items",
@@ -91,11 +88,7 @@ export default new Vuex.Store({
       commit
     }, limit) {
       const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt,
-        },
+        method: "GET"
       };
       let data;
       if (limit)
@@ -123,10 +116,6 @@ export default new Vuex.Store({
     crearVenda: async function (state, params) {
       const requestOptions = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt
-        },
         body: JSON.stringify(params),
       };
       await fetch("https://feriastore.herokuapp.com/sales", requestOptions);
@@ -141,10 +130,6 @@ export default new Vuex.Store({
     saveTodo: async function (state, params) {
       const requestOptions = {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt
-        },
         body: JSON.stringify(params.payload),
       };
       const id = params.id;
@@ -154,16 +139,16 @@ export default new Vuex.Store({
       );
     },
 
-    LogIn: async function ({ commit, state }, {
+    LogIn: async function ({
+      commit,
+      state
+    }, {
       email,
       password,
       showAlert
     }) {
       const requestOptions = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
         body: JSON.stringify({
           email: email,
           password: password
@@ -175,14 +160,9 @@ export default new Vuex.Store({
       )
 
       if (!response.ok) {
-        if (response.status == 401) {
-          showAlert(401)
-          
-        }
-        else if (response.status == 404) {
+       if (response.status == 404) {
           showAlert(404)
-        }
-        else
+        } else
           alert("Error desconocido, inténtelo nuevamente en unos minutos");
       }
 
@@ -194,10 +174,6 @@ export default new Vuex.Store({
     resoldreTot: async function () {
       const requestOptions = {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt
-        },
         body: JSON.stringify(),
       };
       await fetch(`https://feriastore.herokuapp.com/items`, requestOptions);
@@ -207,10 +183,6 @@ export default new Vuex.Store({
     deleteVenda: async function (state, id) {
       const requestOptions = {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt
-        },
         body: JSON.stringify(),
       };
       await fetch(
@@ -223,10 +195,6 @@ export default new Vuex.Store({
     addItem: async function (state, nouItem) {
       const requestOptions = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt,
-        },
         body: JSON.stringify(nouItem),
       };
       return fetch("https://feriastore.herokuapp.com/items", requestOptions);
@@ -237,10 +205,6 @@ export default new Vuex.Store({
     deleteItem: async function (state, id) {
       const requestOptions = {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt
-        },
         body: JSON.stringify(),
       };
       await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions);
@@ -252,10 +216,6 @@ export default new Vuex.Store({
     }, item) {
       // const requestOptions = {
       //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: "Bearer " + this.state.userObj.jwt,
-      //   },
       // };
       // const data = await fetch(
       //   `https://feriastore.herokuapp.com/items/${id}`,
@@ -277,34 +237,31 @@ export default new Vuex.Store({
     editItem: async function (state, id) {
       const requestOptions = {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.state.userObj.jwt
-        },
         body: JSON.stringify(),
       };
       await fetch(`https://feriastore.herokuapp.com/items/${id}`, requestOptions);
       this.dispatch("obtenirItems");
     },
 
-    createUser: async function (state, {newUser, showModal}) {
+    createUser: async function (state, {
+      newUser,
+      showModal
+    }) {
       const requestOptions = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
         body: JSON.stringify(newUser),
       };
       const response = await fetch("https://feriastore.herokuapp.com/users", requestOptions)
 
-        if (!response.ok) {
-          if (response.status == 409) {
-            showModal()
-          }
+      if (!response.ok) {
+        if (response.status == 409) {
+          showModal()
         }
-        else {
-          router.push({ name: 'LogInPageV' });
-        }
+      } else {
+        router.push({
+          name: 'LogInPageV'
+        });
+      }
     },
 
     addRow: function ({
@@ -320,11 +277,7 @@ export default new Vuex.Store({
     commit
   }) {
     const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.state.userObj.jwt,
-      },
+      method: "GET"
     };
     const data = await fetch(
       "https://feriastore.herokuapp.com/properties",
@@ -333,8 +286,6 @@ export default new Vuex.Store({
     const propiedadesList = await data.json();
     commit("generarListaPropiedades", propiedadesList);
   },
-
-
 
   getters: {
 
