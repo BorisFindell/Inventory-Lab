@@ -4,7 +4,8 @@ import store from '.'
 fetchIntercept.register({
     request: function (url, config) {
         config.headers = {
-            Authorization: "Bearer " + store.state.userObj?.jwt
+            "Content-Type": 'application/json',
+            Authorization: `Bearer ${store.state.userObj?.jwt}`
         }
         return [url, config];
     },
