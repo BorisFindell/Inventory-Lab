@@ -97,16 +97,9 @@ export default {
 
   methods: {
     openModal(item){
-      this.itemToEdit = item;
-      this.itemToEdit.parsedCustom = []
-      let index = 0;
-      for (let prop of Object.keys(this.itemToEdit.custom)){
-        const aux = {id:index, key: prop, value: this.itemToEdit.custom[prop]}
-        this.itemToEdit.parsedCustom.push(aux)
-        index ++
-      }
-      this.$store.dispatch("storeItemEdit", item);
-      this.$bvModal.show('modal1');
+      const itemForEdit = JSON.parse(JSON.stringify(item));
+      this.$store.dispatch("storeItemEdit", itemForEdit);
+      this.$bvModal.show('modal1')
     },
 
     setTodo(itemId) {
