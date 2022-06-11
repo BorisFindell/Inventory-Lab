@@ -2,35 +2,35 @@
         
         <div>
         <b-navbar toggleable="lg" type="light" :style="color" class="shadow-lg">
-            <b-navbar-brand href="#">
+            <div class="navbar-items">
+                <b-navbar-brand class="col-6" href="#">
 
-                <!-- LOGO -->
-                <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
-                    <img class="logo" :src="logo" alt="logo">
-                </div>
-            </b-navbar-brand>
+                    <!-- LOGO -->
+                    <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
+                        <img class="logo" :src="logo" alt="logo">
+                    </div>
+                </b-navbar-brand>
 
-            <buttonMeteo @showMessage="showMessage" :msg="message" :tempsTxt="temps" :tempsTxtColor="textLoginColor" ></buttonMeteo>
+                <b-navbar-toggle class="toggle-btn" toggle-class="text-dark" target="nav-collapse col-6"></b-navbar-toggle>
 
-            <b-navbar-toggle class="toggle-btn" toggle-class="text-dark" target="nav-collapse"></b-navbar-toggle>
+                <b-collapse id="nav-collapse" is-nav>
+                <b-navbar-nav >
+                    <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
+                </b-navbar-nav>
 
-            <b-collapse id="nav-collapse" is-nav>
-            <b-navbar-nav >
-                <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
-            </b-navbar-nav>
+                <!-- Right aligned nav items -->
+                <b-navbar-nav class="ml-auto">
 
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="ml-auto">
-
-                <b-nav-item-dropdown right>
-                <!-- Using 'button-content' slot -->
-                <template #button-content>
-                    <em :class="textLoginColor" >Hola: {{$store.state.userObj.name}}!</em>
-                </template>
-                <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
-                </b-nav-item-dropdown>
-            </b-navbar-nav>
-            </b-collapse>
+                    <b-nav-item-dropdown right>
+                    <!-- Using 'button-content' slot -->
+                    <template #button-content>
+                        <em :class="textLoginColor" >Hola: {{$store.state.userObj.name}}!</em>
+                    </template>
+                    <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
+                    </b-nav-item-dropdown>
+                </b-navbar-nav>
+                </b-collapse>
+            </div>
         </b-navbar>
 
         <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
@@ -66,9 +66,7 @@
 </template>
 
 <script>
-import buttonMeteo from './buttonMeteo.vue'
     export default {
-  components: { buttonMeteo },
         name: 'Nav',
         data() {
             return {
@@ -108,24 +106,7 @@ import buttonMeteo from './buttonMeteo.vue'
 
             },
 
-            getMeteo() {
-
-                fetch('https://api.open-meteo.com/v1/forecast?latitude=41.3879&longitude=2.15992&current_weather=true', {
-                    headers: {
-                    'Accept': 'application/json'
-                    }
-                })
-                .then((response)=>{
-                    return response.json()
-                }).then(
-                    data =>{
-                    this.temps = data.current_weather.temperature + 'º';
-                    }
-                )
-                .catch((error)=>{
-                    console.log(error);
-                })
-            },
+            
             logOut() {
                 this.$store.commit('logOut')
       }
@@ -142,13 +123,20 @@ import buttonMeteo from './buttonMeteo.vue'
 <style scoped>
 
 .navbar {
-    width: 70%;
+    width: 100%;
     margin: auto;
     padding: 10px;
     display: flex;
     grid-template-columns: 2fr 3fr 2fr 3fr 2fr;
     align-items: center;
     justify-items: center;
+}
+
+.navbar-items {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -164,7 +152,8 @@ import buttonMeteo from './buttonMeteo.vue'
 
 .logo-cont {
     height: min-content;
-    grid-column: 1;
+    display: flex;
+    justify-items: start;
 }
 
 .logo {
@@ -185,7 +174,6 @@ import buttonMeteo from './buttonMeteo.vue'
     height: max-content;
     margin-right: 10px;
     color: white;
-    grid-column: 5;
     justify-self: end;
     font-size: 1.3vw;
 }
@@ -207,19 +195,9 @@ hr {
     background-color: white;
 }
 
-.container-temp {
-    display: flex;
-    justify-content: space-between;
-}
-
 .img-sol {
     width: 50px;
     height: 50px;
-}
-
-.tempText {
-    font-size: 1rem;
-    color: white;
 }
 
 #nav-collapse {

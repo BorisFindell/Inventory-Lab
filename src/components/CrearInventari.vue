@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="d-flex justify-content-center mt-5 container-gral">
     
-    <b-form class="w-75 d-grid">
+    <b-form class="form-cont d-grid">
       <div class="row justify-content-center">
         <div class="col-4">   
 
@@ -253,7 +253,12 @@ export default {
 .container-gral {
     margin: auto;
     margin-top: 2%;
-    
+    width: 80%
+} 
+
+
+.form-cont {
+  width: 100%;
 }
 
 .btn-submit {

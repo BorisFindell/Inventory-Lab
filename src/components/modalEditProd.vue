@@ -31,7 +31,7 @@
             <!-- Agregar Stock Inicial -->
             <b-form-group class="form-inline">
               <b-label class="mr-3 h5">Stock inicial:</b-label>
-              <b-form-input v-model="this.$store.state.itemForEdit.stock" type="number"></b-form-input>
+              <b-form-input v-model="stock" type="number"></b-form-input>
             </b-form-group>
           </div>
         </div>
@@ -43,15 +43,15 @@
               <thead>
                 <tr>
                   <td class="text-light"><strong>Propiedad</strong></td>
-                  <td class="text-light"><strong>Opciones</strong></td>
+                  <td class="text-light text-center"><strong>Opciones</strong></td>
                   <td></td>
                 </tr>
               </thead>
 
               <tbody name="fade" is="transition-group">
                  <tr v-for="(v, k) in custom" :key="(v, k)">
-                  <td>
-                    <b-label class="mr-3 h5">{{k}}:</b-label>
+                  <td class="props-elem">
+                    <b-label class="h5 text-white propert">{{k}}:</b-label>
                   </td>
                   <td>
                     <b-form-input
@@ -80,9 +80,9 @@
                 </tr>
               </tbody>
             </table>
-            <div>
+            <div class="agregarProp-btn-cont">
               <b-button variant="info" class="shadow-sm" @click="addRow"
-                >Agregar</b-button
+                >Agregar propiedad</b-button
               >
             </div>
             
@@ -91,7 +91,7 @@
       </b-form>
     </b-container>
     <div class="modal-footer">
-      <b-button @click="editItem()" type="button" class="btn btn-primary">Guardar cambios</b-button>
+      <b-button @click="editItem()" type="button" class="btn btn-success">Guardar cambios</b-button>
       <b-button @click="close()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</b-button>
     </div>
   </b-modal>
@@ -224,6 +224,19 @@ export default {
 .alertBanner {
   width: fit-content;
   margin: auto;
+}
+
+.props-elem  {
+  padding: 1rem;
+}
+
+.propert {
+  text-align: center;
+}
+
+.agregarProp-btn-cont {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 </style>
