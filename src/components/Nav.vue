@@ -2,7 +2,7 @@
         
         <div>
         <b-navbar toggleable="lg" type="light" :style="color" class="shadow-lg">
-            <div class="navbar-items">
+            <div class="navbar-items align-items-center">
                 <b-navbar-brand class="col-6" href="#">
 
                     <!-- LOGO -->
@@ -11,49 +11,69 @@
                     </div>
                 </b-navbar-brand>
 
-                <b-navbar-toggle class="toggle-btn" toggle-class="text-dark" target="nav-collapse col-6"></b-navbar-toggle>
+                <b-navbar-toggle class="toggle-btn h-25" toggle-class="text-dark" target="nav-collapse"></b-navbar-toggle>
+
+                <!-- SIDEBAR BOTONS -->
 
                 <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav >
-                    <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
-                </b-navbar-nav>
 
-                <!-- Right aligned nav items -->
-                <b-navbar-nav class="ml-auto">
+                     <!-- Left SIDEBAR BOTON -->
+                    <div class="sidebar-btn-cont">
+                        <b-navbar-nav >
+                            <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
+                        </b-navbar-nav>
 
-                    <b-nav-item-dropdown right>
-                    <!-- Using 'button-content' slot -->
-                    <template #button-content>
-                        <em :class="textLoginColor" >Hola: {{$store.state.userObj.name}}!</em>
-                    </template>
-                    <b-dropdown-item @click="logOut">Logout</b-dropdown-item>
-                    </b-nav-item-dropdown>
-                </b-navbar-nav>
+                        <!-- Right SIDEBAR BOTON -->
+
+                        <b-navbar-nav class="ml-auto">
+                            <b-button v-b-toggle.sidebar-right>Área personal</b-button> 
+                        </b-navbar-nav>
+                    </div>
+
+
+                    <!-- SIDEBAR CONTENT -->
+
+                    <!-- Left SIDEBAR content -->
+
+                    <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
+                        <div class="px-3 py-2">
+                            
+                            <p>
+                                PÁGINAS
+                            </p>
+                            
+                            <hr>
+                            <div class="links-navbar-cont">
+                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
+                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToCREA()">Gestionar inventario</b-button>
+                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventario</b-button>
+                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Ventas</b-button>
+                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'user'" @click="redirectToREG()">Registro de ventas <b-icon icon="file-lock2"></b-icon></b-button>
+                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registro de ventas</b-button>
+                            </div>
+                        </div>
+                        <hr>
+
+                    </b-sidebar>
+
+
+                    <!-- Right SIDEBAR content -->
+
+                    
+                    <b-sidebar id="sidebar-right" title="Área personal" bg-variant="light" text-variant="dark" right shadow>
+                        <div class="px-3 py-2">
+                            <button type="button" @click="logOut" class="btn btn-primary">Logout</button>
+                        </div>
+                    </b-sidebar>
+
                 </b-collapse>
             </div>
         </b-navbar>
 
-        <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
-            <div class="px-3 py-2">
-                
-                <p>
-                    PÁGINAS
-                </p>
-                
-                <hr>
-                <div class="links-navbar-cont">
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToCREA()">Modificar inventario</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventario</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Ventas</b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'user'" @click="redirectToREG()">Registro de ventas <b-icon icon="file-lock2"></b-icon></b-button>
-                    <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registro de ventas</b-button>
-                </div>
-            </div>
-            <hr>
+        
 
-        </b-sidebar>
 
+        
 
         </div>
 
@@ -114,7 +134,6 @@
         },
         mounted: function () {
             this.$nextTick(function () {
-                this.getMeteo()
   })
 }
     }
@@ -133,10 +152,10 @@
 }
 
 .navbar-items {
-    width: 80%;
-    margin: auto;
+    width: 90%;
     display: flex;
-    justify-content: center;
+    margin: auto;
+    justify-content: space-between
 }
 
 
@@ -201,6 +220,8 @@ hr {
 }
 
 #nav-collapse {
+    display: flex;
+    justify-content: last baseline;
     flex-direction: row-reverse;
 }
 

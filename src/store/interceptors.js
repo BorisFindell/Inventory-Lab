@@ -11,6 +11,7 @@ fetchIntercept.register({
     },
 
     response: function (response) {
+        console.log(response)
         if (!response.ok && response.status == 401) {
             store.commit('logOut')
         }

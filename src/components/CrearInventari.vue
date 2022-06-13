@@ -102,8 +102,7 @@
               @dismiss-count-down="countDownChanged"
               class="alertBanner"
             >
-              Guardado correctamente
-              
+              {{ Banner }}
             </b-alert>
             
       </div>
@@ -144,6 +143,12 @@ export default {
       stock: 0,
       dismissSecs: 4,
       propertyList: '',
+      dismissCountDown: 0,
+      mensajes: {
+        err: 'Ha ocurrido un problema. El item no se ha guardado correctamente',
+        exito: 'Guardado correctamente'
+      },
+      Banner: ''
     }
 
 
@@ -183,7 +188,13 @@ export default {
         this.dismissCountDown = dismissCountDown
       },
 
-      showAlert() {
+      showAlert(res) {
+        if (res == 1) {
+            this.Banner = this.mensajes.err
+        }
+        else {
+          this.Banner = this.mensajes.exito
+        }
         this.dismissCountDown = this.dismissSecs
       },
 
@@ -214,9 +225,10 @@ export default {
         this.$store.dispatch('addItem', this.$store.state.nouItem).then((response) => 
             
           { 
+            if (!response.ok)
+              this.showAlert(1)
 
-            
-            if (response.ok) {
+            else {
               this.name = '',
               this.rows = [{
                 prop:'',
@@ -229,13 +241,12 @@ export default {
 
             //MANEJAR CASOS DE ERRORES
 
-            else if (response.status == 500)
-              alert("Pass incorrecto");
+            // else if (response.status == 409)
+            //   this.showAlert(409)
 
             //ERROR POR DEFECTO
 
-            else 
-              alert("Problemón");
+            
 
           }
 

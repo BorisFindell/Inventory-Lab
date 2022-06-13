@@ -9,7 +9,6 @@ export default new Vuex.Store({
   state: {
     items: [],
     vendes: [],
-    midasDisp: [],
     userObj: null,
     groupedVendes: {},
     nouItem: {},
@@ -21,16 +20,16 @@ export default new Vuex.Store({
       state.items = itemsAction;
     },
 
+    generarNames(state, namesAction) {
+      state.names = namesAction;
+    },
+
     generarStoreItem(state, itemsStore) {
       state.itemForEdit = itemsStore;
     },
 
     generarVendes(state, vendesAction) {
       state.vendes = vendesAction;
-    },
-
-    actualitzarMidas(state, midasAction) {
-      state.midasDisp = midasAction;
     },
 
     signInUser(state, user) {
@@ -72,7 +71,7 @@ export default new Vuex.Store({
         method: "GET"
       };
       const data = await fetch(
-        "https://feriastore.herokuapp.com/items",
+        "https://feriastore.herokuapp.com/items?sort=name&asc",
         requestOptions
       );
       const items = await data.json();
@@ -155,9 +154,13 @@ export default new Vuex.Store({
       )
 
       if (!response.ok) {
-       if (response.status == 404) {
+        if (response.status == 404) {
           showAlert(404)
-        } else
+        }
+        else if (response.status == 401) {
+          showAlert(401)
+        }
+        else
           alert("Error desconocido, inténtelo nuevamente en unos minutos");
       }
 
@@ -209,25 +212,9 @@ export default new Vuex.Store({
     storeItemEdit: async function ({
       commit
     }, item) {
-      // const requestOptions = {
-      //   method: "GET",
-      // };
-      // const data = await fetch(
-      //   `https://feriastore.herokuapp.com/items/${id}`,
-      //   requestOptions
-      // );
-      // const item = await data.json();
       commit("generarStoreItem", item);
     },
 
-
-
-    //HACER UNA ACCIÓN PARA OBTENER ITEM
-    //EL ID LE LLEGA DEL BOTÓN DEL INVENTARIO QUE ABRE EL MODEL
-    //HACER UNA MUTACIÓN QUE CARGA LA RESPUESTA EN EL ESTADO EN UN OBJETO QUE SEA "ITEM PARA EDITAR"
-    //DESDE EL MODAL EL NOMBRE SE LLENA CON THIS.$STORE.STATE.EL_OBJETO_ITEM_PARA_EDITAR.NOMBRE
-    //AL APRETAR ACEPTAR EN EL MODAL LLAMA A LA ACCIÓN PATCH EDITITEM QUE RECIBE EL ID DEL OBJETO EN CUESTIÓN Y LO CAMBIA
-    //AL FINAL DE TODO SE VACÍA EL OBJETO "ITEM PARA EDITAR"
 
     editItem: async function () {
       const id = this.state.itemForEdit.id;
@@ -294,5 +281,9 @@ export default new Vuex.Store({
       );
       return data.json()
     },
+
+    
+
   },
 });
+

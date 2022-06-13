@@ -1,7 +1,7 @@
 <template>
   <div container-gral>
-    <div tabla-cont>
-      <table class="table table-striped">
+    <div>
+      <table class="table table-bordered table-striped">
         <thead>
           <th class="table-head table-style" scope="col">Producto</th>
           <th class="table-head table-style" scope="col">Propiedades</th>
@@ -136,11 +136,11 @@ export default {
 .table-style {
   border: 1px solid black;
   margin: auto;
-  background-color: rgba(243, 249, 153, 0.794);
+  background-color: rgba(240, 246, 158, 0.596);
 }
 
 .table-head {
-  background-color: rgb(219, 191, 50);
+  background-color: rgba(151, 228, 134, 0.746);
 }
 
 .btn-cont {
@@ -162,7 +162,7 @@ export default {
 }
 
 .btn-resolve {
-  background-color: rgb(140, 228, 122);
+  background-color: rgba(140, 228, 122, 0.587);
   color: black;
 }
 
@@ -186,5 +186,9 @@ export default {
 .transparent-cells {
   background-color: rgba(0, 0, 0, 0);
   border: none;
+}
+
+.prueba {
+  border-radius: 60px;
 }
 </style>
