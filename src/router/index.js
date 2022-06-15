@@ -7,7 +7,6 @@ import VentasV from '../views/VentasV.vue'
 import NavV from '../views/NavV.vue'
 import RegistreV from '../views/RegistreV.vue'
 import UsuariNouV from '../views/UsuariNouV.vue'
-import CrearInventariV from '../views/CrearInventariV.vue'
 import store from '../store'
 
 
@@ -58,11 +57,6 @@ const routes = [
     component: UsuariNouV
   },
 
-  {
-    path: '/CrearInventariV',
-    name: 'CrearInventariV',
-    component: CrearInventariV
-  },
 ]
 
 const router = new VueRouter({
@@ -70,7 +64,7 @@ const router = new VueRouter({
 })
 
 
-const userPages = ['HomeV', 'InventarioV', 'VentasV', 'CrearInventariV']
+const userPages = ['HomeV', 'InventarioV', 'VentasV']
 const adminPages = ['RegistreV']
 
 router.beforeEach((to, from, next) => {

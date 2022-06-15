@@ -1,6 +1,6 @@
 <template>
   <div class="home-cont">
-    <Nav :color="bgc" :logo="logoHome" :textLoginColor="textColor"></Nav>
+    <Nav></Nav>
     <Home></Home>
   </div>
 </template>
@@ -16,12 +16,7 @@ export default {
   name: 'HomeV',
   data() {
     return {
-        bgc: {
-          backgroundColor: '#D82148'
-        },
-        logoHome: require("../assets/logo.png"),
-        textColor: 'text-light'
-
+    
     }
   },
   
@@ -32,7 +27,7 @@ export default {
 <style scoped>
   .home-cont {
     height: 100vh;
-    background-image: url('../assets/general-bg.jpeg');
+    background-color: azure;
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;

@@ -1,6 +1,6 @@
 <template>
   <div class="cont-gral">
-    <Nav :color="bgc" :logo="logoInv" :textLoginColor="textColor"></Nav>
+    <Nav></Nav>
     <div class="inventari-cont">
       <Inventario></Inventario>
     </div>
@@ -19,11 +19,7 @@ export default {
   name: 'InventarioV',
   data() {
     return {
-        bgc: {
-          backgroundColor: '#495371'
-        },
-        logoInv: require("../assets/logo.png"),
-        textColor: 'text-light'
+    
     }
   },
   components: { Inventario, Nav }
@@ -38,7 +34,7 @@ export default {
   }
 
   .cont-gral {
-    background-image: url('../assets/general-bg.jpeg');
+    background-color: azure;
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;

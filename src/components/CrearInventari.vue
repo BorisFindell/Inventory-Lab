@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="d-flex justify-content-center mt-5 container-gral">
+  <b-container fluid class="d-flex justify-content-center container-gral">
     
     <b-form class="form-cont d-grid">
       <div class="row justify-content-center">
@@ -77,7 +77,7 @@
                           </label>
                       </td> -->
                       <td>
-                          <b-button variant="danger" class="border" @click="removeElement(index)" style="cursor: pointer">Borrar</b-button>
+                          <b-button class="border btn-delete" @click="removeElement(index)" style="cursor: pointer">Borrar</b-button>
                       </td>
                     </tr>
                     
@@ -88,10 +88,19 @@
         </table>
             
             <div>
-              <b-button variant="info" class="shadow-sm" @click="addRow">Agregar</b-button>
+              <b-button class="shadow-sm btn-add" @click="addRow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </b-button>
             </div>
             <div class="d-flex justify-content-end">
-              <b-button variant="success" type="button" class="shadow-sm" @click="submit">Guardar</b-button>
+              <b-button type="button" class="shadow-sm btn-save" @click="submit">Guardar
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                  <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
+                </svg>
+              </b-button>
             </div>
             <b-alert
               :show="dismissCountDown"
@@ -272,11 +281,6 @@ export default {
   width: 100%;
 }
 
-.btn-submit {
-    margin-top: 15px;
-    background-color: rgb(30, 114, 27);
-}
-
 .tableProps {
   background-color: #495371b4
 }
@@ -286,6 +290,22 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0
+}
+
+.btn-save {
+  width: fit-content;
+  height: fit-content;
+  background-color: #72b489;
+
+}
+
+.btn-add {
+  background-color: #94B49F;
+}
+
+.btn-delete {
+  background-color: #DF7861;
+  color: white;
 }
 
 .alertBanner{

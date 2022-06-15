@@ -1,72 +1,24 @@
 <template>
         
         <div>
-        <b-navbar toggleable="lg" type="light" :style="color" class="shadow-lg">
+        <b-navbar toggleable="lg" type="light" class="shadow-lg nav-bar-style">
             <div class="navbar-items align-items-center">
-                <b-navbar-brand class="col-6" href="#">
+                <b-navbar-brand href="#">
 
                     <!-- LOGO -->
                     <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
-                        <img class="logo" :src="logo" alt="logo">
+                        <img class="logo" src="../assets/logo.png" alt="logo">
                     </div>
                 </b-navbar-brand>
 
                 <b-navbar-toggle class="toggle-btn h-25" toggle-class="text-dark" target="nav-collapse"></b-navbar-toggle>
 
-                <!-- SIDEBAR BOTONS -->
-
-                <b-collapse id="nav-collapse" is-nav>
-
-                     <!-- Left SIDEBAR BOTON -->
-                    <div class="sidebar-btn-cont">
-                        <b-navbar-nav >
-                            <b-button class="btn-login" v-b-toggle.sidebar-variant>Menú</b-button>
-                        </b-navbar-nav>
-
-                        <!-- Right SIDEBAR BOTON -->
-
-                        <b-navbar-nav class="ml-auto">
-                            <b-button v-b-toggle.sidebar-right>Área personal</b-button> 
-                        </b-navbar-nav>
-                    </div>
-
-
-                    <!-- SIDEBAR CONTENT -->
-
-                    <!-- Left SIDEBAR content -->
-
-                    <b-sidebar id="sidebar-variant" title="MENÚ" bg-variant="dark" text-variant="light" shadow>
-                        <div class="px-3 py-2">
-                            
-                            <p>
-                                PÁGINAS
-                            </p>
-                            
-                            <hr>
-                            <div class="links-navbar-cont">
-                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToHOME()">Home</b-button>
-                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToCREA()">Gestionar inventario</b-button>
-                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToINV()">Inventario</b-button>
-                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" @click="redirectToVEN()">Ventas</b-button>
-                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'user'" @click="redirectToREG()">Registro de ventas <b-icon icon="file-lock2"></b-icon></b-button>
-                                <b-button class="links-navbar-btn" variant="outline-warning" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registro de ventas</b-button>
-                            </div>
-                        </div>
-                        <hr>
-
-                    </b-sidebar>
-
-
-                    <!-- Right SIDEBAR content -->
+                <b-button class="links-navbar-btn" type="button" @click="redirectToINV()">Inventario</b-button>
+                <b-button class="links-navbar-btn" type="button" @click="redirectToVEN()">Ventas</b-button>
+                <b-button class="links-navbar-btn" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registro de ventas</b-button>
+                <button type="button" @click="logOut" class="btn btn-logout">Logout</button>
 
                     
-                    <b-sidebar id="sidebar-right" title="Área personal" bg-variant="light" text-variant="dark" right shadow>
-                        <div class="px-3 py-2">
-                            <button type="button" @click="logOut" class="btn btn-primary">Logout</button>
-                        </div>
-                    </b-sidebar>
-
-                </b-collapse>
             </div>
         </b-navbar>
 
@@ -95,18 +47,12 @@
             }
         },
         props: {
-            color: Object,
             logo: String,
-            textLoginColor: String
         },
 
         methods: {
             redirectToINV() {
             this.$router.push({ name: 'InventarioV' });
-            },
-
-            redirectToCREA() {
-            this.$router.push({ name: 'CrearInventariV' });
             },
 
             redirectToVEN() {
@@ -146,16 +92,17 @@
     margin: auto;
     padding: 10px;
     display: flex;
-    grid-template-columns: 2fr 3fr 2fr 3fr 2fr;
     align-items: center;
     justify-items: center;
+
+    background-color: #FCF8E8;
 }
 
 .navbar-items {
     width: 90%;
     display: flex;
     margin: auto;
-    justify-content: space-between
+    justify-content:space-evenly
 }
 
 
@@ -176,7 +123,7 @@
 }
 
 .logo {
-    width: 100px;
+    width: 180px;
 }
 
 .btn-login {
@@ -208,21 +155,22 @@
     margin-top: 15px;
     margin-right: 10px;
     width: 100%;
+    background-color:#ECB390
 }
 
 hr {
     background-color: white;
 }
 
-.img-sol {
-    width: 50px;
-    height: 50px;
-}
-
 #nav-collapse {
     display: flex;
     justify-content: last baseline;
     flex-direction: row-reverse;
+}
+
+.btn-logout {
+    background-color: #DF7861;
+    color: white;
 }
 
 

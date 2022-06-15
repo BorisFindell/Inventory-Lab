@@ -1,6 +1,6 @@
 <template>
   <div class="cont-gral" >
-    <Nav :color="bgc" :logo="logoVent" :textLoginColor="textColor"></Nav>
+    <Nav></Nav>
     <Ventas></Ventas>
   </div>
 </template>
@@ -18,11 +18,6 @@ export default {
 
   data() {
     return {
-        bgc: {
-          backgroundColor: '#E8E8A6'
-        },
-        logoVent: require("../assets/logoblack.png"),
-        textColor: 'text-dark'
         
     }
   },
@@ -36,7 +31,7 @@ export default {
 
 .cont-gral {
     height: 100vh;
-    background-image: url('../assets/general-bg.jpeg');
+    background-color: azure;
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;

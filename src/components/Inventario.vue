@@ -1,5 +1,13 @@
 <template>
   <div container-gral>
+    
+    <div class="crear-inventari-cont mb-2">
+      <crear-inventari></crear-inventari>
+    </div>
+
+    <hr class="mb-5">
+
+
     <div>
       <table class="table table-bordered table-striped">
         <thead>
@@ -82,10 +90,11 @@
 <script>
 
 import modalEditProd from '../components/modalEditProd.vue'
+import CrearInventari from './CrearInventari.vue';
 
 export default {
   name: "Inventario",
-  components: { modalEditProd },
+  components: { modalEditProd, CrearInventari },
   mounted() {
     this.$store.dispatch("obtenirItems");
   },
@@ -152,7 +161,7 @@ export default {
 }
 
 .btn-delete {
-  background-color: rgb(173, 49, 49);
+  background-color: #DF7861;
   color: white;
 }
 
@@ -162,7 +171,7 @@ export default {
 }
 
 .btn-resolve {
-  background-color: rgba(140, 228, 122, 0.587);
+  background-color: #94b49f;
   color: black;
 }
 
@@ -188,7 +197,9 @@ export default {
   border: none;
 }
 
-.prueba {
-  border-radius: 60px;
+hr {
+  border: 1px solid black;
+
 }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="cont-gral">
-    <Nav :color="bgc" :logo="logoReg" :textLoginColor="textColor"></Nav>
+    <Nav></Nav>
     <Registre></Registre>
   </div>
 </template>
@@ -18,11 +18,6 @@ export default {
   components: { Registre, Nav },
     data() {
       return {
-          bgc: {
-            backgroundColor: '#C1F4C5'
-          },
-          logoReg: require("../assets/logoblack.png"),
-          textColor: 'text-dark'
           
       }
   },
@@ -33,7 +28,7 @@ export default {
 <style scoped>
   .cont-gral {
     height: 100%;
-    background-image: url('../assets/general-bg.jpeg');
+    background-color: azure;
     background-position: center;
     background-repeat:no-repeat;
     background-size:cover;
