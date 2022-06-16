@@ -19,8 +19,8 @@
                 </thead>
                 <tr class="border-dark" v-for="(item, index) in computedList" :key="index">
                     <td class="w-25">{{item.date}}</td>
-                    <td class="w-25">{{item.model}}</td>
-                    <td class="w-25">{{item.size}}</td>
+                    <td class="w-25">{{item.name}}</td>
+                    <td class="w-25">{{item.custom}}</td>
                     <td class="w-25">{{item.price}}</td>          
                 </tr>
             </table>

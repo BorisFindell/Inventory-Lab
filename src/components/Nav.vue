@@ -1,39 +1,27 @@
 <template>
         
         <div>
-        <b-navbar toggleable="lg" type="light" class="shadow-lg nav-bar-style">
-            <div class="navbar-items align-items-center">
-                <b-navbar-brand href="#">
+            <b-navbar toggleable="lg" type="light" class="shadow-lg nav-bar-style">
+                <div class="navbar-items align-items-center">
+                    <b-navbar-brand href="#">
 
-                    <!-- LOGO -->
-                    <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
-                        <img class="logo" src="../assets/logo.png" alt="logo">
-                    </div>
-                </b-navbar-brand>
+                        <!-- LOGO -->
+                        <div class="logo-cont" style="cursor: pointer;" @click="redirectToHOME()">
+                            <img class="logo" src="../assets/logo.png" alt="logo">
+                        </div>
+                    </b-navbar-brand>
 
-                <b-navbar-toggle class="toggle-btn h-25" toggle-class="text-dark" target="nav-collapse"></b-navbar-toggle>
+                    <b-navbar-toggle class="toggle-btn h-25" toggle-class="text-dark" target="nav-collapse"></b-navbar-toggle>
 
-                <b-button class="links-navbar-btn" type="button" @click="redirectToINV()">Inventario</b-button>
-                <b-button class="links-navbar-btn" type="button" @click="redirectToVEN()">Ventas</b-button>
-                <b-button class="links-navbar-btn" type="button" v-if="$store.state.userObj.role === 'admin'" @click="redirectToREG()">Registro de ventas</b-button>
-                <button type="button" @click="logOut" class="btn btn-logout">Logout</button>
+                    <router-link class="links-navbar-btn" to="/InventarioV" type="button">INVENTARIO</router-link>
+                    <router-link class="links-navbar-btn" to="/VentasV" type="button">VENTAS</router-link>
+                    <router-link class="links-navbar-btn" v-if="$store.state.userObj.role === 'admin'" to="/RegistreV" type="button">REGISTRO DE VENTAS</router-link>
+                    <button type="button" @click="logOut" class="btn btn-logout">LOGOUT</button>
 
-                    
-            </div>
-        </b-navbar>
-
-        
-
-
-        
-
+                        
+                </div>
+            </b-navbar>
         </div>
-
-
-        
-            <!-- SIDEBAR -->
-        
-        
     
 </template>
 
@@ -42,37 +30,16 @@
         name: 'Nav',
         data() {
             return {
-                temps:'',
-                message: false
+
             }
-        },
-        props: {
-            logo: String,
         },
 
         methods: {
-            redirectToINV() {
-            this.$router.push({ name: 'InventarioV' });
-            },
-
-            redirectToVEN() {
-            this.$router.push({ name: 'VentasV' });
-            },
 
             redirectToHOME() {
             this.$router.push({ name: 'HomeV' });
             },
 
-            redirectToREG() {
-            this.$router.push({ name: 'RegistreV' });
-            },
-
-            showMessage() {
-                this.message = !this.message
-
-            },
-
-            
             logOut() {
                 this.$store.commit('logOut')
       }
@@ -154,9 +121,45 @@
 .links-navbar-btn {
     margin-top: 15px;
     margin-right: 10px;
-    width: 100%;
-    background-color:#ECB390
+    width: fit-content;
+    background:none;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+    border: none;
+    text-decoration: none;
+
+    /* Animation */
+
+    transform: translateX(0px);
+    transition: 0.6s;
+
 }
+
+.links-navbar-btn:hover {
+    background-color:#ECB390;
+
+    /* Animation */
+
+    transition: 0.3s;
+    transform: translateX(10px);
+}
+
+.links-navbar-btn:active {
+
+    background-color:#a67e65;
+
+}
+
+
+.links-navbar-btn:focus {
+
+    transform: translateX(10px);
+    
+}
+
+.router-link-active {
+    text-decoration: underline;
+  }
 
 hr {
     background-color: white;

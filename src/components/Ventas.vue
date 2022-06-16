@@ -67,7 +67,7 @@
         >
           <td class="w-25">{{ item.date }}</td>
           <td class="w-25">{{ item.name }}</td>
-          <td class="w-25">{{ item.properties }}</td>
+          <td class="w-25">{{ item.custom }}</td>
           <td class="w-25">{{ item.price }}</td>
           <td class="w-25">
             <button

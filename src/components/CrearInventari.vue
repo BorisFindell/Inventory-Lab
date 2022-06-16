@@ -303,6 +303,10 @@ export default {
   background-color: #94B49F;
 }
 
+.btn-add:focus {
+  background-color: #94B49F;
+}
+
 .btn-delete {
   background-color: #DF7861;
   color: white;
